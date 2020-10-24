@@ -13,6 +13,8 @@ import {
 	useFonts,
 	Montserrat_400Regular,
 	Montserrat_500Medium,
+	Montserrat_700Bold,
+	Montserrat_900Black,
 } from "@expo-google-fonts/montserrat";
 import { AppLoading } from "expo";
 
@@ -22,6 +24,8 @@ const App = ({ user }) => {
 	let [fontsLoaded] = useFonts({
 		Montserrat_400Regular,
 		Montserrat_500Medium,
+		Montserrat_700Bold,
+		Montserrat_900Black,
 	});
 
 	if (!fontsLoaded) {

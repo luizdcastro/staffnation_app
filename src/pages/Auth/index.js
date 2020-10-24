@@ -44,7 +44,7 @@ const AuthPage = ({ navigation }) => {
 					<View style={styles.buttonContainer}>
 						<TouchableOpacity
 							onPress={() => {
-								navigation.navigate("RegisterScreen");
+								navigation.navigate("RegisterPage");
 							}}
 							style={[styles.buttonRegister, { backgroundColor: "transparent" }]}
 						>
@@ -58,9 +58,7 @@ const AuthPage = ({ navigation }) => {
 
 						<TouchableOpacity
 							style={styles.buttonLogin}
-							onPress={() => {
-								setEmailVisible(true);
-							}}
+							onPress={() => navigation.navigate("LoginPage")}
 						>
 							<Text style={styles.textButtonLogin}>Já tenho conta</Text>
 						</TouchableOpacity>
@@ -78,6 +76,11 @@ const styles = StyleSheet.create({
 	background: {
 		flex: 1,
 		resizeMode: "cover",
+	},
+	logo: {
+		fontSize: 35,
+		fontFamily: "Montserrat_900Black",
+		color: "#ececec",
 	},
 	buttonContainer: {
 		flex: 1,
