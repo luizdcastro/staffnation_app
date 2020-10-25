@@ -2,18 +2,21 @@ import React, { useState } from "react";
 import { KeyboardAvoidingView, StyleSheet, Platform } from "react-native";
 
 import FormCpf from "../../components/FormCpf";
+import FormNamedate from "../../components/FormNameDate";
 
 const RegisterPage = ({ navigation }) => {
 	const [cpfFormFilled, setCpfFormFilled] = useState(false);
 
-	console.log(cpfFormFilled);
-
 	return (
 		<KeyboardAvoidingView
-			behavior={Platform.OS === "ios" ? "padding" : "height"}
+			behavior={Platform.OS === "ios" ? "padding" : ""}
 			style={styles.container}
 		>
-			<FormCpf setCpfFormFilled={setCpfFormFilled} navigation={navigation} />
+			{!cpfFormFilled ? (
+				<FormCpf setCpfFormFilled={setCpfFormFilled} navigation={navigation} />
+			) : (
+				<FormNamedate setCpfFormFilled={setCpfFormFilled} />
+			)}
 		</KeyboardAvoidingView>
 	);
 };

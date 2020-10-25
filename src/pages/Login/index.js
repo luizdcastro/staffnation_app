@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { connect } from "react-redux";
 import {
 	View,
 	Text,
@@ -10,19 +11,36 @@ import {
 	TouchableWithoutFeedback,
 	Platform,
 } from "react-native";
+
 import { TextInputMask } from "react-native-masked-text";
 import * as Animatable from "react-native-animatable";
 import { cpf } from "cpf-cnpj-validator";
-import GradientButton from "../../components/GradientButton";
 import { Ionicons } from "@expo/vector-icons";
 import Feather from "react-native-vector-icons/Feather";
 
-const LoginPage = ({ navigation }) => {
+import GradientButton from "../../components/GradientButton";
+import { loginUser } from "../../redux/actions/authActions";
+
+const LoginPage = ({ navigation, dispatchLoginAction }) => {
 	const [userCpf, setUserCpf] = useState("");
 	const [verifyUserCpf, setVerifyUserCpf] = useState("");
 	const [cpfFormFilled, setCpfFormFilled] = useState(false);
 	const [userPassword, setUserPassword] = useState("");
 	const [secureTextEntry, setSecureTextEntry] = useState(true);
+	const [error, setError] = useState("");
+
+	const handleLogin = (event) => {
+		event.preventDefault();
+		dispatchLoginAction(
+			userCpf,
+			userPassword,
+			(response) => console.log(response),
+			(error) => {
+				setError(error);
+				console.log(error);
+			}
+		);
+	};
 
 	const handleCpfInput = (text) => {
 		if (cpf.isValid(text)) {
@@ -32,8 +50,6 @@ const LoginPage = ({ navigation }) => {
 			setVerifyUserCpf(false);
 		}
 	};
-
-	console.log(userCpf, userPassword);
 
 	return (
 		<KeyboardAvoidingView
@@ -111,6 +127,7 @@ const LoginPage = ({ navigation }) => {
 							secureTextEntry={secureTextEntry}
 							onChangeText={(val) => setUserPassword(val)}
 							value={userPassword}
+							blurOnSubmit={false}
 						/>
 						<TouchableOpacity onPress={() => setSecureTextEntry(!secureTextEntry)}>
 							{secureTextEntry ? (
@@ -123,7 +140,7 @@ const LoginPage = ({ navigation }) => {
 					<View style={styles.buttonContainer}>
 						{userPassword.length >= 6 ? (
 							<GradientButton
-								onPress={() => {}}
+								onPress={handleLogin}
 								gradient={["#FFE45C", "#FFC900"]}
 								title="Entrar"
 							/>
@@ -131,7 +148,7 @@ const LoginPage = ({ navigation }) => {
 							<GradientButton
 								onPress={() => {}}
 								gradient={["#d7d7d7", "#e0e0e0"]}
-								title="Continuar"
+								title="Entrar"
 								textStyle={{ color: "#939393" }}
 							/>
 						)}
@@ -177,4 +194,9 @@ const styles = StyleSheet.create({
 	},
 });
 
-export default LoginPage;
+const mapDispatchToProps = (dispatch) => ({
+	dispatchLoginAction: (cpf, password, onSuccess, onError) =>
+		dispatch(loginUser({ cpf, password }, onSuccess, onError)),
+});
+
+export default connect(null, mapDispatchToProps)(LoginPage);

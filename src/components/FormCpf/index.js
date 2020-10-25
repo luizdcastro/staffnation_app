@@ -1,12 +1,14 @@
 import React, { useState } from "react";
 import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
-import { Ionicons } from "@expo/vector-icons";
-import GradientButton from "../../components/GradientButton";
+
 import { cpf } from "cpf-cnpj-validator";
 import { TextInputMask } from "react-native-masked-text";
 import { MaterialIcons } from "@expo/vector-icons";
+import { Ionicons } from "@expo/vector-icons";
 
-const FormCpf = ({ navigation, setCpfFormFilled }) => {
+import GradientButton from "../../components/GradientButton";
+
+const FormCpf = ({ setCpfFormFilled, navigation }) => {
 	const [userCpf, setUserCpf] = useState("");
 	const [verifyUserCpf, setVerifyUserCpf] = useState("");
 
@@ -25,11 +27,11 @@ const FormCpf = ({ navigation, setCpfFormFilled }) => {
 				style={styles.buttonClose}
 				onPress={() => navigation.goBack()}
 			>
-				<Ionicons name="ios-close" size={35} color="#242424" />
+				<Ionicons name="ios-close" size={40} color="#242424" />
 			</TouchableOpacity>
 			<View style={{ flex: 1, justifyContent: "space-between" }}>
 				<Text style={styles.title}>Vamos começar o cadastro, digite seu CPF </Text>
-				<View style={styles.inputContainer}>
+				<View>
 					<View style={{ flexDirection: "row", alignItems: "center" }}>
 						<TextInputMask
 							blurOnSubmit={false}
@@ -84,18 +86,19 @@ const FormCpf = ({ navigation, setCpfFormFilled }) => {
 const styles = StyleSheet.create({
 	container: {
 		flex: 1,
+		backgroundColor: "green",
 	},
 	buttonClose: {
-		width: 30,
-		height: 30,
-		marginTop: 30,
+		width: 50,
+		height: 50,
+		marginTop: 40,
 		paddingLeft: 15,
 	},
 	title: {
 		fontSize: 23,
 		fontFamily: "Montserrat_400Regular",
 		color: "#242424",
-		marginTop: 35,
+		marginTop: 25,
 		paddingHorizontal: 15,
 	},
 	input: {

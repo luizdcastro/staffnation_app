@@ -1,45 +1,21 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import {
 	View,
 	Text,
 	StyleSheet,
 	TouchableOpacity,
 	ImageBackground,
-	Modal,
 } from "react-native";
 import * as Animatable from "react-native-animatable";
 import { LinearGradient } from "expo-linear-gradient";
-import ModalLogin from "../../components/ModalLogin";
 
 const AuthPage = ({ navigation }) => {
-	const [emailVisible, setEmailVisible] = useState(false);
-	const [passwordVisible, setPasswordVisible] = useState(false);
-	const [modalIsVisible, setModalIsVisible] = useState(false);
-
-	useEffect(() => {
-		if (emailVisible || passwordVisible) {
-			setModalIsVisible(true);
-		} else {
-			setModalIsVisible(false);
-		}
-	}, [emailVisible, passwordVisible]);
-
 	return (
 		<View style={styles.container}>
 			<ImageBackground
 				source={require("../../assets/images/barman_01.png")}
 				style={styles.background}
 			>
-				<Modal transparent={true} visible={modalIsVisible}>
-					<View style={styles.modal}>
-						<ModalLogin
-							emailVisible={emailVisible}
-							passwordVisible={passwordVisible}
-							setPasswordVisible={setPasswordVisible}
-							setEmailVisible={setEmailVisible}
-						/>
-					</View>
-				</Modal>
 				<Animatable.View style={{ flex: 1 }} animation="fadeInUpBig">
 					<View style={styles.buttonContainer}>
 						<TouchableOpacity
@@ -88,10 +64,7 @@ const styles = StyleSheet.create({
 		alignItems: "center",
 		marginBottom: 20,
 	},
-	modal: {
-		justifyContent: "flex-end",
-		flex: 1,
-	},
+
 	buttonLogin: {
 		width: "90%",
 		height: 50,
