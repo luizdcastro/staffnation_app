@@ -27,8 +27,9 @@ const FormCpf = ({ setCpfFormFilled, navigation }) => {
 				style={styles.buttonClose}
 				onPress={() => navigation.goBack()}
 			>
-				<Ionicons name="ios-close" size={40} color="#242424" />
+				<Ionicons name="ios-arrow-back" size={30} color="#242424" />
 			</TouchableOpacity>
+
 			<View style={{ flex: 1, justifyContent: "space-between" }}>
 				<Text style={styles.title}>Vamos começar o cadastro, digite seu CPF </Text>
 				<View>
@@ -86,7 +87,6 @@ const FormCpf = ({ setCpfFormFilled, navigation }) => {
 const styles = StyleSheet.create({
 	container: {
 		flex: 1,
-		backgroundColor: "green",
 	},
 	buttonClose: {
 		width: 50,

@@ -12,7 +12,7 @@ import { Ionicons } from "@expo/vector-icons";
 
 import GradientButton from "../GradientButton";
 
-const FormNameDate = ({ setCpfFormFilled }) => {
+const FormNameDate = ({ setCpfFormFilled, setNameDateFormFilled }) => {
 	const [date, setDate] = useState("");
 	const [name, setName] = useState("");
 
@@ -56,7 +56,7 @@ const FormNameDate = ({ setCpfFormFilled }) => {
 						<GradientButton
 							title="Continuar"
 							gradient={["#FFE45C", "#FFC900"]}
-							onPress={() => {}}
+							onPress={() => setNameDateFormFilled(true)}
 						/>
 					) : (
 						<GradientButton

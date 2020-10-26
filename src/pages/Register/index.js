@@ -3,9 +3,12 @@ import { KeyboardAvoidingView, StyleSheet, Platform } from "react-native";
 
 import FormCpf from "../../components/FormCpf";
 import FormNamedate from "../../components/FormNameDate";
+import FormAdress from "../../components/FormAddress";
 
 const RegisterPage = ({ navigation }) => {
 	const [cpfFormFilled, setCpfFormFilled] = useState(false);
+	const [nameDateFormFilled, setNameDateFormFilled] = useState(false);
+	const [addressFormFilled, setAdressFormFilled] = useState(false);
 
 	return (
 		<KeyboardAvoidingView
@@ -14,9 +17,17 @@ const RegisterPage = ({ navigation }) => {
 		>
 			{!cpfFormFilled ? (
 				<FormCpf setCpfFormFilled={setCpfFormFilled} navigation={navigation} />
-			) : (
-				<FormNamedate setCpfFormFilled={setCpfFormFilled} />
-			)}
+			) : cpfFormFilled & !nameDateFormFilled ? (
+				<FormNamedate
+					setCpfFormFilled={setCpfFormFilled}
+					setNameDateFormFilled={setNameDateFormFilled}
+				/>
+			) : nameDateFormFilled ? (
+				<FormAdress
+					setNameDateFormFilled={setNameDateFormFilled}
+					setAdressFormFilled={setAdressFormFilled}
+				/>
+			) : null}
 		</KeyboardAvoidingView>
 	);
 };
