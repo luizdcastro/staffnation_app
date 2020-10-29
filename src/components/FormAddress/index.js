@@ -64,8 +64,8 @@ const FormAddress = ({ setNameDateFormFilled, setAdressFormFilled }) => {
 					<TextInputMask
 						style={[
 							error
-								? [styles.input, { width: "75%", color: "#ff5555" }]
-								: [styles.input, { width: "75%" }],
+								? [styles.input, { width: "90%", color: "#ff5555" }]
+								: [styles.input, { width: "90%" }],
 						]}
 						type={"zip-code"}
 						value={cep}
@@ -74,6 +74,16 @@ const FormAddress = ({ setNameDateFormFilled, setAdressFormFilled }) => {
 						autoFocus={true}
 						placeholder="CEP"
 					/>
+					{cep.length >= 1 ? (
+						<TouchableOpacity
+							onPress={() => {
+								setCep("");
+								setError(false);
+							}}
+						>
+							<Ionicons name="ios-close-circle" size={25} color="#a8a8a8" />
+						</TouchableOpacity>
+					) : null}
 				</View>
 				{address.cep ? (
 					<Animatable.View animation="fadeInUp" style={styles.addressContainer}>
@@ -173,7 +183,7 @@ const styles = StyleSheet.create({
 		justifyContent: "flex-start",
 		paddingHorizontal: 13,
 		position: "absolute",
-		top: "56%",
+		top: "57%",
 	},
 	errorText: {
 		fontSize: 13,
