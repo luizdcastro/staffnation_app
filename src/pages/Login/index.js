@@ -9,6 +9,7 @@ import {
 	TextInput,
 	ScrollView,
 	TouchableWithoutFeedback,
+	ActivityIndicator,
 	Platform,
 } from "react-native";
 
@@ -28,16 +29,22 @@ const LoginPage = ({ navigation, dispatchLoginAction }) => {
 	const [userPassword, setUserPassword] = useState("");
 	const [secureTextEntry, setSecureTextEntry] = useState(true);
 	const [error, setError] = useState("");
+	const [loading, setLoading] = useState(false);
 
 	const handleLogin = (event) => {
 		event.preventDefault();
+		setLoading(true);
 		dispatchLoginAction(
 			userCpf,
 			userPassword,
-			(response) => console.log(response),
+			(response) => {
+				console.log(response);
+				setLoading(false);
+			},
 			(error) => {
 				setError(error);
 				console.log(error);
+				setLoading(false);
 			}
 		);
 	};
@@ -137,6 +144,7 @@ const LoginPage = ({ navigation, dispatchLoginAction }) => {
 							)}
 						</TouchableOpacity>
 					</View>
+					<ActivityIndicator size="large" color="#00ff00" animating={loading} />
 					<View style={styles.buttonContainer}>
 						{userPassword.length >= 6 ? (
 							<GradientButton
