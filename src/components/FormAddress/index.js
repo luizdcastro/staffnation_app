@@ -10,10 +10,14 @@ import * as Animatable from "react-native-animatable";
 import GradientButton from "../../components/GradientButton";
 import { TextInput } from "react-native-gesture-handler";
 
-const FormAddress = ({ setNameDateFormFilled, setAdressFormFilled }) => {
+const FormAddress = ({
+	setNameDateFormFilled,
+	setAdressFormFilled,
+	address,
+	setAddress,
+}) => {
 	const navigation = useNavigation();
 	const [cep, setCep] = useState("");
-	const [address, setAddress] = useState({});
 	const [number, setNumber] = useState("");
 	const [error, setError] = useState(false);
 

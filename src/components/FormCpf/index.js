@@ -8,8 +8,7 @@ import { Ionicons } from "@expo/vector-icons";
 
 import GradientButton from "../../components/GradientButton";
 
-const FormCpf = ({ setCpfFormFilled, navigation }) => {
-	const [userCpf, setUserCpf] = useState("");
+const FormCpf = ({ setCpfFormFilled, navigation, userCpf, setUserCpf }) => {
 	const [verifyUserCpf, setVerifyUserCpf] = useState("");
 
 	const handleCpfInput = (text) => {

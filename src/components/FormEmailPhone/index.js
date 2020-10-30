@@ -13,10 +13,15 @@ import { Ionicons } from "@expo/vector-icons";
 
 import GradientButton from "../GradientButton";
 
-const FormEmailPhone = ({ setAdressFormFilled, setEmailPhoneFormFilled }) => {
+const FormEmailPhone = ({
+	setAdressFormFilled,
+	setEmailPhoneFormFilled,
+	email,
+	setEmail,
+	phone,
+	setPhone,
+}) => {
 	const navigation = useNavigation();
-	const [email, setEmail] = useState("");
-	const [phone, setPhone] = useState("");
 
 	return (
 		<View style={styles.container}>

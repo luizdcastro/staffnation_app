@@ -13,10 +13,15 @@ import { Ionicons } from "@expo/vector-icons";
 
 import GradientButton from "../GradientButton";
 
-const FormNameDate = ({ setCpfFormFilled, setNameDateFormFilled }) => {
+const FormNameDate = ({
+	setCpfFormFilled,
+	setNameDateFormFilled,
+	name,
+	setName,
+	date,
+	setDate,
+}) => {
 	const navigation = useNavigation();
-	const [date, setDate] = useState("");
-	const [name, setName] = useState("");
 
 	return (
 		<View style={styles.container}>
