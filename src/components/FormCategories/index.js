@@ -1,17 +1,19 @@
-import React, { useEffect, useState, useRef } from "react";
+import React, { useState } from "react";
 import { StyleSheet, View, Text, TouchableOpacity } from "react-native";
 
 import { Ionicons } from "@expo/vector-icons";
 import GradientButton from "../GradientButton";
 import { ScrollView } from "react-native-gesture-handler";
 import SelectorCategory from "../SelectorCategory";
+import { useNavigation } from "@react-navigation/native";
+
 import _ from "lodash";
 
 const FormCategories = ({
 	setEmailPhoneFormFilled,
 	setCategoriesFormFilled,
 }) => {
-	const [userCategories, setUserCategories] = useState([]);
+	const navigation = useNavigation();
 
 	const [segCardExpanded, setSegCardExpanded] = useState(false);
 	const [segExperience, setSegExperience] = useState(0);
@@ -75,18 +77,32 @@ const FormCategories = ({
 
 	return (
 		<View style={styles.container}>
-			<TouchableOpacity
-				style={styles.buttonClose}
-				onPress={() => setEmailPhoneFormFilled(false)}
+			<View
+				style={{
+					flexDirection: "row",
+					justifyContent: "space-between",
+					alignItems: "center",
+				}}
 			>
-				<Ionicons name="ios-arrow-back" size={30} color="#242424" />
-			</TouchableOpacity>
+				<TouchableOpacity
+					style={styles.buttonClose}
+					onPress={() => setEmailPhoneFormFilled(false)}
+				>
+					<Ionicons name="ios-arrow-back" size={30} color="#242424" />
+				</TouchableOpacity>
+				<TouchableOpacity
+					style={styles.buttonClose}
+					onPress={() => navigation.navigate("AuthPage")}
+				>
+					<Ionicons name="ios-close" size={42} color="#242424" />
+				</TouchableOpacity>
+			</View>
 			<View style={{ flex: 1, justifyContent: "space-between" }}>
 				<Text style={styles.title}>
 					Selecione até duas categorias que você gostaria trabalhar
 				</Text>
 				<View style={{ flex: 1 }}>
-					<ScrollView style={{ marginVertical: 20 }}>
+					<ScrollView style={{ marginVertical: 10 }}>
 						<SelectorCategory
 							title="Segurança"
 							setCardExpanded={setSegCardExpanded}
@@ -95,6 +111,7 @@ const FormCategories = ({
 							cardExpanded={segCardExpanded}
 							experience={segExperience}
 							certificate={segCertificate}
+							categoriesLimit={selectedCategories.length}
 						/>
 						<SelectorCategory
 							title="Bar"
@@ -104,6 +121,7 @@ const FormCategories = ({
 							cardExpanded={barCardExpanded}
 							experience={barExperience}
 							certificate={barCertificate}
+							categoriesLimit={selectedCategories.length}
 						/>
 						<SelectorCategory
 							title="Hostess"
@@ -113,6 +131,7 @@ const FormCategories = ({
 							cardExpanded={hostCardExpanded}
 							experience={hostExperience}
 							certificate={hostCertificate}
+							categoriesLimit={selectedCategories.length}
 						/>
 						<SelectorCategory
 							title="Limpeza"
@@ -122,6 +141,7 @@ const FormCategories = ({
 							cardExpanded={limpCarExpanded}
 							experience={limpExprience}
 							certificate={limpCertificate}
+							categoriesLimit={selectedCategories.length}
 						/>
 						<SelectorCategory
 							title="Garçom"
@@ -131,14 +151,24 @@ const FormCategories = ({
 							cardExpanded={garCardExpanded}
 							experience={garExperience}
 							certificate={garCertificate}
+							categoriesLimit={selectedCategories.length}
 						/>
 					</ScrollView>
 					<View style={styles.buttonContainer}>
-						<GradientButton
-							title="Continuar"
-							gradient={["#FFE45C", "#FFC900"]}
-							onPress={() => setCategoriesFormFilled(true)}
-						/>
+						{selectedCategories.length >= 1 ? (
+							<GradientButton
+								title="Continuar"
+								gradient={["#FFE45C", "#FFC900"]}
+								onPress={() => setCategoriesFormFilled(true)}
+							/>
+						) : (
+							<GradientButton
+								onPress={() => {}}
+								gradient={["#d7d7d7", "#e0e0e0"]}
+								title="Continuar"
+								textStyle={{ color: "#939393" }}
+							/>
+						)}
 					</View>
 				</View>
 			</View>
@@ -151,16 +181,14 @@ const styles = StyleSheet.create({
 		flex: 1,
 	},
 	buttonClose: {
-		width: 50,
-		height: 50,
-		marginTop: 40,
-		paddingLeft: 15,
+		marginTop: 35,
+		paddingHorizontal: 15,
 	},
 	title: {
 		fontSize: 23,
 		fontFamily: "Montserrat_400Regular",
 		color: "#242424",
-		marginTop: 25,
+		marginTop: 10,
 		paddingHorizontal: 15,
 	},
 	input: {
@@ -174,66 +202,8 @@ const styles = StyleSheet.create({
 	buttonContainer: {
 		justifyContent: "flex-end",
 		alignItems: "center",
-		paddingBottom: 20,
-	},
-	containerCategory: {
-		flex: 1,
-	},
-	cardCategory: {
-		flexDirection: "row",
-		alignItems: "center",
-		justifyContent: "space-between",
-		width: "90%",
-		height: 60,
-		borderTopLeftRadius: 5,
-		borderTopRightRadius: 5,
-		paddingHorizontal: 20,
-		marginTop: 20,
-		backgroundColor: "#fff",
-		elevation: 1,
-		shadowColor: "#000",
-		shadowOffset: {
-			width: 0,
-			height: 1,
-		},
-		shadowOpacity: 0.18,
-		shadowRadius: 1.0,
-	},
-	experience: {
-		width: "90%",
-		height: 175,
-		paddingHorizontal: 15,
-		backgroundColor: "#fff",
-		elevation: 1,
-		shadowColor: "#000",
-		borderBottomLeftRadius: 5,
-		borderBottomRightRadius: 5,
-		shadowOffset: {
-			width: 0,
-			height: 1,
-		},
-		shadowOpacity: 0.18,
-		shadowRadius: 1.0,
-	},
-	titleCategory: {
-		fontSize: 17,
-		fontFamily: "Montserrat_500Medium",
-	},
-	titleExperience: {
-		fontSize: 15,
-		fontFamily: "Montserrat_400Regular",
-		marginBottom: 10,
-	},
-	textExperience: {
-		fontSize: 17,
-		fontFamily: "Montserrat_500Medium",
-		textAlign: "center",
-	},
-	textCetificate: {
-		fontSize: 17,
-		fontFamily: "Montserrat_500Medium",
-		textAlign: "center",
-		paddingHorizontal: 10,
+		marginTop: 10,
+		paddingBottom: 25,
 	},
 });
 

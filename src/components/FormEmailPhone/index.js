@@ -6,6 +6,7 @@ import {
 	TextInput,
 	TouchableOpacity,
 } from "react-native";
+import { useNavigation } from "@react-navigation/native";
 
 import { TextInputMask } from "react-native-masked-text";
 import { Ionicons } from "@expo/vector-icons";
@@ -13,44 +14,73 @@ import { Ionicons } from "@expo/vector-icons";
 import GradientButton from "../GradientButton";
 
 const FormEmailPhone = ({ setAdressFormFilled, setEmailPhoneFormFilled }) => {
+	const navigation = useNavigation();
 	const [email, setEmail] = useState("");
 	const [phone, setPhone] = useState("");
 
 	return (
 		<View style={styles.container}>
-			<TouchableOpacity
-				style={styles.buttonClose}
-				onPress={() => setAdressFormFilled(false)}
+			<View
+				style={{
+					flexDirection: "row",
+					justifyContent: "space-between",
+					alignItems: "center",
+				}}
 			>
-				<Ionicons name="ios-arrow-back" size={30} color="#242424" />
-			</TouchableOpacity>
+				<TouchableOpacity
+					style={styles.buttonClose}
+					onPress={() => setAdressFormFilled(false)}
+				>
+					<Ionicons name="ios-arrow-back" size={30} color="#242424" />
+				</TouchableOpacity>
+				<TouchableOpacity
+					style={styles.buttonClose}
+					onPress={() => navigation.navigate("AuthPage")}
+				>
+					<Ionicons name="ios-close" size={42} color="#242424" />
+				</TouchableOpacity>
+			</View>
 			<View style={{ flex: 1, justifyContent: "space-between" }}>
 				<Text style={styles.title}>Informe seu email e telefone com DDD</Text>
-				<View>
+				<View style={{ flexDirection: "row", alignItems: "center" }}>
 					<TextInput
 						style={styles.input}
 						autoFocus={true}
-						keyboardType="default"
+						keyboardType="email-address"
+						autoCapitalize="none"
 						placeholder="Email"
 						value={email}
 						onChangeText={(value) => setEmail(value)}
 						maxLength={30}
 						blurOnSubmit={false}
 					/>
+					{email.length >= 1 ? (
+						<TouchableOpacity onPress={() => setEmail("")}>
+							<Ionicons name="ios-close-circle" size={25} color="#a8a8a8" />
+						</TouchableOpacity>
+					) : null}
 				</View>
-				<TextInputMask
-					style={styles.input}
-					placeholder="Telefone"
-					type={"cel-phone"}
-					options={{
-						maskType: "BRL",
-						withDDD: true,
-						dddMask: "(99) ",
-					}}
-					value={phone}
-					onChangeText={(value) => setPhone(value)}
-					blurOnSubmit={false}
-				/>
+				<View style={{ flexDirection: "row", alignItems: "center" }}>
+					<TextInputMask
+						style={styles.input}
+						placeholder="Telefone"
+						type={"cel-phone"}
+						options={{
+							maskType: "BRL",
+							withDDD: true,
+							dddMask: "(99) ",
+						}}
+						value={phone}
+						onChangeText={(value) => setPhone(value)}
+						blurOnSubmit={false}
+					/>
+					{phone.length >= 1 ? (
+						<TouchableOpacity onPress={() => setPhone("")}>
+							<Ionicons name="ios-close-circle" size={25} color="#a8a8a8" />
+						</TouchableOpacity>
+					) : null}
+				</View>
+
 				<View style={styles.buttonContainer}>
 					{email.includes("@") & email.includes(".") & (phone.length >= 14) ? (
 						<GradientButton
@@ -77,16 +107,14 @@ const styles = StyleSheet.create({
 		flex: 1,
 	},
 	buttonClose: {
-		width: 50,
-		height: 50,
-		marginTop: 40,
-		paddingLeft: 15,
+		marginTop: 35,
+		paddingHorizontal: 15,
 	},
 	title: {
 		fontSize: 23,
 		fontFamily: "Montserrat_400Regular",
 		color: "#242424",
-		marginTop: 25,
+		marginTop: 10,
 		paddingHorizontal: 15,
 	},
 	input: {

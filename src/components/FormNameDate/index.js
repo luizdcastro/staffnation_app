@@ -6,6 +6,7 @@ import {
 	TextInput,
 	TouchableOpacity,
 } from "react-native";
+import { useNavigation } from "@react-navigation/native";
 
 import { TextInputMask } from "react-native-masked-text";
 import { Ionicons } from "@expo/vector-icons";
@@ -13,22 +14,37 @@ import { Ionicons } from "@expo/vector-icons";
 import GradientButton from "../GradientButton";
 
 const FormNameDate = ({ setCpfFormFilled, setNameDateFormFilled }) => {
+	const navigation = useNavigation();
 	const [date, setDate] = useState("");
 	const [name, setName] = useState("");
 
 	return (
 		<View style={styles.container}>
-			<TouchableOpacity
-				style={styles.buttonClose}
-				onPress={() => setCpfFormFilled(false)}
+			<View
+				style={{
+					flexDirection: "row",
+					justifyContent: "space-between",
+					alignItems: "center",
+				}}
 			>
-				<Ionicons name="ios-arrow-back" size={30} color="#242424" />
-			</TouchableOpacity>
+				<TouchableOpacity
+					style={styles.buttonClose}
+					onPress={() => setCpfFormFilled(false)}
+				>
+					<Ionicons name="ios-arrow-back" size={30} color="#242424" />
+				</TouchableOpacity>
+				<TouchableOpacity
+					style={styles.buttonClose}
+					onPress={() => navigation.navigate("AuthPage")}
+				>
+					<Ionicons name="ios-close" size={42} color="#242424" />
+				</TouchableOpacity>
+			</View>
 			<View style={{ flex: 1, justifyContent: "space-between" }}>
 				<Text style={styles.title}>
 					Digite seu nome completo e data de nascimento
 				</Text>
-				<View>
+				<View style={{ flexDirection: "row", alignItems: "center" }}>
 					<TextInput
 						style={styles.input}
 						autoFocus={true}
@@ -39,18 +55,30 @@ const FormNameDate = ({ setCpfFormFilled, setNameDateFormFilled }) => {
 						maxLength={30}
 						blurOnSubmit={false}
 					/>
+					{name.length >= 1 ? (
+						<TouchableOpacity onPress={() => setName("")}>
+							<Ionicons name="ios-close-circle" size={25} color="#a8a8a8" />
+						</TouchableOpacity>
+					) : null}
 				</View>
-				<TextInputMask
-					style={styles.input}
-					placeholder="Data de nascimento"
-					type={"datetime"}
-					options={{
-						format: "DD/MM/YYYY",
-					}}
-					value={date}
-					onChangeText={(value) => setDate(value)}
-					blurOnSubmit={false}
-				/>
+				<View style={{ flexDirection: "row", alignItems: "center" }}>
+					<TextInputMask
+						style={styles.input}
+						placeholder="Data de nascimento"
+						type={"datetime"}
+						options={{
+							format: "DD/MM/YYYY",
+						}}
+						value={date}
+						onChangeText={(value) => setDate(value)}
+						blurOnSubmit={false}
+					/>
+					{date.length >= 1 ? (
+						<TouchableOpacity onPress={() => setDate("")}>
+							<Ionicons name="ios-close-circle" size={25} color="#a8a8a8" />
+						</TouchableOpacity>
+					) : null}
+				</View>
 				<View style={styles.buttonContainer}>
 					{date.length >= 10 ? (
 						<GradientButton
@@ -77,16 +105,14 @@ const styles = StyleSheet.create({
 		flex: 1,
 	},
 	buttonClose: {
-		width: 50,
-		height: 50,
-		marginTop: 40,
-		paddingLeft: 15,
+		marginTop: 35,
+		paddingHorizontal: 15,
 	},
 	title: {
 		fontSize: 23,
 		fontFamily: "Montserrat_400Regular",
 		color: "#242424",
-		marginTop: 25,
+		marginTop: 10,
 		paddingHorizontal: 15,
 	},
 	input: {

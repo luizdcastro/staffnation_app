@@ -13,6 +13,7 @@ const SelectorCategory = ({
 	cardExpanded,
 	experience,
 	certificate,
+	categoriesLimit,
 }) => {
 	return (
 		<View style={styles.containerCategory}>
@@ -21,7 +22,11 @@ const SelectorCategory = ({
 					<Text style={styles.titleCategory}>{title}</Text>
 					<TouchableOpacity
 						onPress={() => {
-							setCardExpanded(!cardExpanded);
+							if (categoriesLimit >= 2) {
+								setCardExpanded(false);
+							} else {
+								setCardExpanded(!cardExpanded);
+							}
 						}}
 					>
 						{cardExpanded ? (

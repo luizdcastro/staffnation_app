@@ -29,7 +29,6 @@ const FormCpf = ({ setCpfFormFilled, navigation }) => {
 			>
 				<Ionicons name="ios-arrow-back" size={30} color="#242424" />
 			</TouchableOpacity>
-
 			<View style={{ flex: 1, justifyContent: "space-between" }}>
 				<Text style={styles.title}>Vamos começar o cadastro, digite seu CPF </Text>
 				<View>
@@ -89,16 +88,14 @@ const styles = StyleSheet.create({
 		flex: 1,
 	},
 	buttonClose: {
-		width: 50,
-		height: 50,
-		marginTop: 40,
-		paddingLeft: 15,
+		marginTop: 35,
+		paddingHorizontal: 15,
 	},
 	title: {
 		fontSize: 23,
 		fontFamily: "Montserrat_400Regular",
 		color: "#242424",
-		marginTop: 25,
+		marginTop: 10,
 		paddingHorizontal: 15,
 	},
 	input: {

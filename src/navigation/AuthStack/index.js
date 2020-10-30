@@ -11,8 +11,8 @@ const AuthStack = createStackNavigator();
 const AuthStackPage = ({ navigation }) => (
 	<AuthStack.Navigator headerMode="nome">
 		<AuthStack.Screen name="AuthPage" component={AuthPage} />
-		<AuthStack.Screen name="RegisterPage" component={RegisterPage} />
 		<AuthStack.Screen name="LoginPage" component={LoginPage} />
+		<AuthStack.Screen name="RegisterPage" component={RegisterPage} />
 	</AuthStack.Navigator>
 );
 

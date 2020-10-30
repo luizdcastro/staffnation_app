@@ -190,7 +190,7 @@ const styles = StyleSheet.create({
 	buttonContainer: {
 		justifyContent: "flex-end",
 		alignItems: "center",
-		paddingBottom: 20,
+		paddingBottom: 10,
 	},
 });
 

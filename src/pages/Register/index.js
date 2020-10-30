@@ -9,10 +9,10 @@ import FormCategories from "../../components/FormCategories";
 import FormPassword from "../../components/FormPassword";
 
 const RegisterPage = ({ navigation }) => {
-	const [cpfFormFilled, setCpfFormFilled] = useState(true);
-	const [nameDateFormFilled, setNameDateFormFilled] = useState(true);
-	const [addressFormFilled, setAdressFormFilled] = useState(true);
-	const [emailPhoneFormFilled, setEmailPhoneFormFilled] = useState(true);
+	const [cpfFormFilled, setCpfFormFilled] = useState(false);
+	const [nameDateFormFilled, setNameDateFormFilled] = useState(false);
+	const [addressFormFilled, setAdressFormFilled] = useState(false);
+	const [emailPhoneFormFilled, setEmailPhoneFormFilled] = useState(false);
 	const [categoriesFormFilled, setCategoriesFormFilled] = useState(false);
 	const [passwordFormFilled, setPasswordFormFilled] = useState(false);
 

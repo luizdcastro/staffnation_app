@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
+import { useNavigation } from "@react-navigation/native";
 
 import { TextInputMask } from "react-native-masked-text";
 import { Ionicons } from "@expo/vector-icons";
@@ -10,6 +11,7 @@ import GradientButton from "../../components/GradientButton";
 import { TextInput } from "react-native-gesture-handler";
 
 const FormAddress = ({ setNameDateFormFilled, setAdressFormFilled }) => {
+	const navigation = useNavigation();
 	const [cep, setCep] = useState("");
 	const [address, setAddress] = useState({});
 	const [number, setNumber] = useState("");
@@ -50,12 +52,26 @@ const FormAddress = ({ setNameDateFormFilled, setAdressFormFilled }) => {
 
 	return (
 		<View style={styles.container}>
-			<TouchableOpacity
-				style={styles.buttonClose}
-				onPress={() => setNameDateFormFilled(false)}
+			<View
+				style={{
+					flexDirection: "row",
+					justifyContent: "space-between",
+					alignItems: "center",
+				}}
 			>
-				<Ionicons name="ios-arrow-back" size={30} color="#242424" />
-			</TouchableOpacity>
+				<TouchableOpacity
+					style={styles.buttonClose}
+					onPress={() => setNameDateFormFilled(false)}
+				>
+					<Ionicons name="ios-arrow-back" size={30} color="#242424" />
+				</TouchableOpacity>
+				<TouchableOpacity
+					style={styles.buttonClose}
+					onPress={() => navigation.navigate("AuthPage")}
+				>
+					<Ionicons name="ios-close" size={42} color="#242424" />
+				</TouchableOpacity>
+			</View>
 			<View style={{ flex: 1, justifyContent: "space-between" }}>
 				<Text style={styles.title}>
 					Digite seu CEP para localizarmos seu endereço
@@ -138,16 +154,14 @@ const styles = StyleSheet.create({
 		flex: 1,
 	},
 	buttonClose: {
-		width: 50,
-		height: 50,
-		marginTop: 40,
-		paddingLeft: 15,
+		marginTop: 35,
+		paddingHorizontal: 15,
 	},
 	title: {
 		fontSize: 23,
 		fontFamily: "Montserrat_400Regular",
 		color: "#242424",
-		marginTop: 25,
+		marginTop: 10,
 		paddingHorizontal: 15,
 	},
 	input: {
