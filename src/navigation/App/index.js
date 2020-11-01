@@ -6,8 +6,10 @@ import { createDrawerNavigator } from "@react-navigation/drawer";
 import DrawerContent from "../../components/DrawerContent";
 import MaintabPage from "../MainTab";
 import SupportPage from "../../pages/Support";
-import FavoritePage from "../../pages/Favorites";
-import SettingPage from "../../pages/Setting";
+import ProfilePage from "../../pages/Profile";
+import JobsPage from "../../pages/Jobs";
+import NotificationPage from '../../pages/Notification'
+
 import AuthStack from "../AuthStack";
 import {
 	useFonts,
@@ -36,13 +38,14 @@ const App = ({ user }) => {
 				{!user.isLoggedIn ? (
 					<AuthStack />
 				) : (
-					<Drawer.Navigator drawerContent={(props) => <DrawerContent {...props} />}>
-						<Drawer.Screen name="HomeDrawer" component={MaintabPage} />
-						<Drawer.Screen name="SupportPage" component={SupportPage} />
-						<Drawer.Screen name="FavoritePage" component={FavoritePage} />
-						<Drawer.Screen name="SettingPage" component={SettingPage} />
-					</Drawer.Navigator>
-				)}
+						<Drawer.Navigator drawerContent={(props) => <DrawerContent {...props} />}>
+							<Drawer.Screen name="HomeDrawer" component={MaintabPage} />
+							<Drawer.Screen name="SupportPage" component={SupportPage} />
+							<Drawer.Screen name="JobsPage" component={JobsPage} />
+							<Drawer.Screen name="ProfilePage" component={ProfilePage} />
+							<Drawer.Screen name="NotificationPage" component={NotificationPage} />
+						</Drawer.Navigator>
+					)}
 			</NavigationContainer>
 		);
 	}

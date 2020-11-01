@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { connect } from "react-redux";
 import {
 	View,
@@ -28,7 +28,7 @@ const LoginPage = ({ navigation, dispatchLoginAction }) => {
 	const [cpfFormFilled, setCpfFormFilled] = useState(false);
 	const [userPassword, setUserPassword] = useState("");
 	const [secureTextEntry, setSecureTextEntry] = useState(true);
-	const [error, setError] = useState("");
+	const [error, setError] = useState(false);
 	const [loading, setLoading] = useState(false);
 
 	const handleLogin = (event) => {
@@ -39,12 +39,13 @@ const LoginPage = ({ navigation, dispatchLoginAction }) => {
 			userPassword,
 			(response) => {
 				console.log(response);
-				setLoading(false);
+				setLoading(false)
+
 			},
 			(error) => {
-				setError(error);
-				console.log(error);
-				setLoading(false);
+				setError(error)
+				setLoading(false)
+				console.log('Erro de auth')
 			}
 		);
 	};
@@ -74,7 +75,7 @@ const LoginPage = ({ navigation, dispatchLoginAction }) => {
 				</TouchableWithoutFeedback>
 			</View>
 			{cpfFormFilled === false ? (
-				<Animatable.View animation="fadeInUpBig" style={styles.formContainer}>
+				<Animatable.View animation="fadeInUp" style={styles.formContainer}>
 					<Text style={styles.title}>Digite seu CPF</Text>
 					<View style={{ flexDirection: "row", alignItems: "center" }}>
 						<TextInputMask
@@ -104,65 +105,70 @@ const LoginPage = ({ navigation, dispatchLoginAction }) => {
 						{verifyUserCpf ? (
 							<GradientButton
 								title="Continuar"
-								gradient={["#FFE45C", "#FFC900"]}
+								gradient={["#2397d4", "#2397d4"]}
 								onPress={() => setCpfFormFilled(true)}
 							/>
 						) : (
-							<GradientButton
-								onPress={() => {}}
-								gradient={["#d7d7d7", "#e0e0e0"]}
-								title="Continuar"
-								textStyle={{ color: "#939393" }}
-							/>
-						)}
+								<GradientButton
+									onPress={() => { }}
+									gradient={["#cfd8dc", "#cfd8dc"]}
+									title="Continuar"
+									textStyle={{ color: "#607d8b" }}
+								/>
+							)}
 					</View>
 				</Animatable.View>
 			) : (
-				<View style={styles.formContainer}>
-					<Animatable.Text animation="fadeInUp" style={styles.title}>
-						Insira a senha de acesso
+					<View style={styles.formContainer}>
+						<Animatable.Text animation="fadeInUp" style={styles.title}>
+							Insira a senha de acesso
 					</Animatable.Text>
-					<View style={{ flexDirection: "row", alignItems: "center" }}>
-						<TextInput
-							style={styles.input}
-							autoCorrect={false}
-							autoCapitalize="none"
-							autoFocus={true}
-							selectionColor="#242424"
-							underlineColorAndroid="transparent"
-							keyboardType="number-pad"
-							secureTextEntry={secureTextEntry}
-							onChangeText={(val) => setUserPassword(val)}
-							value={userPassword}
-							blurOnSubmit={false}
-						/>
-						<TouchableOpacity onPress={() => setSecureTextEntry(!secureTextEntry)}>
-							{secureTextEntry ? (
-								<Feather name="eye-off" color="#a8a8a8" size={20} />
-							) : (
-								<Feather name="eye" color="#a8a8a8" size={20} />
-							)}
-						</TouchableOpacity>
-					</View>
-					<ActivityIndicator size="large" color="#00ff00" animating={loading} />
-					<View style={styles.buttonContainer}>
-						{userPassword.length >= 6 ? (
-							<GradientButton
-								onPress={handleLogin}
-								gradient={["#FFE45C", "#FFC900"]}
-								title="Entrar"
+						<View style={{ flexDirection: "row", alignItems: "center" }}>
+							<TextInput
+								style={styles.input}
+								autoCorrect={false}
+								autoFocus={true}
+								keyboardType="number-pad"
+								selectionColor="#242424"
+								secureTextEntry={secureTextEntry}
+								onChangeText={(val) => setUserPassword(val)}
+								value={userPassword}
+								blurOnSubmit={false}
 							/>
-						) : (
-							<GradientButton
-								onPress={() => {}}
-								gradient={["#d7d7d7", "#e0e0e0"]}
-								title="Entrar"
-								textStyle={{ color: "#939393" }}
-							/>
-						)}
+							<TouchableOpacity onPress={() => setSecureTextEntry(!secureTextEntry)}>
+								{secureTextEntry ? (
+									<Feather name="eye-off" color="#a8a8a8" size={20} />
+								) : (
+										<Feather name="eye" color="#a8a8a8" size={20} />
+									)}
+							</TouchableOpacity>
+						</View>
+						<View style={styles.buttonContainer}>
+							{userPassword.length >= 6 & !loading ?
+								<GradientButton
+									onPress={handleLogin}
+									gradient={["#2397d4", "#2397d4"]}
+									title="Entrar"
+								/>
+								: userPassword.length <= 6 & !loading ?
+									<GradientButton
+										onPress={() => { }}
+										gradient={["#cfd8dc", "#cfd8dc"]}
+										title="Entrar"
+										textStyle={{ color: "#607d8b" }}
+									/>
+									: userPassword.length >= 6 & loading ?
+										<GradientButton
+											onPress={() => { }}
+											gradient={["#2397d4", "#2397d4"]}
+											children={<ActivityIndicator style={{ paddingBottom: 15 }} size="large" color="#eceff1" animating={loading} />
+											}
+										/>
+										: null
+							}
+						</View>
 					</View>
-				</View>
-			)}
+				)}
 		</KeyboardAvoidingView>
 	);
 };
@@ -170,7 +176,7 @@ const LoginPage = ({ navigation, dispatchLoginAction }) => {
 const styles = StyleSheet.create({
 	mainContainer: {
 		flex: 1,
-		backgroundColor: "grey",
+		backgroundColor: "#263238",
 	},
 	formContainer: {
 		flex: 1,

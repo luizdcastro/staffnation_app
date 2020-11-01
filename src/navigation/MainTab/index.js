@@ -4,58 +4,58 @@ import { createMaterialBottomTabNavigator } from "@react-navigation/material-bot
 import Icon from "react-native-vector-icons/Ionicons";
 
 import HomePage from "../../pages/Home";
-import DetailsPage from "../../pages/Details";
 import ProfilePage from "../../pages/Profile";
-import ExplorePage from "../../pages/Explore";
+import JobsPage from "../../pages/Jobs";
+import NotificationPage from '../../pages/Notification'
 
 const HomeStack = createStackNavigator();
-const DetailsStack = createStackNavigator();
+const JobsStack = createStackNavigator();
 const Tab = createMaterialBottomTabNavigator();
 
 const MainTabScreen = () => {
 	return (
-		<Tab.Navigator initialRouteName="Home" activeColor="#fff">
+		<Tab.Navigator initialRouteName="Home" activeColor="grey">
 			<Tab.Screen
 				name="Home"
 				component={HomeStackScreen}
 				options={{
 					tabBarLabel: "Home",
-					tabBarColor: "#00FFFF",
-					tabBarIcon: ({ color }) => (
-						<Icon name="ios-home" color={color} size={26} />
-					),
+					tabBarColor: "#fff",
+					tabBarIcon: () => (
+						<Icon name="md-home" color='grey' size={26} activeColor='red' />
+					)
 				}}
 			/>
 			<Tab.Screen
 				name="Details"
-				component={DetailsStackScreen}
+				component={JobsStackScreen}
 				options={{
-					tabBarLabel: "Details",
-					tabBarColor: "#009387",
-					tabBarIcon: ({ color }) => (
-						<Icon name="ios-notifications" color={color} size={26} />
-					),
+					tabBarLabel: "Jobs",
+					tabBarColor: "#fff",
+					tabBarIcon: () => (
+						<Icon name="md-calendar" color="grey" size={26} />
+					)
 				}}
 			/>
 			<Tab.Screen
 				name="Profile"
 				component={ProfilePage}
 				options={{
-					tabBarLabel: "Profile",
-					tabBarColor: "#009387",
-					tabBarIcon: ({ color }) => (
-						<Icon name="ios-person" color={color} size={26} />
+					tabBarLabel: "Perfil",
+					tabBarColor: "#fff",
+					tabBarIcon: () => (
+						<Icon name="md-person" color='grey' size={26} />
 					),
 				}}
 			/>
 			<Tab.Screen
-				name="Explore"
-				component={ExplorePage}
+				name="Notification"
+				component={NotificationPage}
 				options={{
-					tabBarLabel: "Explore",
-					tabBarColor: "#009387",
-					tabBarIcon: ({ color }) => (
-						<Icon name="ios-aperture" color={color} size={26} />
+					tabBarLabel: "Notificações",
+					tabBarColor: "#fff",
+					tabBarIcon: () => (
+						<Icon name="md-notifications" color='grey' size={26} />
 					),
 				}}
 			/>
@@ -67,9 +67,9 @@ const HomeStackScreen = ({ navigation }) => (
 	<HomeStack.Navigator
 		screenOptions={{
 			headerStyle: {
-				backgroundColor: "#009387",
+				backgroundColor: "#fff",
 			},
-			headerTintColor: "#fff",
+			headerTintColor: "grey",
 			headerTintStyle: "bold",
 		}}
 	>
@@ -79,9 +79,10 @@ const HomeStackScreen = ({ navigation }) => (
 			options={{
 				headerLeft: () => (
 					<Icon.Button
-						name="ios-menu"
-						size={25}
-						backgroundColor="#009387"
+						name="md-menu"
+						size={28}
+						backgroundColor="#fff"
+						color='grey'
 						onPress={() => {
 							navigation.openDrawer();
 						}}
@@ -92,25 +93,26 @@ const HomeStackScreen = ({ navigation }) => (
 	</HomeStack.Navigator>
 );
 
-const DetailsStackScreen = ({ navigation }) => (
-	<DetailsStack.Navigator
+const JobsStackScreen = ({ navigation }) => (
+	<JobsStack.Navigator
 		screenOptions={{
 			headerStyle: {
-				backgroundColor: "#009387",
+				backgroundColor: "#fff",
 			},
-			headerTintColor: "#fff",
+			headerTintColor: "grey",
 			headerTintStyle: "bold",
 		}}
 	>
-		<DetailsStack.Screen
-			name="Details"
-			component={DetailsPage}
+		<JobsStack.Screen
+			name="Jobs"
+			component={JobsPage}
 			options={{
 				headerLeft: () => (
 					<Icon.Button
-						name="ios-menu"
+						name="md-menu"
 						size={25}
-						backgroundColor="#009387"
+						color='grey'
+						backgroundColor="#fff"
 						onPress={() => {
 							navigation.openDrawer();
 						}}
@@ -118,7 +120,7 @@ const DetailsStackScreen = ({ navigation }) => (
 				),
 			}}
 		/>
-	</DetailsStack.Navigator>
+	</JobsStack.Navigator>
 );
 
 export default MainTabScreen;

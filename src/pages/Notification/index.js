@@ -1,10 +1,10 @@
 import * as React from "react";
 import { View, Text, StyleSheet } from "react-native";
 
-const SettingPage = ({ navigation }) => {
+const NotificationPage = ({ navigation }) => {
 	return (
 		<View style={styles.screen}>
-			<Text>Settings Screen</Text>
+			<Text>Notification Screen</Text>
 		</View>
 	);
 };
@@ -13,4 +13,4 @@ const styles = StyleSheet.create({
 	screen: { flex: 1, alignItems: "center", justifyContent: "center" },
 });
 
-export default SettingPage;
+export default NotificationPage;

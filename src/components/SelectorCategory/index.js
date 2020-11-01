@@ -33,11 +33,11 @@ const SelectorCategory = ({
 							<MaterialIcons
 								name="check-circle"
 								size={30}
-								color="rgba(255,201,0, 0.8)"
+								color="#2397d4"
 							/>
 						) : (
-							<Feather name="circle" size={30} color="rgba(255,201,0, 0.8)" />
-						)}
+								<Feather name="circle" size={30} color="#2397d4" />
+							)}
 					</TouchableOpacity>
 				</View>
 
@@ -52,19 +52,19 @@ const SelectorCategory = ({
 								{experience === 0
 									? "a 6 meses"
 									: experience === 1
-									? "ano"
-									: experience > 1
-									? "anos"
-									: null}
+										? "ano"
+										: experience > 1
+											? "anos"
+											: null}
 							</Text>
 							<Slider
 								style={{ width: "100%", height: 40, marginBottom: 10 }}
 								minimumValue={0}
 								maximumValue={10}
 								step={1}
-								minimumTrackTintColor="rgba(255,201,0, 0.8)"
-								maximumTrackTintColor="rgba(255,201,0, 0.3)"
-								thumbTintColor="rgba(255,201,0, 0.8)"
+								minimumTrackTintColor="#2397d4"
+								maximumTrackTintColor="#b0bec5"
+								thumbTintColor="#2397d4"
 								value={experience}
 								onValueChange={(value) => setExperience(value)}
 							/>
@@ -79,11 +79,11 @@ const SelectorCategory = ({
 											<MaterialIcons
 												name="check-circle"
 												size={25}
-												color="rgba(255,201,0, 0.8)"
+												color="#2397d4"
 											/>
 										) : (
-											<Feather name="circle" size={25} color="rgba(255,201,0, 0.8)" />
-										)}
+												<Feather name="circle" size={25} color="#2397d4" />
+											)}
 									</TouchableOpacity>
 								</View>
 								<View style={{ flexDirection: "row" }}>
@@ -93,11 +93,11 @@ const SelectorCategory = ({
 											<MaterialIcons
 												name="check-circle"
 												size={25}
-												color="rgba(255,201,0, 0.8)"
+												color="#2397d4"
 											/>
 										) : (
-											<Feather name="circle" size={25} color="rgba(255,201,0, 0.8)" />
-										)}
+												<Feather name="circle" size={25} color="#2397d4" />
+											)}
 									</TouchableOpacity>
 								</View>
 							</View>

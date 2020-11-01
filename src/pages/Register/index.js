@@ -6,6 +6,7 @@ import {
 	ScrollView,
 	View,
 	TouchableOpacity,
+	ActivityIndicator,
 	Text,
 	TextInput,
 	Platform,
@@ -41,8 +42,10 @@ const RegisterPage = ({ navigation, dispatchRegisterUser }) => {
 	const [address, setAddress] = useState({});
 	const [password, setPassword] = useState("");
 	const [confirmPassword, setConfirmPassword] = useState("");
-	const [secureTextEntry, setSecureTextEntry] = useState(true);
+	const [secureTextEntry, setSecureTextEntry] = useState(false);
 	const [error, setError] = useState("");
+	const [loading, setLoading] = useState(false);
+
 
 	//Select categories data from object
 	const [segCardExpanded, setSegCardExpanded] = useState(false);
@@ -103,6 +106,7 @@ const RegisterPage = ({ navigation, dispatchRegisterUser }) => {
 
 	const handleRegistration = (event) => {
 		event.preventDefault();
+		setLoading(true)
 		dispatchRegisterUser(
 			userCpf,
 			name,
@@ -113,10 +117,11 @@ const RegisterPage = ({ navigation, dispatchRegisterUser }) => {
 			userCategories,
 			password,
 			confirmPassword,
-			(response) => console.log(response),
+			(response) => { console.log(response); setLoading(false) },
 			(error) => {
 				setError(error);
 				console.log(error);
+				setLoading(false)
 			}
 		);
 	};
@@ -170,13 +175,13 @@ const RegisterPage = ({ navigation, dispatchRegisterUser }) => {
 							style={styles.buttonClose}
 							onPress={() => setEmailPhoneFormFilled(false)}
 						>
-							<Ionicons name="ios-arrow-back" size={30} color="#242424" />
+							<Ionicons name="ios-arrow-back" size={30} color="#2397d4" />
 						</TouchableOpacity>
 						<TouchableOpacity
 							style={styles.buttonClose}
 							onPress={() => navigation.navigate("AuthPage")}
 						>
-							<Ionicons name="ios-close" size={42} color="#242424" />
+							<Ionicons name="ios-close" size={42} color="#2397d4" />
 						</TouchableOpacity>
 					</View>
 					<View style={{ flex: 1, justifyContent: "space-between" }}>
@@ -240,17 +245,17 @@ const RegisterPage = ({ navigation, dispatchRegisterUser }) => {
 								{userCategories.length >= 1 ? (
 									<GradientButton
 										title="Continuar"
-										gradient={["#FFE45C", "#FFC900"]}
+										gradient={["#2397d4", "#2397d4"]}
 										onPress={() => setCategoriesFormFilled(true)}
 									/>
 								) : (
-									<GradientButton
-										onPress={() => {}}
-										gradient={["#d7d7d7", "#e0e0e0"]}
-										title="Continuar"
-										textStyle={{ color: "#939393" }}
-									/>
-								)}
+										<GradientButton
+											onPress={() => { }}
+											gradient={["#cfd8dc", "#cfd8dc"]}
+											title="Continuar"
+											textStyle={{ color: "#607d8b" }}
+										/>
+									)}
 							</View>
 						</View>
 					</View>
@@ -268,13 +273,13 @@ const RegisterPage = ({ navigation, dispatchRegisterUser }) => {
 							style={styles.buttonClose}
 							onPress={() => setCategoriesFormFilled(false)}
 						>
-							<Ionicons name="ios-arrow-back" size={30} color="#242424" />
+							<Ionicons name="ios-arrow-back" size={30} color="#2397d4" />
 						</TouchableOpacity>
 						<TouchableOpacity
 							style={styles.buttonClose}
 							onPress={() => navigation.navigate("AuthPage")}
 						>
-							<Ionicons name="ios-close" size={42} color="#242424" />
+							<Ionicons name="ios-close" size={42} color="#2397d4" />
 						</TouchableOpacity>
 					</View>
 					<View style={{ flex: 1, justifyContent: "space-between" }}>
@@ -298,14 +303,14 @@ const RegisterPage = ({ navigation, dispatchRegisterUser }) => {
 								{secureTextEntry ? (
 									<Feather name="eye-off" color="#a8a8a8" size={20} />
 								) : (
-									<Feather name="eye" color="#a8a8a8" size={20} />
-								)}
+										<Feather name="eye" color="#a8a8a8" size={20} />
+									)}
 							</TouchableOpacity>
 						</View>
 						<View style={{ flexDirection: "row", alignItems: "center" }}>
 							<TextInput
-								style={styles.input}
 								placeholder="Confirmar senha"
+								style={styles.input}
 								autoCorrect={false}
 								autoCapitalize="none"
 								selectionColor="#242424"
@@ -320,25 +325,39 @@ const RegisterPage = ({ navigation, dispatchRegisterUser }) => {
 								{secureTextEntry ? (
 									<Feather name="eye-off" color="#a8a8a8" size={20} />
 								) : (
-									<Feather name="eye" color="#a8a8a8" size={20} />
-								)}
+										<Feather name="eye" color="#a8a8a8" size={20} />
+									)}
 							</TouchableOpacity>
 						</View>
 						<View style={styles.buttonContainer}>
-							{(password.length >= 6) & (password === confirmPassword) ? (
+							{(password.length >= 6) & (password === confirmPassword) & !loading ?
 								<GradientButton
 									title="Cadastrar"
-									gradient={["#FFE45C", "#FFC900"]}
+									gradient={["#2397d4", "#2397d4"]}
 									onPress={handleRegistration}
 								/>
-							) : (
-								<GradientButton
-									onPress={() => {}}
-									gradient={["#d7d7d7", "#e0e0e0"]}
-									title="Cadastrar"
-									textStyle={{ color: "#939393" }}
-								/>
-							)}
+								: (password.length <= 6) & confirmPassword.length <= 6 & !loading ?
+									<GradientButton
+										onPress={() => { }}
+										gradient={["#cfd8dc", "#cfd8dc"]}
+										title="Cadastrar"
+										textStyle={{ color: "#607d8b" }}
+									/>
+
+									: (password.length >= 6) & (password === confirmPassword) & loading ?
+										<GradientButton
+											onPress={() => { }}
+											gradient={["#2397d4", "#2397d4"]}
+											children={<ActivityIndicator style={{ paddingBottom: 15 }} size="large" color="#eceff1" animating={loading} />
+											}
+										/>
+										: <GradientButton
+											onPress={() => { }}
+											gradient={["#cfd8dc", "#cfd8dc"]}
+											title="Cadastrar"
+											textStyle={{ color: "#607d8b" }}
+										/>
+							}
 						</View>
 					</View>
 				</View>
@@ -365,7 +384,7 @@ const styles = StyleSheet.create({
 	input: {
 		fontSize: 24,
 		color: "#242424",
-		fontFamily: "Montserrat_500Medium",
+		fontFamily: "Montserrat_400Regular",
 		width: "90%",
 		height: 45,
 		paddingHorizontal: 15,

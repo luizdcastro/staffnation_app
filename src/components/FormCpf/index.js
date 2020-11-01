@@ -5,10 +5,12 @@ import { cpf } from "cpf-cnpj-validator";
 import { TextInputMask } from "react-native-masked-text";
 import { MaterialIcons } from "@expo/vector-icons";
 import { Ionicons } from "@expo/vector-icons";
+import { useNavigation } from "@react-navigation/native";
 
 import GradientButton from "../../components/GradientButton";
 
-const FormCpf = ({ setCpfFormFilled, navigation, userCpf, setUserCpf }) => {
+const FormCpf = ({ setCpfFormFilled, userCpf, setUserCpf }) => {
+	const navigation = useNavigation();
 	const [verifyUserCpf, setVerifyUserCpf] = useState("");
 
 	const handleCpfInput = (text) => {
@@ -24,9 +26,9 @@ const FormCpf = ({ setCpfFormFilled, navigation, userCpf, setUserCpf }) => {
 		<View style={styles.container}>
 			<TouchableOpacity
 				style={styles.buttonClose}
-				onPress={() => navigation.goBack()}
+				onPress={() => navigation.navigate("AuthPage")}
 			>
-				<Ionicons name="ios-arrow-back" size={30} color="#242424" />
+				<Ionicons name="ios-arrow-back" size={30} color="#2397d4" />
 			</TouchableOpacity>
 			<View style={{ flex: 1, justifyContent: "space-between" }}>
 				<Text style={styles.title}>Vamos começar o cadastro, digite seu CPF </Text>
@@ -65,17 +67,17 @@ const FormCpf = ({ setCpfFormFilled, navigation, userCpf, setUserCpf }) => {
 					{verifyUserCpf ? (
 						<GradientButton
 							title="Continuar"
-							gradient={["#FFE45C", "#FFC900"]}
+							gradient={["#2397d4", "#2397d4"]}
 							onPress={() => setCpfFormFilled(true)}
 						/>
 					) : (
-						<GradientButton
-							onPress={() => {}}
-							gradient={["#d7d7d7", "#e0e0e0"]}
-							title="Continuar"
-							textStyle={{ color: "#939393" }}
-						/>
-					)}
+							<GradientButton
+								onPress={() => { }}
+								gradient={["#cfd8dc", "#cfd8dc"]}
+								title="Continuar"
+								textStyle={{ color: "#607d8b" }}
+							/>
+						)}
 				</View>
 			</View>
 		</View>

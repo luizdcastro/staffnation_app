@@ -67,13 +67,13 @@ const FormAddress = ({
 					style={styles.buttonClose}
 					onPress={() => setNameDateFormFilled(false)}
 				>
-					<Ionicons name="ios-arrow-back" size={30} color="#242424" />
+					<Ionicons name="ios-arrow-back" size={30} color="#2397d4" />
 				</TouchableOpacity>
 				<TouchableOpacity
 					style={styles.buttonClose}
 					onPress={() => navigation.navigate("AuthPage")}
 				>
-					<Ionicons name="ios-close" size={42} color="#242424" />
+					<Ionicons name="ios-close" size={42} color="#2397d4" />
 				</TouchableOpacity>
 			</View>
 			<View style={{ flex: 1, justifyContent: "space-between" }}>
@@ -136,17 +136,17 @@ const FormAddress = ({
 					{address.number?.length >= 1 ? (
 						<GradientButton
 							title="Continuar"
-							gradient={["#FFE45C", "#FFC900"]}
+							gradient={["#2397d4", "#2397d4"]}
 							onPress={() => setAdressFormFilled(true)}
 						/>
 					) : (
-						<GradientButton
-							onPress={() => {}}
-							gradient={["#d7d7d7", "#e0e0e0"]}
-							title="Continuar"
-							textStyle={{ color: "#939393" }}
-						/>
-					)}
+							<GradientButton
+								onPress={() => { }}
+								gradient={["#cfd8dc", "#cfd8dc"]}
+								title="Continuar"
+								textStyle={{ color: "#607d8b" }}
+							/>
+						)}
 				</View>
 			</View>
 		</View>

@@ -26,7 +26,7 @@ const AuthPage = ({ navigation }) => {
 						>
 							<LinearGradient
 								style={styles.gradientButton}
-								colors={["#FFE45C", "#FFC900"]}
+								colors={["#2397d4", "#2397d4"]}
 							>
 								<Text style={styles.textButtonRegister}>Criar sua conta</Text>
 							</LinearGradient>
@@ -72,7 +72,7 @@ const styles = StyleSheet.create({
 		alignItems: "center",
 		flexDirection: "row",
 		borderRadius: 5,
-		backgroundColor: "#242424",
+		backgroundColor: '#263238',
 		marginTop: 10,
 	},
 	gradientButton: {
@@ -83,7 +83,7 @@ const styles = StyleSheet.create({
 		borderRadius: 5,
 	},
 	textButtonLogin: {
-		color: "#D4DAE0",
+		color: "#fff",
 		textTransform: "uppercase",
 		fontSize: 14,
 		fontFamily: "Montserrat_500Medium",
@@ -98,7 +98,7 @@ const styles = StyleSheet.create({
 		flexDirection: "row",
 	},
 	textButtonRegister: {
-		color: "#262833",
+		color: "#fff",
 		textTransform: "uppercase",
 		fontSize: 14,
 		fontFamily: "Montserrat_500Medium",
