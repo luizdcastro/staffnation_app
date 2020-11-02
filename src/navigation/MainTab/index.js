@@ -9,31 +9,30 @@ import JobsPage from "../../pages/Jobs";
 import NotificationPage from '../../pages/Notification'
 
 const HomeStack = createStackNavigator();
-const JobsStack = createStackNavigator();
 const Tab = createMaterialBottomTabNavigator();
 
 const MainTabScreen = () => {
 	return (
-		<Tab.Navigator initialRouteName="Home" activeColor="grey">
+		<Tab.Navigator initialRouteName="Home" activeColor="#eceff1">
 			<Tab.Screen
 				name="Home"
 				component={HomeStackScreen}
 				options={{
 					tabBarLabel: "Home",
-					tabBarColor: "#fff",
+					tabBarColor: "#263238",
 					tabBarIcon: () => (
-						<Icon name="md-home" color='grey' size={26} activeColor='red' />
-					)
+						<Icon name="md-apps" color='#eceff1' size={26} />
+					),
 				}}
 			/>
 			<Tab.Screen
 				name="Details"
-				component={JobsStackScreen}
+				component={JobsPage}
 				options={{
 					tabBarLabel: "Jobs",
-					tabBarColor: "#fff",
+					tabBarColor: "#263238",
 					tabBarIcon: () => (
-						<Icon name="md-calendar" color="grey" size={26} />
+						<Icon name="md-calendar" color="#eceff1" size={26} />
 					)
 				}}
 			/>
@@ -42,9 +41,9 @@ const MainTabScreen = () => {
 				component={ProfilePage}
 				options={{
 					tabBarLabel: "Perfil",
-					tabBarColor: "#fff",
+					tabBarColor: "#263238",
 					tabBarIcon: () => (
-						<Icon name="md-person" color='grey' size={26} />
+						<Icon name="md-person" color='#eceff1' size={26} />
 					),
 				}}
 			/>
@@ -53,9 +52,9 @@ const MainTabScreen = () => {
 				component={NotificationPage}
 				options={{
 					tabBarLabel: "Notificações",
-					tabBarColor: "#fff",
+					tabBarColor: "#263238",
 					tabBarIcon: () => (
-						<Icon name="md-notifications" color='grey' size={26} />
+						<Icon name="md-notifications" color='#eceff1' size={26} />
 					),
 				}}
 			/>
@@ -67,22 +66,29 @@ const HomeStackScreen = ({ navigation }) => (
 	<HomeStack.Navigator
 		screenOptions={{
 			headerStyle: {
-				backgroundColor: "#fff",
+				backgroundColor: "#263238",
+				height: 80
+
 			},
-			headerTintColor: "grey",
-			headerTintStyle: "bold",
+			headerTintColor: "#eceff1",
+			headerTitleStyle: {
+				fontFamily: "Montserrat_500Medium",
+				fontSize: 18
+			}
+
+
 		}}
 	>
 		<HomeStack.Screen
-			name="Home"
+			name="Olá, Luiz!"
 			component={HomePage}
 			options={{
 				headerLeft: () => (
 					<Icon.Button
 						name="md-menu"
-						size={28}
-						backgroundColor="#fff"
-						color='grey'
+						size={30}
+						backgroundColor="#263238"
+						color='#eceff1'
 						onPress={() => {
 							navigation.openDrawer();
 						}}
@@ -91,36 +97,6 @@ const HomeStackScreen = ({ navigation }) => (
 			}}
 		/>
 	</HomeStack.Navigator>
-);
-
-const JobsStackScreen = ({ navigation }) => (
-	<JobsStack.Navigator
-		screenOptions={{
-			headerStyle: {
-				backgroundColor: "#fff",
-			},
-			headerTintColor: "grey",
-			headerTintStyle: "bold",
-		}}
-	>
-		<JobsStack.Screen
-			name="Jobs"
-			component={JobsPage}
-			options={{
-				headerLeft: () => (
-					<Icon.Button
-						name="md-menu"
-						size={25}
-						color='grey'
-						backgroundColor="#fff"
-						onPress={() => {
-							navigation.openDrawer();
-						}}
-					/>
-				),
-			}}
-		/>
-	</JobsStack.Navigator>
 );
 
 export default MainTabScreen;

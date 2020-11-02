@@ -1,5 +1,9 @@
 import * as React from "react";
 import { View, Text, Button, StyleSheet } from "react-native";
+import { createStackNavigator } from "@react-navigation/stack";
+
+const HomeStack = createStackNavigator();
+
 
 const HomePage = ({ navigation }) => {
 	return (
@@ -10,7 +14,8 @@ const HomePage = ({ navigation }) => {
 };
 
 const styles = StyleSheet.create({
-	screen: { flex: 1, alignItems: "center", justifyContent: "center" },
+	screen: { flex: 1, alignItems: "center", justifyContent: "center", },
 });
+
 
 export default HomePage;
