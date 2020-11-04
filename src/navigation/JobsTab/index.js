@@ -1,12 +1,11 @@
 import React from "react";
-import { View, Platform } from 'react-native'
+import { TouchableOpacity, Platform } from 'react-native'
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 import NextJobsPage from '../../pages/NextJobsPage'
 import PastJobsPage from '../../pages/PastJobsPage'
 import PendingJobsPage from '../../pages/PendingJobsPage'
 
 import { Ionicons } from '@expo/vector-icons';
-
 
 const Tab = createMaterialTopTabNavigator();
 
@@ -25,7 +24,8 @@ const JobsTab = () => {
             },
             style: {
                 height: 55,
-                marginTop: 15,
+                marginTop: 10,
+                marginBottom: 10,
                 borderTopLeftRadius: 10,
                 borderTopRightRadius: 10,
                 marginHorizontal: 15,
@@ -65,6 +65,11 @@ export const pageOptions = {
     headerTintColor: '#fff',
     headerBackImage: () => (
         <Ionicons name="ios-arrow-back" size={35} color="#fff" style={{ marginLeft: Platform.OS === 'ios' ? 15 : 10 }} />
+    ),
+    headerRight: () => (
+        <TouchableOpacity style={{ paddingRight: 15 }}>
+            <Ionicons name="ios-help-circle-outline" size={30} color="#fff" />
+        </TouchableOpacity>
     )
 
 

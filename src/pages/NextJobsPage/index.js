@@ -1,11 +1,16 @@
 import * as React from "react";
-import { View, Text, StyleSheet } from "react-native";
+import { View, ScrollView, StyleSheet } from "react-native";
+import JobCard from '../../components/JobCard'
 
 const NextJobsPage = ({ navigation }) => {
     return (
         <View style={styles.container}>
             <View style={styles.main}>
-
+                <ScrollView style={{ marginHorizontal: 15 }}>
+                    <JobCard />
+                    <JobCard />
+                    <JobCard />
+                </ScrollView>
             </View>
         </View>
     );
