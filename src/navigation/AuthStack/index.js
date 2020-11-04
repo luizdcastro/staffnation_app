@@ -2,9 +2,9 @@ import React from "react";
 
 import { createStackNavigator } from "@react-navigation/stack";
 
-import AuthPage from "../../pages/Auth";
-import RegisterPage from "../../pages/Register";
-import LoginPage from "../../pages/Login";
+import AuthPage from "../../pages/AuthPage";
+import RegisterPage from "../../pages/RegisterPage";
+import LoginPage from "../../pages/LoginPage";
 
 const AuthStack = createStackNavigator();
 
