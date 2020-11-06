@@ -23,7 +23,7 @@ const JobCard = () => {
             </View>
             <View style={styles.icon}>
                 <TouchableOpacity>
-                    <Entypo name="dots-three-horizontal" size={25} color="#2397d4" />
+                    <Entypo name="dots-three-horizontal" size={25} color="#00A699" />
                 </TouchableOpacity>
             </View>
 
@@ -40,6 +40,7 @@ const styles = StyleSheet.create({
         height: 120,
         backgroundColor: '#fff',
         borderRadius: 10,
+        marginBottom: 10,
         shadowColor: "#000",
         shadowOffset: {
             width: 0,
@@ -48,7 +49,6 @@ const styles = StyleSheet.create({
         shadowOpacity: 0.18,
         shadowRadius: 1.00,
         elevation: 1,
-        marginBottom: 10
     },
     mainContent: {
         flex: 3,
@@ -56,36 +56,42 @@ const styles = StyleSheet.create({
         paddingLeft: 15
     },
     title: {
-        fontFamily: 'Montserrat_500Medium',
-        fontSize: 17,
-        paddingTop: 10,
-        paddingBottom: 5
+        fontFamily: 'NunitoSans_700Bold',
+        fontSize: 18,
+        paddingTop: 8,
+        paddingBottom: 5,
+        color: '#484848',
 
     },
     dateContainer: {
-        flex: 1, borderRightWidth: 0.5,
-        borderRightColor: '#cfd8dc',
+        flex: 1,
+        borderRightWidth: 0.5,
+        borderRightColor: '#E8E8E8',
         alignItems: 'center',
-        justifyContent: 'center'
+        justifyContent: 'center',
     },
     dateDayText: {
-        fontFamily: 'Montserrat_700Bold',
+        fontFamily: 'NunitoSans_800ExtraBold',
         fontSize: 22,
-        letterSpacing: 2.5,
-        color: 'black'
+        letterSpacing: 1,
+        color: '#484848',
     },
     dateMonthText: {
-        fontFamily: 'Montserrat_500Medium',
+        fontFamily: 'NunitoSans_600SemiBold',
         textTransform: 'uppercase',
-        marginBottom: 5
+        fontSize: 15,
+        marginBottom: 5,
+        color: '#484848'
     },
     smallText: {
         fontSize: 11,
-        fontFamily: 'Montserrat_400Regular',
+        fontFamily: 'NunitoSans_400Regular',
+        color: '#484848'
     },
     regularText: {
         fontSize: 13,
-        fontFamily: 'Montserrat_400Regular',
+        fontFamily: 'NunitoSans_400Regular',
+        color: '#484848'
     },
     icon: {
         paddingTop: 10,

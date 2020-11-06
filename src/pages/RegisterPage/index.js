@@ -8,6 +8,7 @@ import {
 	TouchableOpacity,
 	ActivityIndicator,
 	Text,
+	StatusBar,
 	TextInput,
 	Platform,
 } from "react-native";
@@ -131,6 +132,8 @@ const RegisterPage = ({ navigation, dispatchRegisterUser }) => {
 			behavior={Platform.OS === "ios" ? "padding" : ""}
 			style={styles.container}
 		>
+			<StatusBar barStyle='dark-content' backgroundColor='#121212' />
+
 			{!cpfFormFilled ? (
 				<FormCpf
 					setCpfFormFilled={setCpfFormFilled}
@@ -175,13 +178,13 @@ const RegisterPage = ({ navigation, dispatchRegisterUser }) => {
 							style={styles.buttonClose}
 							onPress={() => setEmailPhoneFormFilled(false)}
 						>
-							<Ionicons name="ios-arrow-back" size={30} color="#2397d4" />
+							<Ionicons name="ios-arrow-back" size={30} color="#00A699" />
 						</TouchableOpacity>
 						<TouchableOpacity
 							style={styles.buttonClose}
 							onPress={() => navigation.navigate("AuthPage")}
 						>
-							<Ionicons name="ios-close" size={42} color="#2397d4" />
+							<Ionicons name="ios-close" size={42} color="#00A699" />
 						</TouchableOpacity>
 					</View>
 					<View style={{ flex: 1, justifyContent: "space-between" }}>
@@ -245,15 +248,15 @@ const RegisterPage = ({ navigation, dispatchRegisterUser }) => {
 								{userCategories.length >= 1 ? (
 									<GradientButton
 										title="Continuar"
-										gradient={["#2397d4", "#2397d4"]}
+										gradient={["#00A699", "#00A699"]}
 										onPress={() => setCategoriesFormFilled(true)}
 									/>
 								) : (
 										<GradientButton
 											onPress={() => { }}
-											gradient={["#cfd8dc", "#cfd8dc"]}
+											gradient={["#E8E8E8", "#E8E8E8"]}
 											title="Continuar"
-											textStyle={{ color: "#607d8b" }}
+											textStyle={{ color: "#767676" }}
 										/>
 									)}
 							</View>
@@ -273,13 +276,13 @@ const RegisterPage = ({ navigation, dispatchRegisterUser }) => {
 							style={styles.buttonClose}
 							onPress={() => setCategoriesFormFilled(false)}
 						>
-							<Ionicons name="ios-arrow-back" size={30} color="#2397d4" />
+							<Ionicons name="ios-arrow-back" size={30} color="#00A699" />
 						</TouchableOpacity>
 						<TouchableOpacity
 							style={styles.buttonClose}
 							onPress={() => navigation.navigate("AuthPage")}
 						>
-							<Ionicons name="ios-close" size={42} color="#2397d4" />
+							<Ionicons name="ios-close" size={42} color="#00A699" />
 						</TouchableOpacity>
 					</View>
 					<View style={{ flex: 1, justifyContent: "space-between" }}>
@@ -291,7 +294,7 @@ const RegisterPage = ({ navigation, dispatchRegisterUser }) => {
 								autoCorrect={false}
 								autoFocus={true}
 								autoCapitalize="none"
-								selectionColor="#242424"
+								selectionColor="#484848"
 								underlineColorAndroid="transparent"
 								keyboardType="number-pad"
 								secureTextEntry={secureTextEntry}
@@ -313,7 +316,7 @@ const RegisterPage = ({ navigation, dispatchRegisterUser }) => {
 								style={styles.input}
 								autoCorrect={false}
 								autoCapitalize="none"
-								selectionColor="#242424"
+								selectionColor="#484848"
 								underlineColorAndroid="transparent"
 								keyboardType="number-pad"
 								secureTextEntry={secureTextEntry}
@@ -333,29 +336,29 @@ const RegisterPage = ({ navigation, dispatchRegisterUser }) => {
 							{(password.length >= 6) & (password === confirmPassword) & !loading ?
 								<GradientButton
 									title="Cadastrar"
-									gradient={["#2397d4", "#2397d4"]}
+									gradient={["#00A699", "#00A699"]}
 									onPress={handleRegistration}
 								/>
 								: (password.length <= 6) & confirmPassword.length <= 6 & !loading ?
 									<GradientButton
 										onPress={() => { }}
-										gradient={["#cfd8dc", "#cfd8dc"]}
+										gradient={["#E8E8E8", "#E8E8E8"]}
 										title="Cadastrar"
-										textStyle={{ color: "#607d8b" }}
+										textStyle={{ color: "#767676" }}
 									/>
 
 									: (password.length >= 6) & (password === confirmPassword) & loading ?
 										<GradientButton
 											onPress={() => { }}
-											gradient={["#2397d4", "#2397d4"]}
-											children={<ActivityIndicator style={{ paddingBottom: 15 }} size="large" color="#eceff1" animating={loading} />
+											gradient={["#00A699", "#00A699"]}
+											children={<ActivityIndicator style={{ paddingBottom: 15 }} size="large" color="#FAFAFA" animating={loading} />
 											}
 										/>
 										: <GradientButton
 											onPress={() => { }}
-											gradient={["#cfd8dc", "#cfd8dc"]}
+											gradient={["#E8E8E8", "#E8E8E8"]}
 											title="Cadastrar"
-											textStyle={{ color: "#607d8b" }}
+											textStyle={{ color: "#767676" }}
 										/>
 							}
 						</View>
@@ -369,22 +372,23 @@ const RegisterPage = ({ navigation, dispatchRegisterUser }) => {
 const styles = StyleSheet.create({
 	container: {
 		flex: 1,
+		backgroundColor: '#fafafa'
 	},
 	buttonClose: {
 		marginTop: 35,
 		paddingHorizontal: 15,
 	},
 	title: {
-		fontSize: 23,
-		fontFamily: "Montserrat_400Regular",
-		color: "#242424",
+		fontSize: 24,
+		fontFamily: "NunitoSans_400Regular",
+		color: "#484848",
 		marginTop: 10,
 		paddingHorizontal: 15,
 	},
 	input: {
 		fontSize: 24,
-		color: "#242424",
-		fontFamily: "Montserrat_400Regular",
+		color: "#484848",
+		fontFamily: "NunitoSans_400Regular",
 		width: "90%",
 		height: 45,
 		paddingHorizontal: 15,

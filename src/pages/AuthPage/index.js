@@ -4,6 +4,7 @@ import {
 	Text,
 	StyleSheet,
 	TouchableOpacity,
+	StatusBar,
 	ImageBackground,
 } from "react-native";
 import * as Animatable from "react-native-animatable";
@@ -12,6 +13,7 @@ import { LinearGradient } from "expo-linear-gradient";
 const AuthPage = ({ navigation }) => {
 	return (
 		<View style={styles.container}>
+			<StatusBar barStyle='light-content' backgroundColor='#121212' animated />
 			<ImageBackground
 				source={require("../../assets/images/barman_01.png")}
 				style={styles.background}
@@ -26,7 +28,7 @@ const AuthPage = ({ navigation }) => {
 						>
 							<LinearGradient
 								style={styles.gradientButton}
-								colors={["#2397d4", "#2397d4"]}
+								colors={["#00A699", "#00A699"]}
 							>
 								<Text style={styles.textButtonRegister}>Criar sua conta</Text>
 							</LinearGradient>
@@ -72,7 +74,7 @@ const styles = StyleSheet.create({
 		alignItems: "center",
 		flexDirection: "row",
 		borderRadius: 5,
-		backgroundColor: '#263238',
+		backgroundColor: '#121212',
 		marginTop: 10,
 	},
 	gradientButton: {
@@ -83,10 +85,10 @@ const styles = StyleSheet.create({
 		borderRadius: 5,
 	},
 	textButtonLogin: {
-		color: "#fff",
+		color: "#fafafa",
 		textTransform: "uppercase",
 		fontSize: 14,
-		fontFamily: "Montserrat_500Medium",
+		fontFamily: "NunitoSans_600SemiBold",
 	},
 	buttonRegister: {
 		marginTop: 15,
@@ -98,10 +100,10 @@ const styles = StyleSheet.create({
 		flexDirection: "row",
 	},
 	textButtonRegister: {
-		color: "#fff",
+		color: "#fafafa",
 		textTransform: "uppercase",
 		fontSize: 14,
-		fontFamily: "Montserrat_500Medium",
+		fontFamily: "NunitoSans_600SemiBold",
 	},
 });
 

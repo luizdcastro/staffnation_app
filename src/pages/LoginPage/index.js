@@ -10,6 +10,7 @@ import {
 	ScrollView,
 	TouchableWithoutFeedback,
 	ActivityIndicator,
+	StatusBar,
 	Platform,
 } from "react-native";
 
@@ -64,6 +65,7 @@ const LoginPage = ({ navigation, dispatchLoginAction }) => {
 			behavior={Platform.OS === "ios" ? "padding" : "height"}
 			style={styles.mainContainer}
 		>
+			<StatusBar barStyle='dark-content' backgroundColor='#121212' />
 			<View style={{ flex: 1 }}>
 				<TouchableWithoutFeedback
 					onPress={() => {
@@ -105,15 +107,15 @@ const LoginPage = ({ navigation, dispatchLoginAction }) => {
 						{verifyUserCpf ? (
 							<GradientButton
 								title="Continuar"
-								gradient={["#2397d4", "#2397d4"]}
+								gradient={["#00A699", "#00A699"]}
 								onPress={() => setCpfFormFilled(true)}
 							/>
 						) : (
 								<GradientButton
 									onPress={() => { }}
-									gradient={["#cfd8dc", "#cfd8dc"]}
+									gradient={["#E8E8E8", "#E8E8E8"]}
 									title="Continuar"
-									textStyle={{ color: "#607d8b" }}
+									textStyle={{ color: "#767676" }}
 								/>
 							)}
 					</View>
@@ -129,7 +131,7 @@ const LoginPage = ({ navigation, dispatchLoginAction }) => {
 								autoCorrect={false}
 								autoFocus={true}
 								keyboardType="number-pad"
-								selectionColor="#242424"
+								selectionColor="#484848"
 								secureTextEntry={secureTextEntry}
 								onChangeText={(val) => setUserPassword(val)}
 								value={userPassword}
@@ -147,21 +149,21 @@ const LoginPage = ({ navigation, dispatchLoginAction }) => {
 							{userPassword.length >= 6 & !loading ?
 								<GradientButton
 									onPress={handleLogin}
-									gradient={["#2397d4", "#2397d4"]}
+									gradient={["#00A699", "#00A699"]}
 									title="Entrar"
 								/>
 								: userPassword.length <= 6 & !loading ?
 									<GradientButton
 										onPress={() => { }}
-										gradient={["#cfd8dc", "#cfd8dc"]}
+										gradient={["#E8E8E8", "#E8E8E8"]}
 										title="Entrar"
-										textStyle={{ color: "#607d8b" }}
+										textStyle={{ color: "#767676" }}
 									/>
 									: userPassword.length >= 6 & loading ?
 										<GradientButton
 											onPress={() => { }}
-											gradient={["#2397d4", "#2397d4"]}
-											children={<ActivityIndicator style={{ paddingBottom: 15 }} size="large" color="#eceff1" animating={loading} />
+											gradient={["#00A699", "#00A699"]}
+											children={<ActivityIndicator style={{ paddingBottom: 15 }} size="large" color="#FAFAFA" animating={loading} />
 											}
 										/>
 										: null
@@ -176,26 +178,34 @@ const LoginPage = ({ navigation, dispatchLoginAction }) => {
 const styles = StyleSheet.create({
 	mainContainer: {
 		flex: 1,
-		backgroundColor: "#263238",
+		backgroundColor: "#f4f4f4",
 	},
 	formContainer: {
 		flex: 1,
 		justifyContent: "space-around",
 		borderTopEndRadius: 20,
 		borderTopStartRadius: 20,
-		backgroundColor: "#f4f4f4",
+		backgroundColor: "#fafafa",
+		shadowColor: "#000",
+		shadowOffset: {
+			width: 0,
+			height: 1,
+		},
+		shadowOpacity: 0.20,
+		shadowRadius: 1.41,
+		elevation: 2,
 	},
 	title: {
-		fontSize: 23,
-		fontFamily: "Montserrat_400Regular",
-		color: "#242424",
+		fontSize: 24,
+		fontFamily: "NunitoSans_400Regular",
+		color: "#484848",
 		marginTop: 35,
 		paddingHorizontal: 15,
 	},
 	input: {
 		fontSize: 24,
-		color: "#242424",
-		fontFamily: "Montserrat_500Medium",
+		color: "#484848",
+		fontFamily: "NunitoSans_400Regular",
 		width: "90%",
 		height: 45,
 		paddingHorizontal: 15,

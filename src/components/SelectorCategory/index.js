@@ -33,10 +33,10 @@ const SelectorCategory = ({
 							<MaterialIcons
 								name="check-circle"
 								size={30}
-								color="#2397d4"
+								color="#00A699"
 							/>
 						) : (
-								<Feather name="circle" size={30} color="#2397d4" />
+								<Feather name="circle" size={30} color="#00A699" />
 							)}
 					</TouchableOpacity>
 				</View>
@@ -62,9 +62,9 @@ const SelectorCategory = ({
 								minimumValue={0}
 								maximumValue={10}
 								step={1}
-								minimumTrackTintColor="#2397d4"
+								minimumTrackTintColor="#00A699"
 								maximumTrackTintColor="#b0bec5"
-								thumbTintColor="#2397d4"
+								thumbTintColor="#00A699"
 								value={experience}
 								onValueChange={(value) => setExperience(value)}
 							/>
@@ -79,10 +79,10 @@ const SelectorCategory = ({
 											<MaterialIcons
 												name="check-circle"
 												size={25}
-												color="#2397d4"
+												color="#00A699"
 											/>
 										) : (
-												<Feather name="circle" size={25} color="#2397d4" />
+												<Feather name="circle" size={25} color="#00A699" />
 											)}
 									</TouchableOpacity>
 								</View>
@@ -93,10 +93,10 @@ const SelectorCategory = ({
 											<MaterialIcons
 												name="check-circle"
 												size={25}
-												color="#2397d4"
+												color="#00A699"
 											/>
 										) : (
-												<Feather name="circle" size={25} color="#2397d4" />
+												<Feather name="circle" size={25} color="#00A699" />
 											)}
 									</TouchableOpacity>
 								</View>
@@ -150,24 +150,31 @@ const styles = StyleSheet.create({
 		shadowRadius: 1.0,
 	},
 	titleCategory: {
-		fontSize: 17,
-		fontFamily: "Montserrat_500Medium",
+		fontSize: 18,
+		fontFamily: "NunitoSans_600SemiBold",
+		color: '#484848'
 	},
 	titleExperience: {
-		fontSize: 15,
-		fontFamily: "Montserrat_400Regular",
+		fontSize: 16,
+		fontFamily: "NunitoSans_400Regular",
 		marginBottom: 10,
+		color: '#484848'
+
 	},
 	textExperience: {
 		fontSize: 17,
-		fontFamily: "Montserrat_500Medium",
+		fontFamily: "NunitoSans_600SemiBold",
 		textAlign: "center",
+		color: '#484848'
+
 	},
 	textCetificate: {
 		fontSize: 17,
-		fontFamily: "Montserrat_500Medium",
+		fontFamily: "NunitoSans_600SemiBold",
 		textAlign: "center",
 		paddingHorizontal: 10,
+		color: '#484848'
+
 	},
 });
 

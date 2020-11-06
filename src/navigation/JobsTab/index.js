@@ -11,25 +11,25 @@ const Tab = createMaterialTopTabNavigator();
 
 const JobsTab = () => {
     return (
-        <Tab.Navigator style={{ backgroundColor: '#eceff1' }} tabBarOptions={{
+        <Tab.Navigator style={{ backgroundColor: '#FAFAFA' }} tabBarOptions={{
             indicatorStyle: {
-                borderBottomWidth: 2.5,
-                borderBottomColor: '#dce5eb'
+                borderBottomWidth: 1.5,
+                borderBottomColor: '#E0E0E0'
             },
             labelStyle: {
                 textTransform: 'capitalize',
-                fontFamily: "Montserrat_500Medium",
-                color: '#fff',
-                fontSize: 14
+                fontFamily: "NunitoSans_600SemiBold",
+                color: '#fafafa',
+                fontSize: 15
             },
             style: {
                 height: 55,
-                marginTop: 10,
-                marginBottom: 10,
+                marginTop: 20,
+                marginBottom: 20,
                 borderTopLeftRadius: 10,
                 borderTopRightRadius: 10,
                 marginHorizontal: 15,
-                backgroundColor: '#2397d4',
+                backgroundColor: '#00A699',
                 elevation: 0,
                 shadowOpacity: 0,
                 justifyContent: 'center'
@@ -49,29 +49,23 @@ export const pageOptions = {
     headerTitle: 'Meus Trabalhos',
     headerTitleAlign: 'center',
     headerTitleStyle: {
-        color: '#fff',
-        fontFamily: "Montserrat_700Bold",
-        fontSize: 18,
+        color: '#484848',
+        fontFamily: "NunitoSans_700Bold",
+        fontSize: 20,
         textAlign: 'center',
 
     },
     headerBackTitleVisible: false,
     headerStyle: {
-        backgroundColor: '#343d52',
+        backgroundColor: '#fafafa',
         height: Platform.OS === 'ios' ? 90 : 70,
-        elevation: 0,
-        shadowOpacity: 0,
     },
-    headerTintColor: '#fff',
-    headerBackImage: () => (
-        <Ionicons name="ios-arrow-back" size={35} color="#fff" style={{ marginLeft: Platform.OS === 'ios' ? 15 : 10 }} />
-    ),
+    headerTintColor: '#00A699',
     headerRight: () => (
         <TouchableOpacity style={{ paddingRight: 15 }}>
-            <Ionicons name="ios-help-circle-outline" size={30} color="#fff" />
+            <Ionicons name="ios-help-circle-outline" size={28} color="#00A699" />
         </TouchableOpacity>
     )
-
 
 }
 

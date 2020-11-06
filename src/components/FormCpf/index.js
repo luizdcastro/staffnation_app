@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
+import { View, Text, TouchableOpacity, StatusBar, StyleSheet } from "react-native";
 
 import { cpf } from "cpf-cnpj-validator";
 import { TextInputMask } from "react-native-masked-text";
@@ -28,7 +28,7 @@ const FormCpf = ({ setCpfFormFilled, userCpf, setUserCpf }) => {
 				style={styles.buttonClose}
 				onPress={() => navigation.navigate("AuthPage")}
 			>
-				<Ionicons name="ios-arrow-back" size={30} color="#2397d4" />
+				<Ionicons name="ios-arrow-back" size={30} color="#00A699" />
 			</TouchableOpacity>
 			<View style={{ flex: 1, justifyContent: "space-between" }}>
 				<Text style={styles.title}>Vamos começar o cadastro, digite seu CPF </Text>
@@ -67,15 +67,15 @@ const FormCpf = ({ setCpfFormFilled, userCpf, setUserCpf }) => {
 					{verifyUserCpf ? (
 						<GradientButton
 							title="Continuar"
-							gradient={["#2397d4", "#2397d4"]}
+							gradient={["#00A699", "#00A699"]}
 							onPress={() => setCpfFormFilled(true)}
 						/>
 					) : (
 							<GradientButton
 								onPress={() => { }}
-								gradient={["#cfd8dc", "#cfd8dc"]}
+								gradient={["#E8E8E8", "#E8E8E8"]}
 								title="Continuar"
-								textStyle={{ color: "#607d8b" }}
+								textStyle={{ color: "#767676" }}
 							/>
 						)}
 				</View>
@@ -93,16 +93,16 @@ const styles = StyleSheet.create({
 		paddingHorizontal: 15,
 	},
 	title: {
-		fontSize: 23,
-		fontFamily: "Montserrat_400Regular",
-		color: "#242424",
+		fontSize: 24,
+		fontFamily: "NunitoSans_400Regular",
+		color: "#484848",
 		marginTop: 10,
 		paddingHorizontal: 15,
 	},
 	input: {
 		fontSize: 24,
-		color: "#242424",
-		fontFamily: "Montserrat_500Medium",
+		color: "#484848",
+		fontFamily: "NunitoSans_400Regular",
 		width: "90%",
 		height: 45,
 		paddingHorizontal: 15,

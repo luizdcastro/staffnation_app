@@ -67,13 +67,13 @@ const FormAddress = ({
 					style={styles.buttonClose}
 					onPress={() => setNameDateFormFilled(false)}
 				>
-					<Ionicons name="ios-arrow-back" size={30} color="#2397d4" />
+					<Ionicons name="ios-arrow-back" size={30} color="#00A699" />
 				</TouchableOpacity>
 				<TouchableOpacity
 					style={styles.buttonClose}
 					onPress={() => navigation.navigate("AuthPage")}
 				>
-					<Ionicons name="ios-close" size={42} color="#2397d4" />
+					<Ionicons name="ios-close" size={42} color="#00A699" />
 				</TouchableOpacity>
 			</View>
 			<View style={{ flex: 1, justifyContent: "space-between" }}>
@@ -136,15 +136,15 @@ const FormAddress = ({
 					{address.number?.length >= 1 ? (
 						<GradientButton
 							title="Continuar"
-							gradient={["#2397d4", "#2397d4"]}
+							gradient={["#00A699", "#00A699"]}
 							onPress={() => setAdressFormFilled(true)}
 						/>
 					) : (
 							<GradientButton
 								onPress={() => { }}
-								gradient={["#cfd8dc", "#cfd8dc"]}
+								gradient={["#E8E8E8", "#E8E8E8"]}
 								title="Continuar"
-								textStyle={{ color: "#607d8b" }}
+								textStyle={{ color: "#767676" }}
 							/>
 						)}
 				</View>
@@ -162,16 +162,16 @@ const styles = StyleSheet.create({
 		paddingHorizontal: 15,
 	},
 	title: {
-		fontSize: 23,
-		fontFamily: "Montserrat_400Regular",
-		color: "#242424",
+		fontSize: 24,
+		fontFamily: "NunitoSans_400Regular",
+		color: "#484848",
 		marginTop: 10,
 		paddingHorizontal: 15,
 	},
 	input: {
 		fontSize: 24,
-		color: "#242424",
-		fontFamily: "Montserrat_500Medium",
+		color: "#484848",
+		fontFamily: "NunitoSans_400Regular",
 		width: "90%",
 		height: 45,
 		paddingHorizontal: 15,
@@ -185,13 +185,13 @@ const styles = StyleSheet.create({
 		paddingLeft: 15,
 	},
 	addressText: {
-		fontFamily: "Montserrat_400Regular",
-		color: "#242424",
+		fontFamily: "NunitoSans_400Regular",
+		color: "#484848",
 		fontSize: 22,
 	},
 	inputNumber: {
-		fontFamily: "Montserrat_400Regular",
-		color: "#242424",
+		fontFamily: "NunitoSans_400Regular",
+		color: "#484848",
 		fontSize: 20,
 		paddingLeft: 15,
 	},
