@@ -9,7 +9,7 @@ const Header = ({ title }) => {
 
     return (
         <View style={styles.container}>
-            <StatusBar barStyle='light-content' backgroundColor='#121212' />
+            <StatusBar barStyle='light-content' backgroundColor='#fafafa' />
             <TouchableOpacity onPress={() => navigation.navigate('ProfilePage')}>
                 <Ionicons name="ios-menu" size={30} color="#fff" />
             </TouchableOpacity>
@@ -28,11 +28,10 @@ const styles = StyleSheet.create({
         paddingHorizontal: 15,
         alignItems: 'center',
         justifyContent: 'space-between',
-        backgroundColor: '#121212',
+        backgroundColor: '#fafafa',
     },
     title: {
         color: '#fff',
-        fontFamily: "Montserrat_700Bold",
         fontSize: 18
     }
 

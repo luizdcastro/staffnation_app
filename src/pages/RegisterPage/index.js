@@ -132,7 +132,7 @@ const RegisterPage = ({ navigation, dispatchRegisterUser }) => {
 			behavior={Platform.OS === "ios" ? "padding" : ""}
 			style={styles.container}
 		>
-			<StatusBar barStyle='dark-content' backgroundColor='#121212' />
+			<StatusBar barStyle='dark-content' backgroundColor='#fafafa' />
 
 			{!cpfFormFilled ? (
 				<FormCpf

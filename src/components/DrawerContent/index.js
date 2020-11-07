@@ -48,7 +48,7 @@ const DrawerContent = ({ dispatchLogoutAction }) => {
                         <Text style={styles.buttonText}>Pesquisar Vagas</Text>
                     </TouchableOpacity>
                     <TouchableOpacity style={styles.button} onPress={() => { }}>
-                        <Feather name="dollar-sign" size={24} color="#00A699" style={{ marginLeft: 20, marginRight: 15 }} />
+                        <Feather name="repeat" size={24} color="#00A699" style={{ marginLeft: 20, marginRight: 15 }} />
                         <Text style={styles.buttonText}>Transferir Saldo</Text>
                     </TouchableOpacity>
                 </View>

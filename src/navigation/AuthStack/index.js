@@ -9,7 +9,7 @@ import LoginPage from "../../pages/LoginPage";
 const AuthStack = createStackNavigator();
 
 const AuthStackPage = ({ navigation }) => (
-	<AuthStack.Navigator headerMode="nome">
+	<AuthStack.Navigator headerMode='none'>
 		<AuthStack.Screen name="AuthPage" component={AuthPage} />
 		<AuthStack.Screen name="LoginPage" component={LoginPage} />
 		<AuthStack.Screen name="RegisterPage" component={RegisterPage} />

@@ -65,7 +65,7 @@ const LoginPage = ({ navigation, dispatchLoginAction }) => {
 			behavior={Platform.OS === "ios" ? "padding" : "height"}
 			style={styles.mainContainer}
 		>
-			<StatusBar barStyle='dark-content' backgroundColor='#121212' />
+			<StatusBar barStyle='dark-content' backgroundColor='#fafafa' />
 			<View style={{ flex: 1 }}>
 				<TouchableWithoutFeedback
 					onPress={() => {

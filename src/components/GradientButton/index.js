@@ -33,7 +33,7 @@ const styles = StyleSheet.create({
 		color: "#fff",
 		textTransform: "uppercase",
 		fontSize: 14,
-		fontFamily: "Montserrat_500Medium",
+		fontFamily: "NunitoSans_600SemiBold",
 	},
 	loading: {
 		alignItems: 'center',

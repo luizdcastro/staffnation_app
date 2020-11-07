@@ -33,11 +33,7 @@ const SearchPage = ({ navigation }) => {
 					<JobCard />
 					<JobCard />
 					<JobCard />
-					<JobCard />
-					<JobCard />
-					<JobCard />
-					<JobCard />
-					<JobCard />
+
 				</ScrollView>
 			</KeyboardAvoidingView>
 		</View>
@@ -58,8 +54,7 @@ export const pageOptions = {
 	headerStyle: {
 		backgroundColor: '#fafafa',
 		height: Platform.OS === 'ios' ? 90 : 70,
-		elevation: 0,
-		shadowOpacity: 0,
+
 	},
 	headerTintColor: '#00A699',
 
@@ -80,7 +75,7 @@ const styles = StyleSheet.create({
 		position: 'relative',
 		marginHorizontal: 15,
 		marginTop: 15,
-		marginBottom: 30
+		marginBottom: 20
 	},
 	searchBar: {
 		width: '100%',

@@ -6,6 +6,7 @@ import {
 	TouchableOpacity,
 	StatusBar,
 	ImageBackground,
+	Platform
 } from "react-native";
 import * as Animatable from "react-native-animatable";
 import { LinearGradient } from "expo-linear-gradient";
@@ -13,7 +14,12 @@ import { LinearGradient } from "expo-linear-gradient";
 const AuthPage = ({ navigation }) => {
 	return (
 		<View style={styles.container}>
-			<StatusBar barStyle='light-content' backgroundColor='#121212' animated />
+			{
+				Platform.OS === "ios" ?
+					<StatusBar barStyle='light-content' animated /> :
+					<StatusBar barStyle='light-content' translucent={true} backgroundColor="rgba(0,0,0,0)" animated />
+
+			}
 			<ImageBackground
 				source={require("../../assets/images/barman_01.png")}
 				style={styles.background}
@@ -57,7 +63,6 @@ const styles = StyleSheet.create({
 	},
 	logo: {
 		fontSize: 35,
-		fontFamily: "Montserrat_900Black",
 		color: "#ececec",
 	},
 	buttonContainer: {

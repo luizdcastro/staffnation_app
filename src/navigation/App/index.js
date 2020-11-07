@@ -9,13 +9,6 @@ import DrawerContent from '../../components/DrawerContent'
 
 import {
 	useFonts,
-	Montserrat_400Regular,
-	Montserrat_500Medium,
-	Montserrat_700Bold,
-	Montserrat_900Black,
-} from "@expo-google-fonts/montserrat";
-
-import {
 	NunitoSans_200ExtraLight,
 	NunitoSans_300Light,
 	NunitoSans_400Regular,
@@ -31,10 +24,6 @@ const Drawer = createDrawerNavigator();
 
 const App = ({ user }) => {
 	let [fontsLoaded] = useFonts({
-		Montserrat_400Regular,
-		Montserrat_500Medium,
-		Montserrat_700Bold,
-		Montserrat_900Black,
 		NunitoSans_200ExtraLight,
 		NunitoSans_300Light,
 		NunitoSans_400Regular,

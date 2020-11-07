@@ -7,7 +7,7 @@ import { Ionicons } from '@expo/vector-icons';
 const HomePage = ({ navigation }) => {
 	return (
 		<View style={styles.container}>
-			<StatusBar barStyle='dark-content' backgroundColor='#121212' />
+			<StatusBar barStyle='dark-content' backgroundColor='#fafafa' />
 			<View style={styles.main}>
 				<View>
 				</View>
@@ -19,17 +19,17 @@ const HomePage = ({ navigation }) => {
 						</TouchableOpacity>
 					</View>
 					<View style={styles.separator} />
-					<View style={styles.menuItem} >
-						<TouchableOpacity>
-							<Feather name="user" size={24} color="#00A699" style={{ alignSelf: 'center' }} />
-							<Text style={styles.menuText}>Perfil</Text>
+					<View style={styles.menuItem}>
+						<TouchableOpacity onPress={() => navigation.navigate('TransferPage')}>
+							<Feather name="repeat" size={24} color="#00A699" style={{ alignSelf: 'center' }} />
+							<Text style={styles.menuText}>Transferir Saldo</Text>
 						</TouchableOpacity>
 					</View>
 					<View style={styles.separator} />
-					<View style={styles.menuItem}>
-						<TouchableOpacity>
-							<Feather name="dollar-sign" size={24} color="#00A699" style={{ alignSelf: 'center' }} />
-							<Text style={styles.menuText}>Transferir</Text>
+					<View style={styles.menuItem} >
+						<TouchableOpacity onPress={() => navigation.navigate('ProfilePage')}>
+							<Feather name="user" size={24} color="#00A699" style={{ alignSelf: 'center' }} />
+							<Text style={styles.menuText}>Perfil</Text>
 						</TouchableOpacity>
 					</View>
 				</View>
@@ -97,7 +97,7 @@ const styles = StyleSheet.create({
 		fontFamily: "NunitoSans_400Regular",
 		paddingTop: 8,
 		color: '#484848',
-		fontSize: 15
+		fontSize: 13
 	},
 	separator: {
 		borderRightColor: '#E8E8E8',
