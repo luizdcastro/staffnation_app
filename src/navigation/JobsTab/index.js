@@ -13,25 +13,19 @@ const JobsTab = () => {
     return (
         <Tab.Navigator style={{ backgroundColor: '#FAFAFA' }} tabBarOptions={{
             indicatorStyle: {
-                borderBottomWidth: 1.5,
-                borderBottomColor: '#E0E0E0'
+                borderBottomWidth: 3,
+                borderBottomColor: '#00A699'
             },
             labelStyle: {
                 textTransform: 'capitalize',
-                fontFamily: "NunitoSans_600SemiBold",
-                color: '#fafafa',
-                fontSize: 15
+                fontFamily: "NunitoSans_700Bold",
+                color: '#484848',
+                fontSize: 16
             },
             style: {
-                height: 55,
-                marginTop: 20,
+                height: 45,
                 marginBottom: 20,
-                borderTopLeftRadius: 10,
-                borderTopRightRadius: 10,
-                marginHorizontal: 15,
-                backgroundColor: '#00A699',
-                elevation: 0,
-                shadowOpacity: 0,
+                backgroundColor: '#fafafa',
                 justifyContent: 'center'
 
             },
@@ -58,7 +52,10 @@ export const pageOptions = {
     headerBackTitleVisible: false,
     headerStyle: {
         backgroundColor: '#fafafa',
-        height: Platform.OS === 'ios' ? 90 : 70,
+        height: Platform.OS === 'ios' ? 70 : 50,
+        elevation: 0,
+        shadowOpacity: 0
+
     },
     headerTintColor: '#00A699',
     headerRight: () => (

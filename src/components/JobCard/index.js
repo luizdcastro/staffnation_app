@@ -1,6 +1,7 @@
 import React from 'react'
 import { View, Text, TouchableOpacity, StyleSheet } from 'react-native'
 import { Entypo } from '@expo/vector-icons';
+import { Feather } from '@expo/vector-icons';
 
 const JobCard = () => {
     return (
@@ -8,23 +9,23 @@ const JobCard = () => {
             <View style={styles.dateContainer}>
                 <Text style={styles.dateDayText}>15</Text>
                 <Text style={styles.dateMonthText}>Fev</Text>
-                <Text style={styles.smallText}>20:00</Text>
-                <Text style={styles.smallText}>às</Text>
-                <Text style={styles.smallText}>03:00</Text>
+                <Text style={[styles.smallText, { textAlign: 'center', lineHeight: 12 }]}>20:00{"\n"} às {"\n"} 03:00</Text>
             </View>
             <View style={styles.mainContent}>
                 <View>
                     <Text style={styles.title}>James Bar</Text>
+                    <Text style={{ fontSize: 13, fontFamily: 'NunitoSans_400Regular', color: '#484848' }}>Centro</Text>
+                </View>
+                <View>
                     <Text style={styles.regularText}>Categoria: Segurança</Text>
                     <Text style={[styles.regularText, { paddingBottom: 10 }]}>Valor: R$ 150,00</Text>
-                    <Text style={styles.smallText}>Alameda Dr. Carlos de Carvalho, 680</Text>
-                    <Text style={styles.smallText}>Centro, Curitiba</Text>
                 </View>
             </View>
             <View style={styles.icon}>
                 <TouchableOpacity>
                     <Entypo name="dots-three-horizontal" size={25} color="#00A699" />
                 </TouchableOpacity>
+
             </View>
 
 
@@ -52,15 +53,16 @@ const styles = StyleSheet.create({
     },
     mainContent: {
         flex: 3,
-        justifyContent: 'space-between',
-        paddingLeft: 15
+        paddingLeft: 15,
+        paddingTop: 8,
+        justifyContent: 'space-around'
+
     },
     title: {
         fontFamily: 'NunitoSans_700Bold',
         fontSize: 18,
-        paddingTop: 8,
-        paddingBottom: 5,
         color: '#484848',
+        height: 21
 
     },
     dateContainer: {
@@ -73,15 +75,18 @@ const styles = StyleSheet.create({
     dateDayText: {
         fontFamily: 'NunitoSans_800ExtraBold',
         fontSize: 22,
-        letterSpacing: 1,
+        letterSpacing: 0.8,
         color: '#484848',
+        height: 25
+
     },
     dateMonthText: {
-        fontFamily: 'NunitoSans_600SemiBold',
+        fontFamily: 'NunitoSans_700Bold',
         textTransform: 'uppercase',
-        fontSize: 15,
-        marginBottom: 5,
-        color: '#484848'
+        fontSize: 16,
+        marginBottom: 8,
+        color: '#484848',
+
     },
     smallText: {
         fontSize: 11,
@@ -89,13 +94,14 @@ const styles = StyleSheet.create({
         color: '#484848'
     },
     regularText: {
-        fontSize: 13,
+        fontSize: 14,
         fontFamily: 'NunitoSans_400Regular',
         color: '#484848'
     },
     icon: {
-        paddingTop: 10,
         paddingRight: 15,
+        paddingVertical: 15,
+        justifyContent: 'space-between'
     }
 })
 
