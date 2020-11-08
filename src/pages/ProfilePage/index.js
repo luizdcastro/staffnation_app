@@ -22,7 +22,7 @@ const ProfilePage = ({ navigation }) => {
 					<Text style={styles.buttonText}>Informações Pessoais</Text>
 					<Feather name="user" size={24} color="#00A699" />
 				</TouchableOpacity>
-				<TouchableOpacity style={styles.button} onPress={() => navigation.navigate('AdressPage')}>
+				<TouchableOpacity style={styles.button} onPress={() => navigation.navigate('AdressDataPage')}>
 					<Text style={styles.buttonText}>Meu Endereço</Text>
 					<Feather name="map-pin" size={24} color="#00A699" />
 				</TouchableOpacity>

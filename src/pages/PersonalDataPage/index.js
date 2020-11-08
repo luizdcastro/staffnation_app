@@ -70,7 +70,7 @@ const PersonalDataPage = () => {
 
 
 export const pageOptions = {
-    headerTitle: 'Meu Perfil',
+    headerTitle: 'Dados Pessoais',
     headerTitleAlign: 'center',
     headerTitleStyle: {
         color: '#484848',

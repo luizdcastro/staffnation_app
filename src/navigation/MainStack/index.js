@@ -7,6 +7,7 @@ import JobsTab, { pageOptions as JobsPageOptions } from '../JobsTab'
 import SearchPage, { pageOptions as SearchPageOptions } from "../../pages/SearchPage";
 import ProfilePage, { pageOptions as ProfileOptions } from '../../pages/ProfilePage'
 import PersonalDataPage, { pageOptions as PersonalOptions } from '../../pages/PersonalDataPage'
+import AdressDataPage, { pageOptions as AddressOptions } from '../../pages/AdressDataPage'
 import TransferPage, { pageOptions as TransferOptions } from '../../pages/TransferPage'
 
 const MainStack = createStackNavigator();
@@ -18,6 +19,7 @@ const MainStackPage = ({ navigation }) => (
         <MainStack.Screen name="SearchPage" component={SearchPage} options={SearchPageOptions} />
         <MainStack.Screen name="ProfilePage" component={ProfilePage} options={ProfileOptions} />
         <MainStack.Screen name="PersonalDataPage" component={PersonalDataPage} options={PersonalOptions} />
+        <MainStack.Screen name="AdressDataPage" component={AdressDataPage} options={AddressOptions} />
         <MainStack.Screen name="TransferPage" component={TransferPage} options={TransferOptions} />
     </MainStack.Navigator>
 );
