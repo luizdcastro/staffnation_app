@@ -27,7 +27,6 @@ const JobsTab = () => {
                 marginBottom: 20,
                 backgroundColor: '#fafafa',
                 justifyContent: 'center'
-
             },
 
         }

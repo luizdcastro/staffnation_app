@@ -2,7 +2,6 @@ import * as React from "react";
 import { View, Text, Image, TouchableOpacity, StyleSheet } from "react-native";
 
 import { Feather } from '@expo/vector-icons';
-import { color } from "react-native-reanimated";
 
 
 const ProfilePage = ({ navigation }) => {
@@ -19,9 +18,13 @@ const ProfilePage = ({ navigation }) => {
 				</View>
 			</View>
 			<View>
-				<TouchableOpacity style={styles.button}>
+				<TouchableOpacity style={styles.button} onPress={() => navigation.navigate('PersonalDataPage')}>
 					<Text style={styles.buttonText}>Informações Pessoais</Text>
 					<Feather name="user" size={24} color="#00A699" />
+				</TouchableOpacity>
+				<TouchableOpacity style={styles.button} onPress={() => navigation.navigate('AdressPage')}>
+					<Text style={styles.buttonText}>Meu Endereço</Text>
+					<Feather name="map-pin" size={24} color="#00A699" />
 				</TouchableOpacity>
 				<TouchableOpacity style={styles.button}>
 					<Text style={styles.buttonText}>Dados Bancários</Text>

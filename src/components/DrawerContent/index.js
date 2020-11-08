@@ -6,7 +6,7 @@ import { Feather } from '@expo/vector-icons';
 
 import { logoutUser } from "../../redux/actions/authActions";
 
-const DrawerContent = ({ dispatchLogoutAction }) => {
+const DrawerContent = ({ dispatchLogoutAction, navigation }) => {
 
     const handleLogOut = (event) => {
         event.preventDefault();
@@ -29,25 +29,25 @@ const DrawerContent = ({ dispatchLogoutAction }) => {
                     </View>
                 </View>
                 <View>
-                    <TouchableOpacity style={styles.buttonEdit}>
+                    <TouchableOpacity style={styles.buttonEdit} onPress={() => navigation.navigate('ProfilePage')}>
                         <Text style={[styles.buttonText, { color: '#767676', marginHorizontal: 20 }]} >Editar Perfil</Text>
                         <Ionicons name="ios-arrow-forward" size={24} color="#00A699" style={{ marginHorizontal: 20 }} />
                     </TouchableOpacity>
                 </View>
                 <View style={{ paddingTop: 25 }}>
-                    <TouchableOpacity style={styles.button} onPress={() => { }}>
+                    <TouchableOpacity style={styles.button} onPress={() => navigation.toggleDrawer()}>
                         <Feather name="home" size={24} color="#00A699" style={{ marginLeft: 20, marginRight: 15 }} />
                         <Text style={styles.buttonText}>Home</Text>
                     </TouchableOpacity>
-                    <TouchableOpacity style={styles.button} onPress={() => { }}>
+                    <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('JobsTab')}>
                         <Feather name="calendar" size={24} color="#00A699" style={{ marginLeft: 20, marginRight: 15 }} />
                         <Text style={styles.buttonText}>Meus Trabalhos</Text>
                     </TouchableOpacity>
-                    <TouchableOpacity style={styles.button} onPress={() => { }}>
+                    <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('SearchPage')}>
                         <Feather name="search" size={24} color="#00A699" style={{ marginLeft: 20, marginRight: 15 }} />
                         <Text style={styles.buttonText}>Pesquisar Vagas</Text>
                     </TouchableOpacity>
-                    <TouchableOpacity style={styles.button} onPress={() => { }}>
+                    <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('TransferPage')}>
                         <Feather name="repeat" size={24} color="#00A699" style={{ marginLeft: 20, marginRight: 15 }} />
                         <Text style={styles.buttonText}>Transferir Saldo</Text>
                     </TouchableOpacity>

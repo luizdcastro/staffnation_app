@@ -32,7 +32,7 @@ const TransferPage = () => {
                     value={transferValue}
                     onChangeText={text => setTransferValue(text)}
                     maxLength={11}
-                    style={{ fontSize: 26, fontFamily: 'NunitoSans_700Bold', color: '#484848' }}
+                    style={{ fontSize: 26, fontFamily: 'NunitoSans_700Bold', color: '#484848', width: 150 }}
                 />
             </View>
             {transferValue.length >= 6 ? (

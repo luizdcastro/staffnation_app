@@ -4,8 +4,8 @@ import { NavigationContainer } from "@react-navigation/native";
 import { createDrawerNavigator } from '@react-navigation/drawer';
 
 import AuthStack from "../AuthStack";
-import HomeStack from '../HomeStack'
 import DrawerContent from '../../components/DrawerContent'
+import MainStack from '../MainStack'
 
 import {
 	useFonts,
@@ -42,7 +42,7 @@ const App = ({ user }) => {
 					<AuthStack />
 					:
 					<Drawer.Navigator drawerContent={props => <DrawerContent {...props} />}>
-						<Drawer.Screen name="Home" component={HomeStack} />
+						<Drawer.Screen name="MainStack" component={MainStack} />
 					</Drawer.Navigator>}
 			</NavigationContainer>
 		);
