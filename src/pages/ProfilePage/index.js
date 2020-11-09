@@ -26,7 +26,11 @@ const ProfilePage = ({ navigation }) => {
 					<Text style={styles.buttonText}>Meu Endereço</Text>
 					<Feather name="map-pin" size={24} color="#00A699" />
 				</TouchableOpacity>
-				<TouchableOpacity style={styles.button}>
+				<TouchableOpacity style={styles.button} onPress={() => navigation.navigate('ProfessionalDataPage')}>
+					<Text style={styles.buttonText}>Perfil Profissional</Text>
+					<Feather name="award" size={24} color="#00A699" />
+				</TouchableOpacity>
+				<TouchableOpacity style={styles.button} onPress={() => navigation.navigate('BankDataPage')}>
 					<Text style={styles.buttonText}>Dados Bancários</Text>
 					<Feather name="dollar-sign" size={24} color="#00A699" />
 				</TouchableOpacity>
@@ -92,7 +96,7 @@ const styles = StyleSheet.create({
 		marginHorizontal: 20,
 		paddingBottom: 10,
 		borderBottomWidth: 0.3,
-		borderBottomColor: 'black',
+		borderBottomColor: '#484848',
 		marginBottom: 20
 	},
 	buttonText: {
