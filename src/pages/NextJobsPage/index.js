@@ -7,9 +7,7 @@ const NextJobsPage = ({ navigation }) => {
         <View style={styles.container}>
             <View style={styles.main}>
                 <ScrollView style={{ marginHorizontal: 15 }}>
-                    <JobCard />
-                    <JobCard />
-                    <JobCard />
+                    <JobCard openCard={() => navigation.navigate('JobDetailsPage')} />
                 </ScrollView>
             </View>
         </View>

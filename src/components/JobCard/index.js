@@ -3,7 +3,7 @@ import { View, Text, TouchableOpacity, StyleSheet } from 'react-native'
 import { Entypo } from '@expo/vector-icons';
 import { Feather } from '@expo/vector-icons';
 
-const JobCard = () => {
+const JobCard = ({ openCard }) => {
     return (
         <View style={styles.container}>
             <View style={styles.dateContainer}>
@@ -22,7 +22,7 @@ const JobCard = () => {
                 </View>
             </View>
             <View style={styles.icon}>
-                <TouchableOpacity>
+                <TouchableOpacity onPress={openCard}>
                     <Entypo name="dots-three-horizontal" size={25} color="#00A699" />
                 </TouchableOpacity>
 
