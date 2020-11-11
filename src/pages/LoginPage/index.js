@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { connect } from "react-redux";
 import {
 	View,
@@ -20,6 +20,7 @@ import { cpf } from "cpf-cnpj-validator";
 import { Ionicons } from "@expo/vector-icons";
 import Feather from "react-native-vector-icons/Feather";
 
+
 import GradientButton from "../../components/GradientButton";
 import { loginUser } from "../../redux/actions/authActions";
 
@@ -30,6 +31,7 @@ const LoginPage = ({ navigation, dispatchLoginAction }) => {
 	const [userPassword, setUserPassword] = useState("");
 	const [secureTextEntry, setSecureTextEntry] = useState(true);
 	const [error, setError] = useState(false);
+	const [errorMessage, setErrorMessage] = useState('')
 	const [loading, setLoading] = useState(false);
 
 	const handleLogin = (event) => {
@@ -40,16 +42,21 @@ const LoginPage = ({ navigation, dispatchLoginAction }) => {
 			userPassword,
 			(response) => {
 				console.log(response);
-				setLoading(false)
 
 			},
-			(error) => {
-				setError(error)
-				setLoading(false)
-				console.log('Erro de auth')
+			(response) => {
+				setError(true);
+				setErrorMessage(response.error)
 			}
 		);
 	};
+
+	useEffect(() => {
+		if (error === true) {
+			setLoading(false)
+			setError(false)
+		}
+	}, [error, loading])
 
 	const handleCpfInput = (text) => {
 		if (cpf.isValid(text)) {
@@ -124,7 +131,12 @@ const LoginPage = ({ navigation, dispatchLoginAction }) => {
 					<View style={styles.formContainer}>
 						<Animatable.Text animation="fadeInUp" style={styles.title}>
 							Insira a senha de acesso
-					</Animatable.Text>
+					  </Animatable.Text>
+						{errorMessage ?
+							<Animatable.Text animation="fadeInLeft" style={styles.error}>
+								{errorMessage}
+							</Animatable.Text>
+							: null}
 						<View style={{ flexDirection: "row", alignItems: "center" }}>
 							<TextInput
 								style={styles.input}
@@ -163,7 +175,7 @@ const LoginPage = ({ navigation, dispatchLoginAction }) => {
 										<GradientButton
 											onPress={() => { }}
 											gradient={["#00A699", "#00A699"]}
-											children={<ActivityIndicator style={{ paddingBottom: 15 }} size="large" color="#FAFAFA" animating={loading} />
+											children={<ActivityIndicator style={{ paddingBottom: 10 }} size="large" color="#FAFAFA" animating={loading} />
 											}
 										/>
 										: null
@@ -210,12 +222,17 @@ const styles = StyleSheet.create({
 		height: 45,
 		paddingHorizontal: 15,
 	},
-
 	buttonContainer: {
 		justifyContent: "flex-end",
 		alignItems: "center",
 		paddingBottom: 10,
 	},
+	error: {
+		fontFamily: 'NunitoSans_400Regular',
+		fontSize: 12,
+		color: '#ff5a60',
+		marginLeft: 15
+	}
 });
 
 const mapDispatchToProps = (dispatch) => ({

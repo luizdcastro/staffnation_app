@@ -31,12 +31,12 @@ export const apiMiddleware = ({ dispatch, getState }) => (next) => (action) => {
 			if (success) dispatch(success(response.data));
 			if (postProccessSuccess) postProccessSuccess(response.data);
 		})
-		.catch((error) => {
-			if (!error.data) console.log(error);
+		.catch((err) => {
+			if (!err.response) console.log(err);
 			else {
-				if (error.data) {
-					if (error.data && error.data.status === 403) dispatch(logoutUser());
-					if (postProccessError) postProccessError(error.data);
+				if (err.response.data) {
+					if (err.response && err.response.status === 403) dispatch(logoutUser());
+					if (postProccessError) postProccessError(err.response.data);
 				}
 			}
 		});

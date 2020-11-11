@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
 import {
 	KeyboardAvoidingView,
@@ -16,6 +16,7 @@ import {
 import _ from "lodash";
 import { Ionicons } from "@expo/vector-icons";
 import Feather from "react-native-vector-icons/Feather";
+import * as Animatable from "react-native-animatable";
 
 import GradientButton from "../../components/GradientButton";
 import FormCpf from "../../components/FormCpf";
@@ -43,10 +44,10 @@ const RegisterPage = ({ navigation, dispatchRegisterUser }) => {
 	const [address, setAddress] = useState({});
 	const [password, setPassword] = useState("");
 	const [confirmPassword, setConfirmPassword] = useState("");
-	const [secureTextEntry, setSecureTextEntry] = useState(false);
-	const [error, setError] = useState("");
+	const [secureTextEntry, setSecureTextEntry] = useState(true);
+	const [error, setError] = useState(false);
+	const [errorMessage, setErrorMessage] = useState('')
 	const [loading, setLoading] = useState(false);
-
 
 	//Select categories data from object
 	const [segCardExpanded, setSegCardExpanded] = useState(false);
@@ -119,13 +120,21 @@ const RegisterPage = ({ navigation, dispatchRegisterUser }) => {
 			password,
 			confirmPassword,
 			(response) => { console.log(response); setLoading(false) },
-			(error) => {
-				setError(error);
-				console.log(error);
-				setLoading(false)
+			(response) => {
+				setError(true);
+				setErrorMessage(response.error)
 			}
 		);
 	};
+
+	useEffect(() => {
+		if (error === true) {
+			setLoading(false)
+			setError(false)
+		}
+	}, [error, loading])
+
+	console.log(errorMessage)
 
 	return (
 		<KeyboardAvoidingView
@@ -287,6 +296,11 @@ const RegisterPage = ({ navigation, dispatchRegisterUser }) => {
 					</View>
 					<View style={{ flex: 1, justifyContent: "space-between" }}>
 						<Text style={styles.title}>Digite sua senha de acesso </Text>
+						{errorMessage ?
+							<Animatable.Text animation="fadeInLeft" style={styles.error}>
+								{errorMessage}
+							</Animatable.Text>
+							: null}
 						<View style={{ flexDirection: "row", alignItems: "center" }}>
 							<TextInput
 								style={styles.input}
@@ -351,7 +365,7 @@ const RegisterPage = ({ navigation, dispatchRegisterUser }) => {
 										<GradientButton
 											onPress={() => { }}
 											gradient={["#00A699", "#00A699"]}
-											children={<ActivityIndicator style={{ paddingBottom: 15 }} size="large" color="#FAFAFA" animating={loading} />
+											children={<ActivityIndicator style={{ paddingBottom: 10 }} size="large" color="#FAFAFA" animating={loading} />
 											}
 										/>
 										: <GradientButton
@@ -399,6 +413,12 @@ const styles = StyleSheet.create({
 		marginTop: 10,
 		paddingBottom: 25,
 	},
+	error: {
+		fontFamily: 'NunitoSans_400Regular',
+		fontSize: 12,
+		color: '#ff5a60',
+		marginLeft: 15
+	}
 });
 
 const mapDispatchToProps = (dispatch) => ({
