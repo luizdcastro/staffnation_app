@@ -7,7 +7,7 @@ export const apiMiddleware = ({ dispatch, getState }) => (next) => (action) => {
 	if (action.type !== constants.API) return next(action);
 
 	const BASE_URL = "https://staffnation-server.herokuapp.com/v1";
-	const AUTH_TOKEN = getState().user.token;
+	const AUTH_TOKEN = getState().auth.token;
 	if (AUTH_TOKEN)
 		axios.defaults.headers.common["Authorization"] = `Bearer ${AUTH_TOKEN}`;
 

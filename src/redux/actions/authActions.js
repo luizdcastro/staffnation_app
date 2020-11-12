@@ -7,7 +7,7 @@ export const registerUser = (data, onSuccess, onError) => ({
 		method: "POST",
 		url: "/auth/registrar",
 		data,
-		success: (response) => setUserInfo(response),
+		success: (response) => setAuthInfo(response),
 		postProccessSuccess: onSuccess,
 		postProccessError: onError,
 	},
@@ -19,24 +19,24 @@ export const loginUser = (data, onSuccess, onError) => ({
 		method: "POST",
 		url: "/auth/login",
 		data,
-		success: (response) => setUserInfo(response),
+		success: (response) => setAuthInfo(response),
 		postProccessSuccess: onSuccess,
 		postProccessError: onError,
 	},
 });
 
 export const logoutUser = () => {
-	AsyncStorage.removeItem("user");
+	AsyncStorage.removeItem("auth");
 	return { type: constants.RESET_USER_INFO };
 };
 
-const setUserInfo = (data) => {
+const setAuthInfo = (data) => {
 	const parsedToken = JSON.parse(atob(data.token.split(".")[1]));
-	const userInfo = {
+	const authInfo = {
 		userId: parsedToken.id,
 		token: data.token,
 		isLoggedIn: true,
 	};
-	AsyncStorage.setItem("user", JSON.stringify(userInfo));
-	return { type: constants.SET_USER_INFO, payload: userInfo };
+	AsyncStorage.setItem("auth", JSON.stringify(authInfo));
+	return { type: constants.SET_USER_INFO, payload: authInfo };
 };

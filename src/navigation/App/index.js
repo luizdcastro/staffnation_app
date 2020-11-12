@@ -22,7 +22,7 @@ import { AppLoading } from "expo";
 
 const Drawer = createDrawerNavigator();
 
-const App = ({ user }) => {
+const App = ({ auth }) => {
 	let [fontsLoaded] = useFonts({
 		NunitoSans_200ExtraLight,
 		NunitoSans_300Light,
@@ -38,7 +38,7 @@ const App = ({ user }) => {
 	} else {
 		return (
 			<NavigationContainer>
-				{!user.isLoggedIn ?
+				{!auth.isLoggedIn ?
 					<AuthStack />
 					:
 					<Drawer.Navigator drawerContent={props => <DrawerContent {...props} />}>
@@ -49,6 +49,6 @@ const App = ({ user }) => {
 	}
 };
 
-const mapStateToProps = (state) => ({ user: state.user });
+const mapStateToProps = (state) => ({ auth: state.auth });
 
 export default connect(mapStateToProps)(App);

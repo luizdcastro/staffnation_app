@@ -1,10 +1,23 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import { connect } from "react-redux";
+import { createStructuredSelector } from 'reselect';
 import { View, Text, TouchableOpacity, StatusBar, StyleSheet, Platform } from "react-native";
 
 import { Feather } from '@expo/vector-icons';
 import { Ionicons } from '@expo/vector-icons';
 
-const HomePage = ({ navigation }) => {
+import { selectUserData } from '../../redux/reducers/user/userSelector'
+import { getUser } from "../../redux/actions/userActions"
+
+
+const HomePage = ({ navigation, user, dispatchGetUserAction }) => {
+
+	useEffect(() => {
+		navigation.setOptions({
+			headerTitle: `Olá, ${user.data.name.split(' ')[0]}!`
+		})
+	}, [user])
+
 	return (
 		<View style={styles.container}>
 			<StatusBar barStyle='dark-content' backgroundColor='#fafafa' />
@@ -44,8 +57,8 @@ const HomePage = ({ navigation }) => {
 };
 
 export const pageOptions = ({ navigation }) => {
+
 	return {
-		headerTitle: 'Olá, Luiz!',
 		headerTitleStyle: {
 			color: '#484848',
 			fontFamily: "NunitoSans_700Bold",
@@ -117,5 +130,12 @@ const styles = StyleSheet.create({
 	}
 });
 
+const mapDispatchToProps = (dispatch) => ({
+	dispatchGetUserAction: (id) => dispatch(getUser(id))
+});
 
-export default HomePage;
+const mapStateToProps = createStructuredSelector({
+	user: selectUserData,
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(HomePage);

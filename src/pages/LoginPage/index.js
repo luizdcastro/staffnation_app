@@ -23,8 +23,9 @@ import Feather from "react-native-vector-icons/Feather";
 
 import GradientButton from "../../components/GradientButton";
 import { loginUser } from "../../redux/actions/authActions";
+import { getUser } from "../../redux/actions/userActions"
 
-const LoginPage = ({ navigation, dispatchLoginAction }) => {
+const LoginPage = ({ navigation, dispatchLoginAction, dispatchGetUserAction }) => {
 	const [userCpf, setUserCpf] = useState("");
 	const [verifyUserCpf, setVerifyUserCpf] = useState("");
 	const [cpfFormFilled, setCpfFormFilled] = useState(false);
@@ -40,9 +41,9 @@ const LoginPage = ({ navigation, dispatchLoginAction }) => {
 		dispatchLoginAction(
 			userCpf,
 			userPassword,
-			(response) => {
-				console.log(response);
-
+			async (response) => {
+				const data = await response.data
+				dispatchGetUserAction(data._id)
 			},
 			(response) => {
 				setError(true);
@@ -238,6 +239,7 @@ const styles = StyleSheet.create({
 const mapDispatchToProps = (dispatch) => ({
 	dispatchLoginAction: (cpf, password, onSuccess, onError) =>
 		dispatch(loginUser({ cpf, password }, onSuccess, onError)),
+	dispatchGetUserAction: (id) => dispatch(getUser(id))
 });
 
 export default connect(null, mapDispatchToProps)(LoginPage);

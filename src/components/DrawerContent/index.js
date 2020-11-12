@@ -1,17 +1,20 @@
 import React from 'react'
 import { View, Text, Image, SafeAreaView, TouchableOpacity, StyleSheet } from 'react-native'
 import { connect } from "react-redux";
+import { createStructuredSelector } from 'reselect';
 import { Ionicons } from '@expo/vector-icons';
 import { Feather } from '@expo/vector-icons';
 
 import { logoutUser } from "../../redux/actions/authActions";
+import { selectUserData } from '../../redux/reducers/user/userSelector'
 
-const DrawerContent = ({ dispatchLogoutAction, navigation }) => {
+const DrawerContent = ({ dispatchLogoutAction, navigation, user }) => {
 
     const handleLogOut = (event) => {
         event.preventDefault();
         dispatchLogoutAction()
     }
+
     return (
         <SafeAreaView style={styles.container}>
             <View style={{ flex: 1 }}>
@@ -21,9 +24,9 @@ const DrawerContent = ({ dispatchLogoutAction, navigation }) => {
                         source={{ uri: 'https://www.gravatar.com/avatar/205e460b479e2e5b48aec07710c08d50.jpg' }}
                     />
                     <View>
-                        <Text style={styles.name}>Luiz Castro</Text>
+                        <Text style={styles.name}>{user.data.name}</Text>
                         <View style={{ flexDirection: 'row', alignItems: 'center', }} >
-                            <Text style={styles.rate}>4.90</Text>
+                            <Text style={styles.rate}>{user.data.rating.toFixed(2)}</Text>
                             <Ionicons name="ios-star" size={13} color="#767676" />
                         </View>
                     </View>
@@ -123,5 +126,8 @@ const mapDispatchToProps = (dispatch) => ({
     dispatchLogoutAction: () => dispatch(logoutUser()),
 });
 
+const mapStateToProps = createStructuredSelector({
+    user: selectUserData,
+});
 
-export default connect(null, mapDispatchToProps)(DrawerContent)
+export default connect(mapStateToProps, mapDispatchToProps)(DrawerContent)

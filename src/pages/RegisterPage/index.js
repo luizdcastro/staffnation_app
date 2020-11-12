@@ -25,8 +25,9 @@ import FormAdress from "../../components/FormAddress";
 import FormEmailPhone from "../../components/FormEmailPhone";
 import SelectorCategory from "../../components/SelectorCategory";
 import { registerUser } from "../../redux/actions/authActions";
+import { getUser } from "../../redux/actions/userActions"
 
-const RegisterPage = ({ navigation, dispatchRegisterUser }) => {
+const RegisterPage = ({ navigation, dispatchRegisterUser, dispatchGetUserAction }) => {
 	//Getting data from child components
 	const [cpfFormFilled, setCpfFormFilled] = useState(false);
 	const [nameDateFormFilled, setNameDateFormFilled] = useState(false);
@@ -119,7 +120,10 @@ const RegisterPage = ({ navigation, dispatchRegisterUser }) => {
 			userCategories,
 			password,
 			confirmPassword,
-			(response) => { console.log(response); setLoading(false) },
+			async (response) => {
+				const data = await response.data
+				dispatchGetUserAction(data._id)
+			},
 			(response) => {
 				setError(true);
 				setErrorMessage(response.error)
@@ -365,7 +369,7 @@ const RegisterPage = ({ navigation, dispatchRegisterUser }) => {
 										<GradientButton
 											onPress={() => { }}
 											gradient={["#00A699", "#00A699"]}
-											children={<ActivityIndicator style={{ paddingBottom: 10 }} size="large" color="#FAFAFA" animating={loading} />
+											children={<ActivityIndicator style={{ paddingBottom: 15 }} size="large" color="#FAFAFA" animating={loading} />
 											}
 										/>
 										: <GradientButton
@@ -452,6 +456,7 @@ const mapDispatchToProps = (dispatch) => ({
 				onError
 			)
 		),
+	dispatchGetUserAction: (id) => dispatch(getUser(id))
 });
 
 export default connect(null, mapDispatchToProps)(RegisterPage);
