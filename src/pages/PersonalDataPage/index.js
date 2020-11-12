@@ -1,16 +1,44 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
+import { connect } from "react-redux";
+import { createStructuredSelector } from 'reselect';
 import { View, Text, Platform, StyleSheet, ScrollView, KeyboardAvoidingView, TextInput, TouchableOpacity } from 'react-native'
 import { useHeaderHeight } from '@react-navigation/stack';
 
+
+import { selectUserData } from '../../redux/reducers/user/userSelector'
+import { getUser, updateUser } from "../../redux/actions/userActions"
+
 import { TextInputMask } from "react-native-masked-text";
-import { Ionicons } from "@expo/vector-icons";
 
+const PersonalDataPage = ({ navigation, dispatchGetUserAction, dispatchUpdateUserAction, user }) => {
+    const [name, setName] = useState(user.data.name)
+    const [date, setDate] = useState(user.data.birthdayDate)
+    const [email, setEmail] = useState(user.data.email)
+    const [phone, setPhone] = useState(user.data.phone)
 
-const PersonalDataPage = () => {
-    const [date, setDate] = useState('')
-    const [name, setName] = useState('')
-    const [email, setEmail] = useState('')
-    const [phone, setPhone] = useState('')
+    const hanleUpdateUser = (event) => {
+        event.preventDefault();
+        dispatchUpdateUserAction(
+            user.data._id,
+            name,
+            date,
+            email,
+            phone,
+            async () => await dispatchGetUserAction(user.data._id),
+            (error) => console.log(error)
+        )
+        navigation.navigate('ProfilePage')
+    }
+
+    useEffect(() => {
+        navigation.setOptions({
+            headerRight: () => (
+                <TouchableOpacity style={{ paddingRight: 15 }} onPress={hanleUpdateUser}>
+                    <Text style={{ fontSize: 17, fontFamily: 'NunitoSans_700Bold', color: '#00A699' }}>Salvar</Text>
+                </TouchableOpacity>
+            )
+        })
+    }, [name, date, email, phone])
 
     return (
         <KeyboardAvoidingView style={styles.container} keyboardVerticalOffset={useHeaderHeight()} behavior={Platform.OS === "ios" ? "padding" : "height"}>
@@ -85,12 +113,6 @@ export const pageOptions = {
         height: Platform.OS === 'ios' ? 90 : 70,
 
     },
-    headerRight: () => (
-        <TouchableOpacity style={{ paddingRight: 15 }}>
-            <Text style={{ fontSize: 17, fontFamily: 'NunitoSans_700Bold', color: '#00A699' }}>Salvar</Text>
-        </TouchableOpacity>
-    )
-    ,
     headerTintColor: '#00A699',
 
 }
@@ -120,4 +142,14 @@ const styles = StyleSheet.create({
     }
 })
 
-export default PersonalDataPage
+const mapDispatchToProps = (dispatch) => ({
+    dispatchGetUserAction: (id) => dispatch(getUser(id)),
+    dispatchUpdateUserAction: (id, name, birthdayDate, email, phone, onSuccess, onError) =>
+        dispatch(updateUser(id, { name, birthdayDate, email, phone }, onSuccess, onError))
+});
+
+const mapStateToProps = createStructuredSelector({
+    user: selectUserData,
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(PersonalDataPage)
