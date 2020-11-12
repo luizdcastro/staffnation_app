@@ -1,14 +1,18 @@
 import React, { useState, useEffect } from 'react'
+import { connect } from "react-redux";
+import { createStructuredSelector } from 'reselect';
 import { View, Text, Platform, StyleSheet, ScrollView, KeyboardAvoidingView, TextInput, TouchableOpacity } from 'react-native'
 import { useHeaderHeight } from '@react-navigation/stack';
+import * as Animatable from "react-native-animatable";
+
+import { selectUserData } from '../../redux/reducers/user/userSelector'
+import { getUser, updateUser } from "../../redux/actions/userActions"
+
 import { TextInputMask } from "react-native-masked-text";
-import { Ionicons } from "@expo/vector-icons";
 
-
-
-const AdressDataPage = () => {
-    const [cep, setCep] = useState("");
-    const [number, setNumber] = useState("");
+const AdressDataPage = ({ navigation, user, dispatchUpdateUserAction, dispatchGetUserAction }) => {
+    const [cep, setCep] = useState(user.data.address.cep);
+    const [number, setNumber] = useState(user.data.address.number);
     const [address, setAddress] = useState({})
     const [errorCep, setErrorCep] = useState(false);
 
@@ -34,16 +38,38 @@ const AdressDataPage = () => {
     };
 
     useEffect(() => {
-        if (cep.length >= 8) {
+        if (cep?.length >= 8) {
             getUserAddress();
         }
     }, [cep]);
 
     useEffect(() => {
-        if (number.length) {
+        if (number?.length) {
             setAddress({ ...address, number: number });
         }
     }, [number]);
+
+    const handleUpdateAddress = (event) => {
+        event.preventDefault();
+        dispatchUpdateUserAction(
+            user.data._id,
+            address,
+            async (response) => { await dispatchGetUserAction(user.data._id) },
+            (error) => console.log(error)
+        )
+        navigation.navigate('ProfilePage')
+    }
+
+    useEffect(() => {
+        navigation.setOptions({
+            headerRight: () => (
+                <TouchableOpacity style={{ paddingRight: 15 }} onPress={handleUpdateAddress}>
+                    <Text style={{ fontSize: 17, fontFamily: 'NunitoSans_700Bold', color: '#00A699' }}>Salvar</Text>
+                </TouchableOpacity>
+            )
+        })
+    }, [cep, number, address])
+
     return (
         <KeyboardAvoidingView style={styles.container} keyboardVerticalOffset={useHeaderHeight()} behavior={Platform.OS === "ios" ? "padding" : "height"}>
             <ScrollView>
@@ -64,7 +90,7 @@ const AdressDataPage = () => {
                     />
                 </View>
                 {address.cep ?
-                    <View style={{ marginLeft: 15, marginTop: 20 }}>
+                    <Animatable.View animation="fadeInUp" style={{ paddingHorizontal: 15, marginTop: 20 }}>
                         <View style={{ flexDirection: 'row', alignItems: 'center' }}>
                             <Text style={[styles.address, { marginRight: 10 }]}>{`${address.street}, Nº`}</Text>
                             <TextInput
@@ -81,7 +107,7 @@ const AdressDataPage = () => {
                         <View>
                             <Text style={styles.address}>{`${address.neighborhood}, ${address.city} - ${address.state}`}</Text>
                         </View>
-                    </View> : null}
+                    </Animatable.View > : null}
             </ScrollView>
         </KeyboardAvoidingView>
     )
@@ -104,12 +130,6 @@ export const pageOptions = {
         height: Platform.OS === 'ios' ? 90 : 70,
 
     },
-    headerRight: () => (
-        <TouchableOpacity style={{ paddingRight: 15 }}>
-            <Text style={{ fontSize: 17, fontFamily: 'NunitoSans_700Bold', color: '#00A699' }}>Salvar</Text>
-        </TouchableOpacity>
-    )
-    ,
     headerTintColor: '#00A699',
 
 }
@@ -143,4 +163,14 @@ const styles = StyleSheet.create({
     }
 })
 
-export default AdressDataPage
+const mapDispatchToProps = (dispatch) => ({
+    dispatchGetUserAction: (id) => dispatch(getUser(id)),
+    dispatchUpdateUserAction: (id, address, onSuccess, onError) =>
+        dispatch(updateUser(id, { address }, onSuccess, onError))
+});
+
+const mapStateToProps = createStructuredSelector({
+    user: selectUserData,
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(AdressDataPage)

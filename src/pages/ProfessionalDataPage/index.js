@@ -1,10 +1,15 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
+import { connect } from "react-redux";
+import { createStructuredSelector } from 'reselect';
 import { View, Text, TouchableOpacity, ScrollView, StyleSheet } from 'react-native'
+
+import { selectUserData } from '../../redux/reducers/user/userSelector'
+import { getUser, updateUser } from "../../redux/actions/userActions"
 
 import _ from "lodash";
 import SelectorCategory from '../../components/SelectorCategory'
 
-const ProfessionalDataPge = () => {
+const ProfessionalDataPge = ({ navigation, user, dispatchGetUserAction, dispatchUpdateUserAction }) => {
     const [segCardExpanded, setSegCardExpanded] = useState(false);
     const [segExperience, setSegExperience] = useState(0);
     const [segCertificate, setSegCertificate] = useState(false);
@@ -20,6 +25,8 @@ const ProfessionalDataPge = () => {
     const [garCardExpanded, setGacCardExpanded] = useState(false);
     const [garExperience, setGarExperience] = useState(0);
     const [garCertificate, setGarCertificate] = useState(false);
+
+    console.log(user.data.categories[0].name)
 
     const categories = [
         {
@@ -59,18 +66,36 @@ const ProfessionalDataPge = () => {
         },
     ];
 
-
     const userCategories = _.filter(categories, ["selected", true]);
 
-    console.log(userCategories)
+    const handleUpdateCategories = (event) => {
+        event.preventDefault();
+        dispatchUpdateUserAction(
+            user.data._id,
+            userCategories,
+            async (response) => { await dispatchGetUserAction(user.data._id) },
+            (error) => console.log(error)
+        )
+        navigation.navigate('ProfilePage')
+    }
 
+
+    useEffect(() => {
+        navigation.setOptions({
+            headerRight: () => (
+                <TouchableOpacity style={{ paddingRight: 15 }} onPress={handleUpdateCategories}>
+                    <Text style={{ fontSize: 17, fontFamily: 'NunitoSans_700Bold', color: '#00A699' }}>Salvar</Text>
+                </TouchableOpacity>
+            )
+        })
+    }, [userCategories])
 
     return (
         <View style={styles.container}>
-            <Text style={styles.label}>Categorias selecionadas</Text>
+            <Text style={[styles.label, { marginBottom: 5 }]}>Categoria atual</Text>
             <View style={styles.tagContainer}>
-                {userCategories.length > 0
-                    ? userCategories.map((item) => (
+                {user.data.categories?.length > 0
+                    ? user.data.categories.map((item) => (
                         <View key={item.id} style={styles.tag}>
                             <Text style={styles.tagText}>{item.name}</Text>
                         </View>
@@ -150,14 +175,7 @@ export const pageOptions = {
         height: Platform.OS === 'ios' ? 90 : 70,
 
     },
-    headerRight: () => (
-        <TouchableOpacity style={{ paddingRight: 15 }}>
-            <Text style={{ fontSize: 17, fontFamily: 'NunitoSans_700Bold', color: '#00A699' }}>Salvar</Text>
-        </TouchableOpacity>
-    )
-    ,
     headerTintColor: '#00A699',
-
 }
 
 const styles = StyleSheet.create({
@@ -175,6 +193,7 @@ const styles = StyleSheet.create({
     tagContainer: {
         marginLeft: 20,
         marginTop: 10,
+        marginBottom: 5,
         flexDirection: 'row'
     },
     tag: {
@@ -194,4 +213,14 @@ const styles = StyleSheet.create({
     }
 })
 
-export default ProfessionalDataPge
+const mapDispatchToProps = (dispatch) => ({
+    dispatchGetUserAction: (id) => dispatch(getUser(id)),
+    dispatchUpdateUserAction: (id, categories, onSuccess, onError) =>
+        dispatch(updateUser(id, { categories }, onSuccess, onError))
+});
+
+const mapStateToProps = createStructuredSelector({
+    user: selectUserData,
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(ProfessionalDataPge)

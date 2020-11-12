@@ -41,9 +41,9 @@ const LoginPage = ({ navigation, dispatchLoginAction, dispatchGetUserAction }) =
 		dispatchLoginAction(
 			userCpf,
 			userPassword,
-			async (response) => {
-				const data = await response.data
-				dispatchGetUserAction(data._id)
+			(response) => {
+				console.log(response);
+				dispatchGetUserAction(response.data._id)
 			},
 			(response) => {
 				setError(true);

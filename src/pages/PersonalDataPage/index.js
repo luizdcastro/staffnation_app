@@ -24,7 +24,7 @@ const PersonalDataPage = ({ navigation, dispatchGetUserAction, dispatchUpdateUse
             date,
             email,
             phone,
-            async () => await dispatchGetUserAction(user.data._id),
+            async (response) => { await dispatchGetUserAction(user.data._id) },
             (error) => console.log(error)
         )
         navigation.navigate('ProfilePage')
@@ -95,7 +95,6 @@ const PersonalDataPage = ({ navigation, dispatchGetUserAction, dispatchUpdateUse
         </KeyboardAvoidingView>
     )
 }
-
 
 export const pageOptions = {
     headerTitle: 'Dados Pessoais',

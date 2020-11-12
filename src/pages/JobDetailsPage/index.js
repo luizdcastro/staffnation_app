@@ -2,8 +2,6 @@ import React from 'react'
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native'
 import GradientButton from '../../components/GradientButton'
 
-import { Feather } from '@expo/vector-icons';
-
 const JobDetailsPage = () => {
     return (
         <View style={styles.container}>
