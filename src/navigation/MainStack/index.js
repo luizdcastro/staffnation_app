@@ -7,6 +7,7 @@ import JobsTab, { pageOptions as JobsPageOptions } from '../JobsTab'
 import JobDetailsPage, { pageOptions as JobDetialsOptions } from '../../pages/JobDetailsPage'
 import SearchPage, { pageOptions as SearchPageOptions } from "../../pages/SearchPage";
 import ProfilePage, { pageOptions as ProfileOptions } from '../../pages/ProfilePage'
+import AvatarPage, { pageOptions as AvatarOptions } from '../../pages/AvatarPage'
 import PersonalDataPage, { pageOptions as PersonalOptions } from '../../pages/PersonalDataPage'
 import AdressDataPage, { pageOptions as AddressOptions } from '../../pages/AdressDataPage'
 import ProfessionalDataPage, { pageOptions as ProfessionalOptions } from '../../pages/ProfessionalDataPage'
@@ -23,6 +24,7 @@ const MainStackPage = ({ navigation }) => (
         <MainStack.Screen name="JobDetailsPage" component={JobDetailsPage} options={JobDetialsOptions} />
         <MainStack.Screen name="SearchPage" component={SearchPage} options={SearchPageOptions} />
         <MainStack.Screen name="ProfilePage" component={ProfilePage} options={ProfileOptions} />
+        <MainStack.Screen name="AvatarPage" component={AvatarPage} options={AvatarOptions} />
         <MainStack.Screen name="PersonalDataPage" component={PersonalDataPage} options={PersonalOptions} />
         <MainStack.Screen name="AdressDataPage" component={AdressDataPage} options={AddressOptions} />
         <MainStack.Screen name="ProfessionalDataPage" component={ProfessionalDataPage} options={ProfessionalOptions} />

@@ -1,20 +1,27 @@
 import * as React from "react";
+import { connect } from "react-redux";
+import { createStructuredSelector } from 'reselect';
 import { View, Text, Image, TouchableOpacity, StyleSheet } from "react-native";
 
+import { selectUserData } from '../../redux/reducers/user/userSelector'
+
 import { Feather } from '@expo/vector-icons';
+import { Ionicons } from '@expo/vector-icons';
 
+const ProfilePage = ({ navigation, user }) => {
 
-const ProfilePage = ({ navigation }) => {
 	return (
 		<View style={styles.container}>
 			<View style={styles.personalData}>
 				<Image
 					style={styles.avatar}
-					source={{ uri: 'https://www.gravatar.com/avatar/205e460b479e2e5b48aec07710c08d50.jpg' }}
+					source={{ uri: `${user.data.avatar.url}`, }}
 				/>
 				<View>
 					<Text style={styles.name}>Luiz Castro</Text>
-					<Text style={styles.pictureText}>Alterar foto</Text>
+					<TouchableOpacity onPress={() => navigation.navigate('AvatarPage')}>
+						<Text style={styles.pictureText}>Alterar foto</Text>
+					</TouchableOpacity>
 				</View>
 			</View>
 			<View>
@@ -56,6 +63,11 @@ export const pageOptions = {
 		height: Platform.OS === 'ios' ? 90 : 70,
 
 	},
+	headerRight: () => (
+		<TouchableOpacity style={{ paddingRight: 15 }}>
+			<Ionicons name="ios-help-circle-outline" size={28} color="#00A699" />
+		</TouchableOpacity>
+	),
 	headerTintColor: '#00A699',
 
 }
@@ -106,4 +118,8 @@ const styles = StyleSheet.create({
 
 });
 
-export default ProfilePage;
+const mapStateToProps = createStructuredSelector({
+	user: selectUserData,
+});
+
+export default connect(mapStateToProps)(ProfilePage);

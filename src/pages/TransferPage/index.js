@@ -1,4 +1,6 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
+import { connect } from "react-redux";
+import { createStructuredSelector } from 'reselect';
 import { View, Text, KeyboardAvoidingView, TouchableOpacity, Platform, StyleSheet } from 'react-native'
 import { useHeaderHeight } from '@react-navigation/stack';
 
@@ -7,11 +9,25 @@ import * as Animatable from "react-native-animatable";
 import { Feather } from "@expo/vector-icons";
 import { MaterialIcons } from "@expo/vector-icons";
 
+import { selectUserData } from '../../redux/reducers/user/userSelector'
 import GradientButton from '../../components/GradientButton'
 
-const TransferPage = () => {
+const TransferPage = ({ navigation, user }) => {
     const [transferValue, setTransferValue] = useState('')
     const [confirm, setConfirm] = useState(false)
+
+    useEffect(() => {
+        navigation.setOptions({
+            headerRight: () => (
+                <View style={{ paddingRight: 15, paddingTop: 10, alignItems: 'flex-end' }}>
+                    <Text style={{ fontSize: 14, fontFamily: 'NunitoSans_400Regular' }}>Meu saldo</Text>
+                    <Text style={{ fontSize: 17, fontFamily: 'NunitoSans_700Bold', color: '#00A699' }}>R$ {user.data.totalCash.toFixed(2)}</Text>
+                </View>
+            )
+        })
+    }, [transferValue])
+
+
     return (
         <KeyboardAvoidingView keyboardVerticalOffset={useHeaderHeight()} behavior={Platform.OS === "ios" ? "padding" : "height"} style={styles.mainContainer}>
 
@@ -94,15 +110,7 @@ export const pageOptions = {
         height: Platform.OS === 'ios' ? 90 : 70,
 
     },
-    headerRight: () => (
-        <View style={{ paddingRight: 15, paddingTop: 10, alignItems: 'flex-end' }}>
-            <Text style={{ fontSize: 14, fontFamily: 'NunitoSans_400Regular' }}>Meu saldo</Text>
-            <Text style={{ fontSize: 17, fontFamily: 'NunitoSans_700Bold', color: '#00A699' }}>R$ 300,00</Text>
-        </View>
-    ),
     headerTintColor: '#00A699',
-
-
 }
 
 const styles = StyleSheet.create({
@@ -129,4 +137,8 @@ const styles = StyleSheet.create({
     }
 })
 
-export default TransferPage
+const mapStateToProps = createStructuredSelector({
+    user: selectUserData,
+});
+
+export default connect(mapStateToProps)(TransferPage)

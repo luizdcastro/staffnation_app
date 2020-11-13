@@ -26,8 +26,6 @@ const ProfessionalDataPge = ({ navigation, user, dispatchGetUserAction, dispatch
     const [garExperience, setGarExperience] = useState(0);
     const [garCertificate, setGarCertificate] = useState(false);
 
-    console.log(user.data.categories[0].name)
-
     const categories = [
         {
             id: 1,
