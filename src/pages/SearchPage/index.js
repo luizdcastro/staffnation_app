@@ -70,7 +70,7 @@ const SearchPage = ({ navigation, jobs, dispatchGetAllJobsAction }) => {
 							payment={item.payment.toFixed(2)}
 							timeStart={item.time.start}
 							timeEnd={item.time.end}
-							openCard={() => navigation.navigate('JobDetailsPage', {
+							openCard={() => navigation.navigate('SearchJobDetailsPage', {
 								jobId: item._id
 							})}
 						/>
