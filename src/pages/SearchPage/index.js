@@ -60,6 +60,7 @@ const SearchPage = ({ navigation, jobs, dispatchGetAllJobsAction }) => {
 				</View>
 
 				<FlatList
+					style={{ marginHorizontal: 15 }}
 					data={filteredJobs}
 					renderItem={({ item }) => (
 						<JobCard
@@ -69,6 +70,9 @@ const SearchPage = ({ navigation, jobs, dispatchGetAllJobsAction }) => {
 							payment={item.payment.toFixed(2)}
 							timeStart={item.time.start}
 							timeEnd={item.time.end}
+							openCard={() => navigation.navigate('JobDetailsPage', {
+								jobId: item._id
+							})}
 						/>
 					)}
 				/>

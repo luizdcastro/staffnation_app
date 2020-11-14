@@ -28,6 +28,6 @@ const allJobsData = (data) => ({
 });
 
 const singleJobData = (data) => ({
-    type: constants.GET_ALL_JOBS,
+    type: constants.GET_SINGLE_JOB,
     payload: data,
 });

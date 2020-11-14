@@ -1,47 +1,45 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
+import { connect } from "react-redux";
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native'
-import GradientButton from '../../components/GradientButton'
 
-const JobDetailsPage = () => {
+import { getSingleJob } from '../../redux/actions/jobActions'
+
+import GradientButton from '../../components/GradientButton'
+import JobDetails from '../../components/JobDetails'
+
+const JobDetailsPage = ({ route, dispatchGetJobAction }) => {
+    const [jobDetails, setJobDetails] = useState({})
+    const { jobId } = route.params;
+
+    useEffect(() => {
+        dispatchGetJobAction(
+            jobId,
+            async (response) => {
+                const data = await response
+                setJobDetails(data[0])
+            },
+            (error) => console.log(error)
+        );
+    }, [dispatchGetJobAction, jobId]);
+
     return (
         <View style={styles.container}>
-            <View style={{ flex: 1, marginHorizontal: 20 }}>
-                <Text style={styles.title}>James bar</Text>
-                <View style={{ flexDirection: 'row', marginVertical: 20 }}>
-                    <View style={[styles.tag, { marginRight: 15 }]}>
-                        <Text style={styles.tagText}>Segurança</Text>
-                    </View>
-                    <View style={styles.tag}>
-                        <Text style={styles.tagText}>5 vagas</Text>
-                    </View>
-                </View>
-                <View style={styles.dataContent}>
-                    <View style={styles.labelContainer}>
-                        <Text style={styles.label}>Data e horário</Text>
-                    </View>
-                    <Text style={styles.text}>15 de Fevereiro</Text>
-                    <Text style={styles.text}>18:00 às 03:00</Text>
-                </View>
-                <View style={styles.dataContent}>
-                    <View style={styles.labelContainer}>
-                        <Text style={styles.label}>Pagamento</Text>
-                    </View>
-                    <Text style={styles.text}>R$ 150,00</Text>
-                    <Text style={styles.text}>Transfência via app</Text>
-                </View>
-                <View style={styles.dataContent}>
-                    <View style={styles.labelContainer}>
-                        <Text style={styles.label}>Uniforme</Text>
-                    </View>
-                    <Text style={styles.text}>Terno e calça preta</Text>
-                </View>
-                <View style={styles.dataContent}>
-                    <View style={styles.labelContainer}>
-                        <Text style={styles.label}>Endereço</Text>
-                    </View>
-                    <Text style={styles.text}>Alameda Dr. Carlos de Carvalho, 1275{"\n"}Centro, Curitiba - PR</Text>
-                </View>
-            </View>
+            {jobDetails._id ?
+                <JobDetails
+                    title={jobDetails.title}
+                    category={jobDetails.category}
+                    positions={jobDetails.positions}
+                    timeStart={jobDetails.time.start}
+                    timeEnd={jobDetails.time.end}
+                    payment={jobDetails.payment.toFixed(2)}
+                    uniform={jobDetails.uniform}
+                    addressStreet={jobDetails.address.street}
+                    addressNumber={jobDetails.address.number}
+                    addressNeighborhood={jobDetails.address.neighborhood}
+                    addressCity={jobDetails.address.city}
+                    addressState={jobDetails.address.state}
+
+                /> : null}
             <View style={styles.buttonsContainer}>
                 <View style={{ width: '100%', alignItems: 'center' }}>
                     <TouchableOpacity style={styles.button}>
@@ -56,7 +54,7 @@ const JobDetailsPage = () => {
                     />
                 </View>
             </View>
-        </View>
+        </View >
     )
 }
 
@@ -77,52 +75,12 @@ export const pageOptions = {
 
     },
     headerTintColor: '#00A699',
-
 }
 
 const styles = StyleSheet.create({
     container: {
         flex: 1,
         backgroundColor: '#fafafa',
-    },
-    title: {
-        fontFamily: 'NunitoSans_700Bold',
-        fontSize: 20,
-        color: '#484848',
-        marginTop: 15
-    },
-    tag: {
-        width: 120,
-        height: 30,
-        borderColor: '#00A699',
-        borderWidth: 1,
-        borderRadius: 20,
-        justifyContent: 'center',
-        alignItems: 'center'
-    },
-    tagText: {
-        fontFamily: 'NunitoSans_600SemiBold',
-        color: '#00A699'
-    },
-    dataContent: {
-        borderBottomWidth: 0.3,
-        borderBottomColor: '#484848',
-        paddingBottom: 10,
-        marginBottom: 10
-    },
-    labelContainer: {
-        flexDirection: 'row',
-        alignItems: 'center',
-        justifyContent: 'space-between'
-    },
-    label: {
-        fontFamily: 'NunitoSans_600SemiBold',
-        color: '#484848',
-        fontSize: 15,
-    },
-    text: {
-        fontFamily: 'NunitoSans_400Regular',
-        color: '#484848'
     },
     buttonsContainer: {
         flex: 1,
@@ -147,4 +105,9 @@ const styles = StyleSheet.create({
     },
 })
 
-export default JobDetailsPage
+const mapDispatchToProps = (dispatch) => ({
+    dispatchGetJobAction: (id, onSuccess, onError) =>
+        dispatch(getSingleJob(id, onSuccess, onError)),
+});
+
+export default connect(null, mapDispatchToProps)(JobDetailsPage)
