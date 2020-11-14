@@ -1,34 +1,30 @@
 import React from 'react'
 import { View, Text, TouchableOpacity, StyleSheet } from 'react-native'
 import { Entypo } from '@expo/vector-icons';
-import { Feather } from '@expo/vector-icons';
 
-const JobCard = ({ openCard }) => {
+const JobCard = ({ openCard, timeStart, timeEnd, title, local, category, payment }) => {
     return (
         <View style={styles.container}>
             <View style={styles.dateContainer}>
                 <Text style={styles.dateDayText}>15</Text>
                 <Text style={styles.dateMonthText}>Fev</Text>
-                <Text style={[styles.smallText, { textAlign: 'center', lineHeight: 12 }]}>20:00{"\n"} às {"\n"} 03:00</Text>
+                <Text style={[styles.smallText, { textAlign: 'center', lineHeight: 12 }]}>{timeStart}{"\n"} às {"\n"} {timeEnd}</Text>
             </View>
             <View style={styles.mainContent}>
                 <View>
-                    <Text style={styles.title}>James Bar</Text>
-                    <Text style={{ fontSize: 13, fontFamily: 'NunitoSans_400Regular', color: '#484848' }}>Centro</Text>
+                    <Text style={styles.title}>{title}</Text>
+                    <Text style={{ fontSize: 13, fontFamily: 'NunitoSans_400Regular', color: '#484848' }}>{local}</Text>
                 </View>
                 <View>
-                    <Text style={styles.regularText}>Categoria: Segurança</Text>
-                    <Text style={[styles.regularText, { paddingBottom: 10 }]}>Valor: R$ 150,00</Text>
+                    <Text style={styles.regularText}>Categoria: {category}</Text>
+                    <Text style={[styles.regularText, { paddingBottom: 10 }]}>Valor: R$ {payment}</Text>
                 </View>
             </View>
             <View style={styles.icon}>
                 <TouchableOpacity onPress={openCard}>
                     <Entypo name="dots-three-horizontal" size={25} color="#00A699" />
                 </TouchableOpacity>
-
             </View>
-
-
         </View>
     )
 }

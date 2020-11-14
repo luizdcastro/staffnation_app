@@ -1,13 +1,42 @@
-import * as React from "react";
-import { View, ScrollView, TextInput, TouchableOpacity, KeyboardAvoidingView, Platform, StyleSheet } from "react-native";
+import React, { useState, useEffect } from "react";
+import { connect } from "react-redux";
+import { createStructuredSelector } from 'reselect';
+import { View, ScrollView, TextInput, FlatList, TouchableOpacity, KeyboardAvoidingView, Platform, StyleSheet } from "react-native";
 
 import { Feather } from '@expo/vector-icons';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 
+import { getAllJobs } from '../../redux/actions/jobActions'
+import { selectJobData } from '../../redux/reducers/job/jobSelector'
+
 import JobCard from '../../components/JobCard'
 
+const SearchPage = ({ navigation, jobs, dispatchGetAllJobsAction }) => {
+	const [filteredJobs, setFilteredJobs] = useState([])
+	const [search, setSearch] = useState('')
 
-const SearchPage = ({ navigation }) => {
+	useEffect(() => {
+		dispatchGetAllJobsAction()
+	}, [dispatchGetAllJobsAction])
+
+	useEffect(() => {
+		setFilteredJobs(jobs)
+	}, [setFilteredJobs])
+
+	useEffect(() => {
+		setFilteredJobs(
+			jobs.filter(
+				(job) =>
+					job.title
+						.toLowerCase()
+						.includes(search.toLowerCase()) ||
+					job.category.toLowerCase().includes(search.toLowerCase()) ||
+					job.payment.toString().includes(search.toLowerCase()) ||
+					job.address.neighborhood.toLowerCase().includes(search.toLowerCase())
+			)
+		);
+	}, [jobs, search]);
+
 	return (
 		<View style={styles.container} >
 			<KeyboardAvoidingView style={styles.main} behavior={Platform.OS === "ios" ? "padding" : "height"}>
@@ -18,6 +47,7 @@ const SearchPage = ({ navigation }) => {
 						autoCorrect={false}
 						autoCapitalize='none'
 						keyboardType='default'
+						onChangeText={(value) => setSearch(value)}
 					/>
 					<View style={{ position: 'absolute', left: 10, top: 12, elevation: 1 }} >
 						<Feather name="search" size={26} color="#00A699" />
@@ -28,13 +58,21 @@ const SearchPage = ({ navigation }) => {
 						</TouchableOpacity>
 					</View>
 				</View>
-				<ScrollView style={{ marginHorizontal: 15 }}>
-					<JobCard />
-					<JobCard />
-					<JobCard />
-					<JobCard />
 
-				</ScrollView>
+				<FlatList
+					data={filteredJobs}
+					renderItem={({ item }) => (
+						<JobCard
+							title={item.title}
+							local={item.address.neighborhood}
+							category={item.category}
+							payment={item.payment.toFixed(2)}
+							timeStart={item.time.start}
+							timeEnd={item.time.end}
+						/>
+					)}
+				/>
+
 			</KeyboardAvoidingView>
 		</View>
 	);
@@ -97,4 +135,13 @@ const styles = StyleSheet.create({
 	}
 });
 
-export default SearchPage;
+const mapDispatchToProps = (dispatch) => ({
+	dispatchGetAllJobsAction: () =>
+		dispatch(getAllJobs()),
+});
+
+const mapStateToProps = createStructuredSelector({
+	jobs: selectJobData,
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(SearchPage);

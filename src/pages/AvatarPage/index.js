@@ -80,8 +80,6 @@ const AvatarPage = ({
         navigation.navigate('ProfilePage')
     }
 
-    console.log(user.data.avatar.id)
-
     return (
         <View style={styles.container}>
             <View style={{ alignItems: 'center', flex: 1, justifyContent: 'flex-end', }}>
