@@ -1,11 +1,13 @@
 import * as constants from "../constants";
 
-export const getUser = (id) => ({
+export const getUser = (id, onSuccess, onError) => ({
     type: constants.API,
     payload: {
         method: "GET",
         url: `/user/${id}`,
         success: (response) => userData(response),
+        postProccessSuccess: onSuccess,
+        postProccessError: onError,
     },
 });
 

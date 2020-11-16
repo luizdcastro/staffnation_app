@@ -32,8 +32,8 @@ const JobsTab = () => {
         }
         }>
             <Tab.Screen name="Próximos" component={NextJobsPage} />
-            <Tab.Screen name="Pendentes" component={PastJobsPage} />
-            <Tab.Screen name="Histórico" component={PendingJobsPage} />
+            <Tab.Screen name="Pendentes" component={PendingJobsPage} />
+            <Tab.Screen name="Histórico" component={PastJobsPage} />
         </Tab.Navigator>
     );
 }

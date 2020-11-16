@@ -5,6 +5,7 @@ import { createStackNavigator } from "@react-navigation/stack";
 import HomePage, { pageOptions as HomePageOptions } from "../../pages/HomePage";
 import JobsTab, { pageOptions as JobsPageOptions } from '../JobsTab'
 import SearchJobDetailsPage, { pageOptions as SearchJobDetialsOptions } from '../../pages/SearchJobDetalsPage'
+import PendingJobDetailsPage, { pageOptions as PendingJobDetailsOptions } from '../../pages/PendingJobDetailsPage'
 import SearchPage, { pageOptions as SearchPageOptions } from "../../pages/SearchPage";
 import ProfilePage, { pageOptions as ProfileOptions } from '../../pages/ProfilePage'
 import AvatarPage, { pageOptions as AvatarOptions } from '../../pages/AvatarPage'
@@ -22,6 +23,7 @@ const MainStackPage = ({ navigation }) => (
         <MainStack.Screen name="HomePage" component={HomePage} options={HomePageOptions} />
         <MainStack.Screen name="JobsTab" component={JobsTab} options={JobsPageOptions} />
         <MainStack.Screen name="SearchJobDetailsPage" component={SearchJobDetailsPage} options={SearchJobDetialsOptions} />
+        <MainStack.Screen name="PendingJobDetailsPage" component={PendingJobDetailsPage} options={PendingJobDetailsOptions} />
         <MainStack.Screen name="SearchPage" component={SearchPage} options={SearchPageOptions} />
         <MainStack.Screen name="ProfilePage" component={ProfilePage} options={ProfileOptions} />
         <MainStack.Screen name="AvatarPage" component={AvatarPage} options={AvatarOptions} />

@@ -22,6 +22,30 @@ export const getSingleJob = (id, onSuccess, onError) => ({
     },
 });
 
+export const createPendingApplication = (id, data, onSuccess, onError) => ({
+    type: constants.API,
+    payload: {
+        method: "PATCH",
+        url: `/job/${id}`,
+        data,
+        success: (response) => addedPendingApplication(response),
+        postProccessSuccess: onSuccess,
+        postProccessError: onError,
+    },
+});
+
+export const removePendingApplication = (id, data, onSuccess, onError) => ({
+    type: constants.API,
+    payload: {
+        method: "PATCH",
+        url: `/job/${id}`,
+        data,
+        success: (response) => removedPendingApplication(response),
+        postProccessSuccess: onSuccess,
+        postProccessError: onError,
+    },
+});
+
 const allJobsData = (data) => ({
     type: constants.GET_ALL_JOBS,
     payload: data,
@@ -29,5 +53,15 @@ const allJobsData = (data) => ({
 
 const singleJobData = (data) => ({
     type: constants.GET_SINGLE_JOB,
+    payload: data,
+});
+
+const addedPendingApplication = (data) => ({
+    type: constants.CREATE_PENDING_APPLICATION,
+    payload: data,
+});
+
+const removedPendingApplication = (data) => ({
+    type: constants.REMOVE_PENDING_APPLICATION,
     payload: data,
 });

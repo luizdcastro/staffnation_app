@@ -6,9 +6,7 @@ const NextJobsPage = ({ navigation }) => {
     return (
         <View style={styles.container}>
             <View style={styles.main}>
-                <ScrollView style={{ marginHorizontal: 15 }}>
-                    <JobCard openCard={() => navigation.navigate('SearchJobDetailsPage')} />
-                </ScrollView>
+
             </View>
         </View>
     );

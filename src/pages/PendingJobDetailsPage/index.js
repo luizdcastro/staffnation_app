@@ -1,16 +1,13 @@
 import React, { useState, useEffect } from 'react'
 import { connect } from "react-redux";
-import { createStructuredSelector } from 'reselect';
-import { View, StyleSheet } from 'react-native'
+import { View, Text, StyleSheet, TouchableOpacity } from 'react-native'
 
-import { getSingleJob, createPendingApplication } from '../../redux/actions/jobActions'
-import { getUser } from "../../redux/actions/userActions"
-import { selectUserData } from '../../redux/reducers/user/userSelector'
+import { getSingleJob } from '../../redux/actions/jobActions'
 
 import GradientButton from '../../components/GradientButton'
 import JobDetails from '../../components/JobDetails'
 
-const SearchJobDetailsPage = ({ user, route, navigation, dispatchGetJobAction, dispatchJobApplicationAction }) => {
+const PendingJobDetailsPage = ({ route, dispatchGetJobAction }) => {
     const [jobDetails, setJobDetails] = useState({})
     const { jobId } = route.params;
 
@@ -24,14 +21,6 @@ const SearchJobDetailsPage = ({ user, route, navigation, dispatchGetJobAction, d
             (error) => console.log(error)
         );
     }, [dispatchGetJobAction, jobId]);
-
-    const jobApplication = () => {
-        dispatchJobApplicationAction(
-            jobId,
-            user.data._id
-        )
-        navigation.navigate('JobsTab')
-    }
 
     return (
         <View style={styles.container}>
@@ -52,7 +41,18 @@ const SearchJobDetailsPage = ({ user, route, navigation, dispatchGetJobAction, d
 
                 /> : null}
             <View style={styles.buttonsContainer}>
-
+                <View style={{ width: '100%', alignItems: 'center' }}>
+                    <TouchableOpacity style={styles.button}>
+                        <Text style={styles.textButton}>Notificar Atraso</Text>
+                    </TouchableOpacity>
+                </View>
+                <View>
+                    <GradientButton
+                        title="Cancelar Trabalho"
+                        gradient={["#00A699", "#00A699"]}
+                        onPress={() => { }}
+                    />
+                </View>
             </View>
         </View >
     )
@@ -84,7 +84,7 @@ const styles = StyleSheet.create({
     },
     buttonsContainer: {
         flex: 1,
-        marginBottom: 50,
+        marginBottom: 20,
         justifyContent: 'flex-end',
         alignItems: 'center'
     },
@@ -108,14 +108,6 @@ const styles = StyleSheet.create({
 const mapDispatchToProps = (dispatch) => ({
     dispatchGetJobAction: (id, onSuccess, onError) =>
         dispatch(getSingleJob(id, onSuccess, onError)),
-    dispatchJobApplicationAction: (id, pendingApplications) =>
-        dispatch(createPendingApplication(id, { pendingApplications })),
-    dispatchGetUserAction: (id) => dispatch(getUser(id))
-
 });
 
-const mapStateToProps = createStructuredSelector({
-    user: selectUserData,
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(SearchJobDetailsPage)
+export default connect(null, mapDispatchToProps)(PendingJobDetailsPage)
