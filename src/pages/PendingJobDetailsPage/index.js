@@ -20,7 +20,7 @@ const PendingJobDetailsPage = ({ route, dispatchGetJobAction }) => {
             },
             (error) => console.log(error)
         );
-    }, [dispatchGetJobAction, jobId]);
+    }, []);
 
     return (
         <View style={styles.container}>
@@ -41,18 +41,7 @@ const PendingJobDetailsPage = ({ route, dispatchGetJobAction }) => {
 
                 /> : null}
             <View style={styles.buttonsContainer}>
-                <View style={{ width: '100%', alignItems: 'center' }}>
-                    <TouchableOpacity style={styles.button}>
-                        <Text style={styles.textButton}>Notificar Atraso</Text>
-                    </TouchableOpacity>
-                </View>
-                <View>
-                    <GradientButton
-                        title="Cancelar Trabalho"
-                        gradient={["#00A699", "#00A699"]}
-                        onPress={() => { }}
-                    />
-                </View>
+
             </View>
         </View >
     )

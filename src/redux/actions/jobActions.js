@@ -26,7 +26,7 @@ export const createPendingApplication = (id, data, onSuccess, onError) => ({
     type: constants.API,
     payload: {
         method: "PATCH",
-        url: `/job/${id}`,
+        url: `/job/createPending/${id}`,
         data,
         success: (response) => addedPendingApplication(response),
         postProccessSuccess: onSuccess,
@@ -38,7 +38,7 @@ export const removePendingApplication = (id, data, onSuccess, onError) => ({
     type: constants.API,
     payload: {
         method: "PATCH",
-        url: `/job/${id}`,
+        url: `/job/removePending/${id}`,
         data,
         success: (response) => removedPendingApplication(response),
         postProccessSuccess: onSuccess,

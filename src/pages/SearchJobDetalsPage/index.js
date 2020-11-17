@@ -19,6 +19,7 @@ const SearchJobDetailsPage = ({ user, route, navigation, dispatchGetJobAction, d
             jobId,
             async (response) => {
                 const data = await response
+                console.log(response)
                 setJobDetails(data[0])
             },
             (error) => console.log(error)
@@ -52,7 +53,13 @@ const SearchJobDetailsPage = ({ user, route, navigation, dispatchGetJobAction, d
 
                 /> : null}
             <View style={styles.buttonsContainer}>
-
+                <View>
+                    <GradientButton
+                        title="Candidatar-se"
+                        gradient={["#00A699", "#00A699"]}
+                        onPress={jobApplication}
+                    />
+                </View>
             </View>
         </View >
     )
@@ -108,8 +115,8 @@ const styles = StyleSheet.create({
 const mapDispatchToProps = (dispatch) => ({
     dispatchGetJobAction: (id, onSuccess, onError) =>
         dispatch(getSingleJob(id, onSuccess, onError)),
-    dispatchJobApplicationAction: (id, pendingApplications) =>
-        dispatch(createPendingApplication(id, { pendingApplications })),
+    dispatchJobApplicationAction: (id, applicationsPending) =>
+        dispatch(createPendingApplication(id, { applicationsPending })),
     dispatchGetUserAction: (id) => dispatch(getUser(id))
 
 });

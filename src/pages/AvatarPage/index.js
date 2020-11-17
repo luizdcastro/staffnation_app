@@ -85,7 +85,7 @@ const AvatarPage = ({
             <View style={{ alignItems: 'center', flex: 1, justifyContent: 'flex-end', }}>
                 <Image
                     style={styles.avatar}
-                    source={{ uri: `${imagePreview.uri ? imagePreview.uri : user.data.avatar.url}` }}
+                    source={{ uri: `${imagePreview.uri ? imagePreview.uri : user.data.avatar?.url}` }}
                 />
             </View>
             <View style={styles.buttonsContainer}>

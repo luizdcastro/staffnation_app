@@ -1,11 +1,47 @@
-import React, { useState } from 'react'
+
+import React, { useState, useEffect } from 'react'
+import { connect } from "react-redux";
+import { createStructuredSelector } from 'reselect';
 import { View, Text, Platform, StyleSheet, ScrollView, KeyboardAvoidingView, TextInput, TouchableOpacity } from 'react-native'
 import { useHeaderHeight } from '@react-navigation/stack';
 
-const BankDataPage = () => {
-    const [agencia, setAgencia] = useState('')
-    const [conta, setConta] = useState('')
-    const [banco, setBanco] = useState('')
+
+import { selectUserData } from '../../redux/reducers/user/userSelector'
+import { getUser, updateUser } from "../../redux/actions/userActions"
+
+import { TextInputMask } from "react-native-masked-text";
+import { acc } from 'react-native-reanimated';
+
+const BankDataPage = ({ navigation, dispatchGetUserAction, dispatchUpdateUserAction, user }) => {
+    const [account, setAccount] = useState(user.data.bankData.account)
+    const [agency, setAgency] = useState(user.data.bankData.agency)
+    const [bank, setBank] = useState(user.data.bankData.name)
+    const data = {
+        name: bank,
+        agency: agency,
+        account: account
+    }
+
+    const hanleUpdateUser = (event) => {
+        event.preventDefault();
+        dispatchUpdateUserAction(
+            user.data._id,
+            data,
+            async (response) => { await dispatchGetUserAction(user.data._id) },
+            (error) => console.log(error)
+        )
+        navigation.navigate('ProfilePage')
+    }
+
+    useEffect(() => {
+        navigation.setOptions({
+            headerRight: () => (
+                <TouchableOpacity style={{ paddingRight: 15 }} onPress={hanleUpdateUser}>
+                    <Text style={{ fontSize: 17, fontFamily: 'NunitoSans_700Bold', color: '#00A699' }}>Salvar</Text>
+                </TouchableOpacity>
+            )
+        })
+    }, [account, agency, bank])
 
     return (
         <KeyboardAvoidingView style={styles.container} keyboardVerticalOffset={useHeaderHeight()} behavior={Platform.OS === "ios" ? "padding" : "height"}>
@@ -15,8 +51,8 @@ const BankDataPage = () => {
                     <TextInput style={styles.input}
                         keyboardType="default"
                         placeholder="Selecione seu banco"
-                        value={banco}
-                        onChangeText={(value) => setBanco(value)}
+                        value={bank}
+                        onChangeText={(value) => setBank(value)}
                     />
                 </View>
 
@@ -26,8 +62,8 @@ const BankDataPage = () => {
                         placeholder='Digite sua agência'
                         keyboardType='number-pad'
                         autoCapitalize="none"
-                        value={agencia}
-                        onChangeText={(value) => setAgencia(value)}
+                        value={agency}
+                        onChangeText={(value) => setAgency(value)}
                     />
                 </View>
                 <View style={styles.formContent}>
@@ -36,8 +72,8 @@ const BankDataPage = () => {
                         placeholder='Digite sua conta'
                         keyboardType='number-pad'
                         autoCapitalize="none"
-                        value={conta}
-                        onChangeText={(value) => setConta(value)}
+                        value={account}
+                        onChangeText={(value) => setAccount(value)}
                     />
                 </View>
             </ScrollView>
@@ -46,7 +82,7 @@ const BankDataPage = () => {
 }
 
 export const pageOptions = {
-    headerTitle: 'Dados Bancários',
+    headerTitle: 'Dados Pessoais',
     headerTitleAlign: 'center',
     headerTitleStyle: {
         color: '#484848',
@@ -61,12 +97,6 @@ export const pageOptions = {
         height: Platform.OS === 'ios' ? 90 : 70,
 
     },
-    headerRight: () => (
-        <TouchableOpacity style={{ paddingRight: 15 }}>
-            <Text style={{ fontSize: 17, fontFamily: 'NunitoSans_700Bold', color: '#00A699' }}>Salvar</Text>
-        </TouchableOpacity>
-    )
-    ,
     headerTintColor: '#00A699',
 
 }
@@ -96,4 +126,14 @@ const styles = StyleSheet.create({
     }
 })
 
-export default BankDataPage
+const mapDispatchToProps = (dispatch) => ({
+    dispatchGetUserAction: (id) => dispatch(getUser(id)),
+    dispatchUpdateUserAction: (id, bankData, onSuccess, onError) =>
+        dispatch(updateUser(id, { bankData }, onSuccess, onError))
+});
+
+const mapStateToProps = createStructuredSelector({
+    user: selectUserData,
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(BankDataPage)

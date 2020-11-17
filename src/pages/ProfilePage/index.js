@@ -15,10 +15,10 @@ const ProfilePage = ({ navigation, user }) => {
 			<View style={styles.personalData}>
 				<Image
 					style={styles.avatar}
-					source={{ uri: `${user.data.avatar.url}`, }}
+					source={{ uri: `${user.data.avatar?.url}`, }}
 				/>
 				<View>
-					<Text style={styles.name}>Luiz Castro</Text>
+					<Text style={styles.name}>{user.data.name}</Text>
 					<TouchableOpacity onPress={() => navigation.navigate('AvatarPage')}>
 						<Text style={styles.pictureText}>Alterar foto</Text>
 					</TouchableOpacity>

@@ -21,7 +21,7 @@ const DrawerContent = ({ dispatchLogoutAction, navigation, user }) => {
                 <View style={styles.personalData}>
                     <Image
                         style={styles.avatar}
-                        source={{ uri: `${user.data.avatar.url}` }}
+                        source={{ uri: `${user.data?.avatar.url}` }}
                     />
                     <View>
                         <Text style={styles.name}>{user.data.name}</Text>
