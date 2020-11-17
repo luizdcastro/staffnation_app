@@ -1,15 +1,23 @@
-import React from "react";
+import React, { useEffect } from "react";
+import { connect } from "react-redux";
+import { createStructuredSelector } from 'reselect';
 import { TouchableOpacity, Platform } from 'react-native'
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
+import { selectUserData } from '../../redux/reducers/user/userSelector'
+import { getUser } from "../../redux/actions/userActions"
 import NextJobsPage from '../../pages/NextJobsPage'
 import PastJobsPage from '../../pages/PastJobsPage'
 import PendingJobsPage from '../../pages/PendingJobsPage'
-
 import { Ionicons } from '@expo/vector-icons';
 
 const Tab = createMaterialTopTabNavigator();
 
-const JobsTab = () => {
+const JobsTab = ({ user, dispatchGetUserAction }) => {
+
+    useEffect(() => {
+        dispatchGetUserAction(user.data._id)
+    }, [dispatchGetUserAction])
+
     return (
         <Tab.Navigator style={{ backgroundColor: '#FAFAFA' }} tabBarOptions={{
             indicatorStyle: {
@@ -65,4 +73,12 @@ export const pageOptions = {
 
 }
 
-export default JobsTab
+const mapDispatchToProps = (dispatch) => ({
+    dispatchGetUserAction: (id) => dispatch(getUser(id))
+});
+
+const mapStateToProps = createStructuredSelector({
+    user: selectUserData,
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(JobsTab)

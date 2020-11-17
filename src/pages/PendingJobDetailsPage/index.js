@@ -1,15 +1,19 @@
 import React, { useState, useEffect } from 'react'
 import { connect } from "react-redux";
-import { View, Text, StyleSheet, TouchableOpacity } from 'react-native'
+import { View, Text, StyleSheet } from 'react-native'
 
-import { getSingleJob } from '../../redux/actions/jobActions'
+import { getSingleJob, removePendingApplication } from '../../redux/actions/jobActions'
+import { getUser } from "../../redux/actions/userActions"
+import { createStructuredSelector } from 'reselect';
+import { selectUserData } from '../../redux/reducers/user/userSelector'
 
 import GradientButton from '../../components/GradientButton'
 import JobDetails from '../../components/JobDetails'
 
-const PendingJobDetailsPage = ({ route, dispatchGetJobAction }) => {
+const PendingJobDetailsPage = ({ user, route, navigation, dispatchGetJobAction, dispatchCancelApplication, dispatchGetUserAction }) => {
     const [jobDetails, setJobDetails] = useState({})
     const { jobId } = route.params;
+
 
     useEffect(() => {
         dispatchGetJobAction(
@@ -21,6 +25,15 @@ const PendingJobDetailsPage = ({ route, dispatchGetJobAction }) => {
             (error) => console.log(error)
         );
     }, []);
+
+    const handleCancelApplication = () => {
+        dispatchCancelApplication(
+            jobId,
+            user.data._id
+        )
+        dispatchGetUserAction(user.data._id)
+        navigation.navigate('JobsTab');
+    }
 
     return (
         <View style={styles.container}>
@@ -41,7 +54,16 @@ const PendingJobDetailsPage = ({ route, dispatchGetJobAction }) => {
 
                 /> : null}
             <View style={styles.buttonsContainer}>
-
+                <View style={{ marginBottom: 60 }}>
+                    <Text style={{ fontFamily: 'NunitoSans_400Regular', fontSize: 15 }}>Sua candidatura foi enviada com sucesso!{"\n"}Aguardando a confirmação do recrutador.</Text>
+                </View>
+                <View>
+                    <GradientButton
+                        title="Cancelar Aplicação"
+                        gradient={["#00A699", "#00A699"]}
+                        onPress={handleCancelApplication}
+                    />
+                </View>
             </View>
         </View >
     )
@@ -97,6 +119,14 @@ const styles = StyleSheet.create({
 const mapDispatchToProps = (dispatch) => ({
     dispatchGetJobAction: (id, onSuccess, onError) =>
         dispatch(getSingleJob(id, onSuccess, onError)),
+    dispatchCancelApplication: (id, applicationsPending) =>
+        dispatch(removePendingApplication(id, { applicationsPending })),
+    dispatchGetUserAction: (id) => dispatch(getUser(id)),
+
 });
 
-export default connect(null, mapDispatchToProps)(PendingJobDetailsPage)
+const mapStateToProps = createStructuredSelector({
+    user: selectUserData,
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(PendingJobDetailsPage)

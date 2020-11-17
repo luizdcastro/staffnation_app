@@ -19,7 +19,6 @@ const SearchJobDetailsPage = ({ user, route, navigation, dispatchGetJobAction, d
             jobId,
             async (response) => {
                 const data = await response
-                console.log(response)
                 setJobDetails(data[0])
             },
             (error) => console.log(error)
@@ -31,7 +30,7 @@ const SearchJobDetailsPage = ({ user, route, navigation, dispatchGetJobAction, d
             jobId,
             user.data._id
         )
-        navigation.navigate('JobsTab')
+        navigation.navigate('HomePage')
     }
 
     return (

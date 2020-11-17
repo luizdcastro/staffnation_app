@@ -7,32 +7,15 @@ import { selectUserData } from '../../redux/reducers/user/userSelector'
 import { getUser } from "../../redux/actions/userActions"
 import JobCard from '../../components/JobCard'
 
-const PendingJobsPage = ({ navigation, user, dispatchGetUserAction }) => {
-    const [pendingJobs, setPendingJobs] = useState([])
-    const [noContent, setNoContent] = useState(false)
-
-    useEffect(() => {
-        dispatchGetUserAction(
-            user.data._id,
-            async (response) => {
-                const data = await response.data.jobsPending
-                if (data.length >= 1) {
-                    setPendingJobs(data)
-                } else {
-                    setNoContent(!noContent)
-                }
-            },
-            error => console.log(error)
-        )
-    }, [dispatchGetUserAction])
+const PendingJobsPage = ({ navigation, user }) => {
 
     return (
         <View style={styles.container}>
             <View style={styles.main}>
-                {!noContent ?
+                {user.data.jobsPending.length >= 1 ?
                     <FlatList
                         style={{ marginHorizontal: 15 }}
-                        data={pendingJobs}
+                        data={user.data.jobsPending}
                         renderItem={({ item }) => (
                             <JobCard
                                 title={item.title}
@@ -73,7 +56,7 @@ const styles = StyleSheet.create({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-    dispatchGetUserAction: (id, onSuccess, onError) => dispatch(getUser(id, onSuccess, onError))
+    dispatchGetUserAction: (id) => dispatch(getUser(id))
 });
 
 const mapStateToProps = createStructuredSelector({
