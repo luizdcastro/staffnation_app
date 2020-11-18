@@ -1,14 +1,19 @@
 import React, { useState, useEffect } from 'react'
 import { connect } from "react-redux";
-import { View, Text, StyleSheet, TouchableOpacity } from 'react-native'
+import { View, Text, StyleSheet, Modal, TouchableOpacity } from 'react-native'
 
-import { getSingleJob } from '../../redux/actions/jobActions'
+import { getSingleJob, cancelAcceptedApplication } from '../../redux/actions/jobActions'
+import { getUser } from "../../redux/actions/userActions"
+import { createStructuredSelector } from 'reselect';
+import { selectUserData } from '../../redux/reducers/user/userSelector'
 
 import GradientButton from '../../components/GradientButton'
+import LateNotification from '../../components/LateNotification'
 import JobDetails from '../../components/JobDetails'
 
-const NextJobDetailsPage = ({ route, dispatchGetJobAction }) => {
+const NextJobDetailsPage = ({ user, navigation, route, dispatchGetJobAction, dispatchCancelApplication, dispatchGetUserAction }) => {
     const [jobDetails, setJobDetails] = useState({})
+    const [modalNotification, setModalNotification] = useState(false);
     const { jobId } = route.params;
 
     useEffect(() => {
@@ -22,8 +27,25 @@ const NextJobDetailsPage = ({ route, dispatchGetJobAction }) => {
         );
     }, [dispatchGetJobAction, jobId]);
 
+    const handleCancelApplication = () => {
+        dispatchCancelApplication(
+            jobId,
+            user.data._id
+        )
+        dispatchGetUserAction(user.data._id)
+        navigation.navigate('JobsTab');
+    }
+
     return (
         <View style={styles.container}>
+            <Modal
+                animationType="slide"
+                transparent={true}
+                visible={modalNotification}>
+                <LateNotification
+                    setModalNotification={setModalNotification}
+                />
+            </Modal>
             {jobDetails._id ?
                 <JobDetails
                     title={jobDetails.title}
@@ -41,16 +63,14 @@ const NextJobDetailsPage = ({ route, dispatchGetJobAction }) => {
 
                 /> : null}
             <View style={styles.buttonsContainer}>
-                <View style={{ width: '100%', alignItems: 'center' }}>
-                    <TouchableOpacity style={styles.button}>
-                        <Text style={styles.textButton}>Notificar Atraso</Text>
-                    </TouchableOpacity>
-                </View>
+                <TouchableOpacity style={styles.button} onPress={() => setModalNotification(true)}>
+                    <Text style={styles.textButton}>Notificar Atraso</Text>
+                </TouchableOpacity>
                 <View>
                     <GradientButton
                         title="Cancelar Trabalho"
                         gradient={["#00A699", "#00A699"]}
-                        onPress={() => { }}
+                        onPress={handleCancelApplication}
                     />
                 </View>
             </View>
@@ -108,6 +128,14 @@ const styles = StyleSheet.create({
 const mapDispatchToProps = (dispatch) => ({
     dispatchGetJobAction: (id, onSuccess, onError) =>
         dispatch(getSingleJob(id, onSuccess, onError)),
+    dispatchCancelApplication: (id, applicationsAccepted) =>
+        dispatch(cancelAcceptedApplication(id, { applicationsAccepted })),
+    dispatchGetUserAction: (id) => dispatch(getUser(id)),
+
 });
 
-export default connect(null, mapDispatchToProps)(NextJobDetailsPage)
+const mapStateToProps = createStructuredSelector({
+    user: selectUserData,
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(NextJobDetailsPage)

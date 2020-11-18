@@ -8,31 +8,14 @@ import { getUser } from "../../redux/actions/userActions"
 import JobCard from '../../components/JobCard'
 
 const NextJobsPage = ({ navigation, user, dispatchGetUserAction }) => {
-    const [nextJobs, setNextJobs] = useState([])
-    const [noContent, setNoContent] = useState(false)
-
-    useEffect(() => {
-        dispatchGetUserAction(
-            user.data._id,
-            async (response) => {
-                const data = await response.data.jobsAccepted
-                if (data.length >= 1) {
-                    setNextJobs(data)
-                } else {
-                    setNoContent(!noContent)
-                }
-            },
-            error => console.log(error)
-        )
-    }, [dispatchGetUserAction])
 
     return (
         <View style={styles.container}>
             <View style={styles.main}>
-                {!noContent ?
+                {user.data.jobsAccepted.length >= 1 ?
                     <FlatList
                         style={{ marginHorizontal: 15 }}
-                        data={nextJobs}
+                        data={user.data.jobsAccepted}
                         renderItem={({ item }) => (
                             <JobCard
                                 title={item.title}
@@ -41,7 +24,7 @@ const NextJobsPage = ({ navigation, user, dispatchGetUserAction }) => {
                                 payment={item.payment.toFixed(2)}
                                 timeStart={item.time.start}
                                 timeEnd={item.time.end}
-                                openCard={() => navigation.navigate('PendingJobDetailsPage', {
+                                openCard={() => navigation.navigate('NextJobDetailsPage', {
                                     jobId: item._id
                                 })}
                             />
@@ -49,7 +32,7 @@ const NextJobsPage = ({ navigation, user, dispatchGetUserAction }) => {
                     />
                     :
                     <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-                        <Text>Você ainda não possui trabalhos confirmados</Text>
+                        <Text style={{ fontSize: 16, fontFamily: 'NunitoSans_400Regular' }}>Você ainda não possui trabalhos confirmados</Text>
                     </View>
                 }
             </View>

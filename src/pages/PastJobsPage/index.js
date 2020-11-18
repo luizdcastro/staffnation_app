@@ -50,7 +50,7 @@ const PastJobsPage = ({ navigation, user, dispatchGetUserAction }) => {
                     />
                     :
                     <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-                        <Text>Você ainda não possui trabalhos realizados</Text>
+                        <Text style={{ fontSize: 16, fontFamily: 'NunitoSans_400Regular' }}>Você ainda não possui trabalhos realizados</Text>
                     </View>
                 }
             </View>

@@ -46,6 +46,18 @@ export const removePendingApplication = (id, data, onSuccess, onError) => ({
     },
 });
 
+export const cancelAcceptedApplication = (id, data, onSuccess, onError) => ({
+    type: constants.API,
+    payload: {
+        method: "PATCH",
+        url: `/job/removeAccepted/${id}`,
+        data,
+        success: (response) => canceledAcceptedApplication(response),
+        postProccessSuccess: onSuccess,
+        postProccessError: onError,
+    },
+});
+
 const allJobsData = (data) => ({
     type: constants.GET_ALL_JOBS,
     payload: data,
@@ -63,5 +75,10 @@ const addedPendingApplication = (data) => ({
 
 const removedPendingApplication = (data) => ({
     type: constants.REMOVE_PENDING_APPLICATION,
+    payload: data,
+});
+
+const canceledAcceptedApplication = (data) => ({
+    type: constants.CANCEL_ACCEPTED_APPLICATION,
     payload: data,
 });

@@ -32,7 +32,7 @@ const PendingJobsPage = ({ navigation, user }) => {
                     />
                     :
                     <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-                        <Text>Você ainda não possui trabalhos pendentes</Text>
+                        <Text style={{ fontSize: 16, fontFamily: 'NunitoSans_400Regular' }}>Você ainda não possui trabalhos pendentes</Text>
                     </View>
                 }
             </View>
