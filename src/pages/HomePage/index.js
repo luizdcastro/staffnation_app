@@ -7,10 +7,17 @@ import { Feather } from '@expo/vector-icons';
 import { Ionicons } from '@expo/vector-icons';
 
 import { selectUserData } from '../../redux/reducers/user/userSelector'
+import { selectAuthData } from '../../redux/reducers/auth/authSelector'
 import { getUser } from "../../redux/actions/userActions"
 
+const HomePage = ({ navigation, user, auth, dispatchGetUserAction }) => {
 
-const HomePage = ({ navigation, user, dispatchGetUserAction }) => {
+	useEffect(() => {
+		dispatchGetUserAction(
+			auth.userId,
+			(response) => console.log(response),
+			(error) => console.log(error))
+	}, [dispatchGetUserAction])
 
 	useEffect(() => {
 		navigation.setOptions({
@@ -131,11 +138,12 @@ const styles = StyleSheet.create({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-	dispatchGetUserAction: (id) => dispatch(getUser(id))
+	dispatchGetUserAction: (id, onSuccess, onError) => dispatch(getUser(id, onSuccess, onError))
 });
 
 const mapStateToProps = createStructuredSelector({
 	user: selectUserData,
+	auth: selectAuthData
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(HomePage);

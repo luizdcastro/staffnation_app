@@ -32,7 +32,8 @@ const PastJobsPage = ({ navigation, user, dispatchGetUserAction }) => {
             <View style={styles.main}>
                 {!noContent ?
                     <FlatList
-                        style={{ marginHorizontal: 15 }}
+                        style={{ marginHorizontal: 20 }}
+                        showsVerticalScrollIndicator={false}
                         data={pastJobs}
                         renderItem={({ item }) => (
                             <JobCard

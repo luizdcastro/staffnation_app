@@ -21,7 +21,7 @@ const SearchPage = ({ navigation, jobs, dispatchGetAllJobsAction }) => {
 
 	useEffect(() => {
 		setFilteredJobs(jobs)
-	}, [setFilteredJobs])
+	}, [setFilteredJobs, jobs])
 
 	useEffect(() => {
 		setFilteredJobs(
@@ -36,6 +36,8 @@ const SearchPage = ({ navigation, jobs, dispatchGetAllJobsAction }) => {
 			)
 		);
 	}, [jobs, search]);
+
+	console.log(filteredJobs)
 
 	return (
 		<View style={styles.container} >
@@ -58,9 +60,9 @@ const SearchPage = ({ navigation, jobs, dispatchGetAllJobsAction }) => {
 						</TouchableOpacity>
 					</View>
 				</View>
-
 				<FlatList
-					style={{ marginHorizontal: 15 }}
+					style={{ marginHorizontal: 20 }}
+					showsVerticalScrollIndicator={false}
 					data={filteredJobs}
 					renderItem={({ item }) => (
 						<JobCard

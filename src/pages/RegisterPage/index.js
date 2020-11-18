@@ -120,9 +120,9 @@ const RegisterPage = ({ navigation, dispatchRegisterUser, dispatchGetUserAction 
 			userCategories,
 			password,
 			confirmPassword,
-			async (response) => {
-				const data = await response.data
-				dispatchGetUserAction(data._id)
+			(response) => {
+				console.log('registered!');
+				dispatchGetUserAction(response.data._id)
 			},
 			(response) => {
 				setError(true);

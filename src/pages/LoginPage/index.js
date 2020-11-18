@@ -42,7 +42,7 @@ const LoginPage = ({ navigation, dispatchLoginAction, dispatchGetUserAction }) =
 			userCpf,
 			userPassword,
 			(response) => {
-				console.log(response);
+				console.log('logged in!');
 				dispatchGetUserAction(response.data._id)
 			},
 			(response) => {

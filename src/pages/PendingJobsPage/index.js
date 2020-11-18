@@ -14,7 +14,8 @@ const PendingJobsPage = ({ navigation, user }) => {
             <View style={styles.main}>
                 {user.data.jobsPending.length >= 1 ?
                     <FlatList
-                        style={{ marginHorizontal: 15 }}
+                        style={{ marginHorizontal: 20 }}
+                        showsVerticalScrollIndicator={false}
                         data={user.data.jobsPending}
                         renderItem={({ item }) => (
                             <JobCard

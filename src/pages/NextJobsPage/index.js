@@ -14,7 +14,8 @@ const NextJobsPage = ({ navigation, user, dispatchGetUserAction }) => {
             <View style={styles.main}>
                 {user.data.jobsAccepted.length >= 1 ?
                     <FlatList
-                        style={{ marginHorizontal: 15 }}
+                        style={{ marginHorizontal: 20 }}
+                        showsVerticalScrollIndicator={false}
                         data={user.data.jobsAccepted}
                         renderItem={({ item }) => (
                             <JobCard
