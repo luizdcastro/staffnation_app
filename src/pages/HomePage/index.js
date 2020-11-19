@@ -83,7 +83,7 @@ export const pageOptions = ({ navigation }) => {
 		),
 		headerRight: () => (
 			<TouchableOpacity style={{ paddingRight: 15 }}>
-				<Ionicons name="ios-help-circle-outline" size={28} color="#00A699" />
+				<Ionicons name="ios-help-circle-outline" size={28} color="#00A699" onPress={() => navigation.navigate('HelpPage')} />
 			</TouchableOpacity>
 		)
 	}

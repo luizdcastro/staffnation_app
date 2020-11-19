@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import {
 	StyleSheet,
 	View,
@@ -7,9 +7,12 @@ import {
 	TouchableOpacity,
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
-
+import * as Animatable from "react-native-animatable";
+import moment from "moment"
 import { TextInputMask } from "react-native-masked-text";
 import { Ionicons } from "@expo/vector-icons";
+import { Feather } from "@expo/vector-icons";
+import { MaterialIcons } from "@expo/vector-icons";
 
 import GradientButton from "../GradientButton";
 
@@ -20,8 +23,37 @@ const FormNameDate = ({
 	setName,
 	date,
 	setDate,
+	gender,
+	setGender
 }) => {
 	const navigation = useNavigation();
+	const [dateIsValid, setDateIsValid] = useState(true)
+	const [genderOptionMan, setGenderOptionMan] = useState(false)
+	const [genderOptionWoman, setGenderOptionWoman] = useState(false)
+	const [genderOptionTrans, setOptionTrans] = useState(false)
+
+	useEffect(() => {
+		if (date.length === 10) {
+			const value = moment(date, "DD/MM/YYYY").isValid()
+			setDateIsValid(value)
+		}
+
+	}, [date, dateIsValid])
+
+	useEffect(() => {
+		if (genderOptionMan) {
+			setGender('Masculino')
+		}
+		if (genderOptionWoman) {
+			setGender('Feminino')
+		}
+		if (genderOptionTrans) {
+			setGender('Transgênero')
+		}
+		if (!genderOptionMan & !genderOptionWoman & !genderOptionTrans) {
+			setGender('')
+		}
+	}, [genderOptionTrans, genderOptionMan, genderOptionWoman])
 
 	return (
 		<View style={styles.container}>
@@ -47,7 +79,7 @@ const FormNameDate = ({
 			</View>
 			<View style={{ flex: 1, justifyContent: "space-between" }}>
 				<Text style={styles.title}>
-					Digite seu nome completo e data de nascimento
+					Digite seu nome completo, data de nascimento e gênero
 				</Text>
 				<View style={{ flexDirection: "row", alignItems: "center" }}>
 					<TextInput
@@ -84,8 +116,48 @@ const FormNameDate = ({
 						</TouchableOpacity>
 					) : null}
 				</View>
+				{!dateIsValid & date.length === 10 ? (
+					<Animatable.Text animation="fadeInLeft" style={styles.errorText}>
+						Data de nascimento inválida
+					</Animatable.Text>
+				) : null}
+				<View style={{ flexDirection: 'row', justifyContent: 'space-between', marginHorizontal: 15 }}>
+					<View style={{ alignItems: 'center' }}>
+						<Text style={styles.genderText}>Maculino</Text>
+						<TouchableOpacity onPress={() => {
+							setGenderOptionMan(!genderOptionMan);
+							setGenderOptionWoman(false)
+							setOptionTrans(false)
+						}}>
+							{!genderOptionMan ? <Feather name="circle" size={30} color="#00A699" /> :
+								<MaterialIcons name="check-circle" size={30} color="#00A699" />}
+						</TouchableOpacity>
+					</View>
+					<View style={{ alignItems: 'center' }}>
+						<Text style={styles.genderText}>Feminino</Text>
+						<TouchableOpacity onPress={() => {
+							setGenderOptionWoman(!genderOptionWoman);
+							setGenderOptionMan(false)
+							setOptionTrans(false)
+						}}>
+							{!genderOptionWoman ? <Feather name="circle" size={30} color="#00A699" /> :
+								<MaterialIcons name="check-circle" size={30} color="#00A699" />}
+						</TouchableOpacity>
+					</View>
+					<View style={{ alignItems: 'center' }}>
+						<Text style={styles.genderText}> Transgênero</Text>
+						<TouchableOpacity onPress={() => {
+							setOptionTrans(!genderOptionTrans);
+							setGenderOptionMan(false)
+							setGenderOptionWoman(false)
+						}}>
+							{!genderOptionTrans ? <Feather name="circle" size={30} color="#00A699" /> :
+								<MaterialIcons name="check-circle" size={30} color="#00A699" />}
+						</TouchableOpacity>
+					</View>
+				</View>
 				<View style={styles.buttonContainer}>
-					{date.length >= 10 ? (
+					{dateIsValid & date.length === 10 & name.length >= 3 & gender.length >= 3 ? (
 						<GradientButton
 							title="Continuar"
 							gradient={["#00A699", "#00A699"]}
@@ -129,10 +201,29 @@ const styles = StyleSheet.create({
 		height: 45,
 		paddingHorizontal: 15,
 	},
+	genderText: {
+		fontFamily: 'NunitoSans_400Regular',
+		fontSize: 18,
+		marginBottom: 4,
+		color: '#484848'
+	},
 	buttonContainer: {
 		justifyContent: "flex-end",
 		alignItems: "center",
-		paddingBottom: 20,
+		paddingBottom: 15,
+	},
+	errorContainer: {
+		justifyContent: "flex-start",
+		paddingHorizontal: 15,
+		position: "absolute",
+		top: 40,
+	},
+	errorText: {
+		position: 'absolute',
+		fontSize: 13,
+		color: "#ff5555",
+		marginLeft: 15,
+		top: '70%'
 	},
 });
 

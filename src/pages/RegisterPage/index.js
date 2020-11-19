@@ -39,6 +39,7 @@ const RegisterPage = ({ navigation, dispatchRegisterUser, dispatchGetUserAction 
 	//Register data function
 	const [userCpf, setUserCpf] = useState("");
 	const [name, setName] = useState("");
+	const [gender, setGender] = useState('')
 	const [email, setEmail] = useState("");
 	const [phone, setPhone] = useState("");
 	const [date, setDate] = useState("");
@@ -113,6 +114,7 @@ const RegisterPage = ({ navigation, dispatchRegisterUser, dispatchGetUserAction 
 		dispatchRegisterUser(
 			userCpf,
 			name,
+			gender,
 			date,
 			address,
 			email,
@@ -161,6 +163,8 @@ const RegisterPage = ({ navigation, dispatchRegisterUser, dispatchGetUserAction 
 					setName={setName}
 					date={date}
 					setDate={setDate}
+					gender={gender}
+					setGender={setGender}
 				/>
 			) : nameDateFormFilled & !addressFormFilled ? (
 				<FormAdress
@@ -429,6 +433,7 @@ const mapDispatchToProps = (dispatch) => ({
 	dispatchRegisterUser: (
 		cpf,
 		name,
+		gender,
 		birthdayDate,
 		address,
 		email,
@@ -444,6 +449,7 @@ const mapDispatchToProps = (dispatch) => ({
 				{
 					cpf,
 					name,
+					gender,
 					birthdayDate,
 					address,
 					email,

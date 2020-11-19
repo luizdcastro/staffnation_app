@@ -41,18 +41,12 @@ const PastJobDetailsPage = ({ route, dispatchGetJobAction }) => {
 
                 /> : null}
             <View style={styles.buttonsContainer}>
-                <View style={{ width: '100%', alignItems: 'center' }}>
-                    <TouchableOpacity style={styles.button}>
-                        <Text style={styles.textButton}>Notificar Atraso</Text>
-                    </TouchableOpacity>
-                </View>
-                <View>
-                    <GradientButton
-                        title="Cancelar Trabalho"
-                        gradient={["#00A699", "#00A699"]}
-                        onPress={() => { }}
-                    />
-                </View>
+                <GradientButton
+                    onPress={() => { }}
+                    gradient={["#E8E8E8", "#E8E8E8"]}
+                    title="Cancelar Trabalho"
+                    textStyle={{ color: "#767676" }}
+                />
             </View>
         </View >
     )
