@@ -67,7 +67,7 @@ const styles = StyleSheet.create({
         fontSize: 16,
         fontFamily: 'NunitoSans_400Regular',
         color: '#484848',
-        paddingTop: 30,
+        paddingTop: 40,
         marginBottom: '30%'
     },
     noContentImage: {

@@ -23,6 +23,9 @@ const HomePage = ({ navigation, user, auth, jobs, dispatchGetUserAction, dispatc
 			(error) => console.log(error))
 	}, [dispatchGetUserAction])
 
+	dispatchGetUserAction(user)
+
+
 	useEffect(() => {
 		navigation.setOptions({
 			headerTitle: `Olá, ${user.data.name.split(' ')[0]}!`
@@ -172,7 +175,6 @@ const styles = StyleSheet.create({
 		backgroundColor: '#fafafa',
 		height: '100%',
 		width: '100%',
-
 		justifyContent: 'flex-end'
 	},
 	titleSection: {
@@ -240,7 +242,8 @@ const styles = StyleSheet.create({
 		elevation: 1,
 		marginHorizontal: 15,
 		height: 110,
-		marginTop: 10
+		marginTop: 10,
+		marginBottom: 5
 
 	},
 	menuText: {

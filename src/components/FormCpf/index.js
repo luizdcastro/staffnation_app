@@ -58,7 +58,6 @@ const FormCpf = ({ setCpfFormFilled, userCpf, setUserCpf }) => {
 					</View>
 					{(verifyUserCpf === false) & (userCpf.length === 14) ? (
 						<View style={styles.errorContainer}>
-							<MaterialIcons name="error" size={20} color="#ff5555" />
 							<Text style={styles.errorText}>CPF inválido</Text>
 						</View>
 					) : null}
@@ -123,7 +122,6 @@ const styles = StyleSheet.create({
 	errorText: {
 		fontSize: 13,
 		color: "#ff5555",
-		paddingLeft: 8,
 	},
 	buttonContainer: {
 		justifyContent: "flex-end",

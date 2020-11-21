@@ -20,14 +20,16 @@ import Feather from "react-native-vector-icons/Feather";
 
 
 import GradientButton from "../../components/GradientButton";
+import LoginCpf from '../../components/LoginCpf'
 import { loginUser } from "../../redux/actions/authActions";
 import { getUser } from "../../redux/actions/userActions"
 
 const LoginPage = ({ navigation, dispatchLoginAction, dispatchGetUserAction }) => {
-	const [userCpf, setUserCpf] = useState("");
-	const [verifyUserCpf, setVerifyUserCpf] = useState("");
 	const [cpfFormFilled, setCpfFormFilled] = useState(false);
+	const [userCpf, setUserCpf] = useState("");
+
 	const [userPassword, setUserPassword] = useState("");
+	const [passwordFormFilled, setPasswordFormFilled] = useState(false)
 	const [secureTextEntry, setSecureTextEntry] = useState(true);
 	const [error, setError] = useState(false);
 	const [errorMessage, setErrorMessage] = useState('')
@@ -72,71 +74,22 @@ const LoginPage = ({ navigation, dispatchLoginAction, dispatchGetUserAction }) =
 			style={styles.mainContainer}
 		>
 			<StatusBar barStyle='dark-content' backgroundColor='#fafafa' />
-			<TouchableOpacity
-				style={styles.buttonClose}
-				onPress={() => { !cpfFormFilled ? navigation.navigate("AuthPage") : setCpfFormFilled(false) }}
-			>
-				<Ionicons name="ios-arrow-back" size={30} color="#00A699" />
-			</TouchableOpacity>
-			{cpfFormFilled === false ? (
-				<View style={{ flex: 1, justifyContent: "space-between" }}>
-					<Animatable.Text animation="fadeInUp" style={styles.title}>
-						Para entrar, digite seu CPF
-						</Animatable.Text>
-					<View style={{ flexDirection: "row", alignItems: "center" }}>
-						<TextInputMask
-							blurOnSubmit={false}
-							style={[
-								(verifyUserCpf === false) & (userCpf.length === 14)
-									? [styles.input, { color: "#ff5555" }]
-									: styles.input,
-							]}
-							type={"cpf"}
-							value={userCpf}
-							autoFocus={true}
-							keyboardType="number-pad"
-							onChangeText={(text) => {
-								handleCpfInput(text);
-								setUserCpf(text);
-							}}
-						/>
-						{userCpf.length >= 1 ? (
-							<TouchableOpacity onPress={() => setUserCpf("")}>
-								<Ionicons name="ios-close-circle" size={25} color="#a8a8a8" />
-							</TouchableOpacity>
-						) : null}
-					</View>
-					<View style={styles.buttonContainer}>
-						<TouchableOpacity style={styles.footerLink} onPress={() => navigation.navigate('RegisterPage')}>
-							<Text style={styles.footerText}>Ainda não tem conta? Começar</Text>
-							<Ionicons name="ios-arrow-forward" size={15} color="#00A699" />
-						</TouchableOpacity>
-						{verifyUserCpf ? (
-							<GradientButton
-								title="Continuar"
-								gradient={["#00A699", "#00A699"]}
-								onPress={() => setCpfFormFilled(true)}
-							/>
-						) : (
-								<GradientButton
-									onPress={() => { }}
-									gradient={["#E8E8E8", "#E8E8E8"]}
-									title="Continuar"
-									textStyle={{ color: "#767676" }}
-								/>
-							)}
-					</View>
-				</View>
-			) : (
+			{!cpfFormFilled ?
+				<LoginCpf
+					setCpfFormFilled={setCpfFormFilled}
+					userCpf={userCpf}
+					setUserCpf={setUserCpf}
+				/>
+				:
+				<View style={{ flex: 1 }}>
+					<TouchableOpacity
+						style={styles.buttonClose}
+						onPress={() => setCpfFormFilled(false)}
+					>
+						<Ionicons name="ios-arrow-back" size={30} color="#00A699" />
+					</TouchableOpacity>
 					<View style={{ flex: 1, justifyContent: "space-between" }}>
-						<Animatable.Text animation="fadeInUp" style={styles.title}>
-							Qual sua senha de acesso?
-					  </Animatable.Text>
-						{errorMessage ?
-							<Animatable.Text animation="fadeInLeft" style={styles.error}>
-								{errorMessage}
-							</Animatable.Text>
-							: null}
+						<Text style={styles.title}>Qual sua senha de acesso?</Text>
 						<View style={{ flexDirection: "row", alignItems: "center" }}>
 							<TextInput
 								style={styles.input}
@@ -158,6 +111,11 @@ const LoginPage = ({ navigation, dispatchLoginAction, dispatchGetUserAction }) =
 							</TouchableOpacity>
 						</View>
 						<View style={styles.buttonContainer}>
+							{errorMessage ?
+								<Animatable.Text animation="fadeInLeft" style={styles.error}>
+									{errorMessage}
+								</Animatable.Text>
+								: null}
 							<TouchableOpacity style={styles.footerLink} onPress={() => { }}>
 								<Text style={styles.footerText}>Esqueci minha senha</Text>
 								<Ionicons name="ios-arrow-forward" size={15} color="#00A699" />
@@ -186,7 +144,10 @@ const LoginPage = ({ navigation, dispatchLoginAction, dispatchGetUserAction }) =
 							}
 						</View>
 					</View>
-				)}
+
+				</View>
+
+			}
 		</KeyboardAvoidingView>
 	);
 };
@@ -237,7 +198,9 @@ const styles = StyleSheet.create({
 		fontFamily: 'NunitoSans_400Regular',
 		fontSize: 12,
 		color: '#ff5a60',
-		marginLeft: 15
+		marginLeft: 15,
+		alignSelf: 'flex-start',
+		marginBottom: 35
 	}
 });
 
