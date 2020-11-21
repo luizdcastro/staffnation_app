@@ -22,9 +22,7 @@ const JobCard = ({ openCard, timeStart, timeEnd, title, local, category, payment
                 </View>
             </View>
             <View style={styles.icon}>
-                <TouchableOpacity>
-                    <Entypo name="dots-three-horizontal" size={25} color="#00A699" />
-                </TouchableOpacity>
+                <Entypo name="dots-three-horizontal" size={25} color="#00A699" />
             </View>
         </TouchableOpacity>
     )

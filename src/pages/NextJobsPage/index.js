@@ -1,11 +1,13 @@
 import React, { useEffect, useState } from "react";
 import { connect } from "react-redux";
 import { createStructuredSelector } from 'reselect';
-import { View, FlatList, Text, StyleSheet } from "react-native";
+import { View, FlatList, Text, Image, StyleSheet } from "react-native";
 
 import { selectUserData } from '../../redux/reducers/user/userSelector'
 import { getUser } from "../../redux/actions/userActions"
 import JobCard from '../../components/JobCard'
+import NoContentImage from '../../assets/images/no-result.svg'
+
 
 const NextJobsPage = ({ navigation, user, dispatchGetUserAction }) => {
 
@@ -34,8 +36,9 @@ const NextJobsPage = ({ navigation, user, dispatchGetUserAction }) => {
                         )}
                     />
                     :
-                    <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-                        <Text style={{ fontSize: 16, fontFamily: 'NunitoSans_400Regular' }}>Você ainda não possui trabalhos confirmados</Text>
+                    <View style={styles.noContentBox}>
+                        <Image source={require('../../assets/images/no-result-search.png')} style={styles.noContentImage} />
+                        <Text style={styles.noContentText}>Você ainda não possui trabalhos confirmados</Text>
                     </View>
                 }
             </View>
@@ -54,7 +57,24 @@ const styles = StyleSheet.create({
         height: '100%',
         width: '100%',
         justifyContent: 'flex-end'
-    }
+    },
+    noContentBox: {
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center'
+    },
+    noContentText: {
+        fontSize: 16,
+        fontFamily: 'NunitoSans_400Regular',
+        color: '#484848',
+        paddingTop: 30,
+        marginBottom: '30%'
+    },
+    noContentImage: {
+        width: '60%',
+        height: 187,
+        resizeMode: "cover"
+    },
 });
 
 const mapDispatchToProps = (dispatch) => ({

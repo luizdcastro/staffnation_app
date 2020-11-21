@@ -31,8 +31,6 @@ const PersonalDataPage = ({ navigation, dispatchGetUserAction, dispatchUpdateUse
         navigation.navigate('ProfilePage')
     }
 
-    console.log(user)
-
     useEffect(() => {
         navigation.setOptions({
             headerRight: () => (

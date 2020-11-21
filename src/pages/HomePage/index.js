@@ -46,7 +46,7 @@ const HomePage = ({ navigation, user, auth, jobs, dispatchGetUserAction, dispatc
 						</View>
 						<View style={styles.cardSection}>
 							<Text style={styles.cardSectionText}>Saldo Atual</Text>
-							<Text style={styles.cardSectionNumber}>R$ 0,00</Text>
+							<Text style={styles.cardSectionNumber}>R$ {user.data.totalCash.toFixed(2)}</Text>
 						</View>
 					</View>
 					<View style={{ flex: 1 }}>
@@ -77,25 +77,31 @@ const HomePage = ({ navigation, user, auth, jobs, dispatchGetUserAction, dispatc
 								)}
 							/>}
 						<Text style={styles.titleSection}>Vagas Recentes</Text>
-						<FlatList
-							style={{ marginHorizontal: 15, marginTop: 10 }}
-							horizontal={true}
-							showsVerticalScrollIndicator={false}
-							showsHorizontalScrollIndicator={false}
-							data={jobs.slice(0, 5)}
-							renderItem={({ item }) => (
-								<JobCardHome
-									title={item.title}
-									dateDay={item.date.split(' ')[0]}
-									dateMonth={item.date.split(' ')[1]}
-									local={item.address.neighborhood}
-									payment={item.payment.toFixed(2)}
-									openCard={() => navigation.navigate('SearchJobDetailsPage', {
-										jobId: item._id
-									})}
-								/>
-							)}
-						/>
+						{!jobs.length >= 1 ?
+							<TouchableOpacity style={styles.cardJobsSection} onPress={() => navigation.navigate('SearchPage')}>
+								<Text style={styles.cardSectionText}>Desculpe, nenhum resultado encontrado</Text>
+								<Ionicons name="ios-arrow-forward" size={28} color="#00A699" />
+							</TouchableOpacity>
+							:
+							<FlatList
+								style={{ marginHorizontal: 15, marginTop: 10 }}
+								horizontal={true}
+								showsVerticalScrollIndicator={false}
+								showsHorizontalScrollIndicator={false}
+								data={jobs.slice(0, 5)}
+								renderItem={({ item }) => (
+									<JobCardHome
+										title={item.title}
+										dateDay={item.date.split(' ')[0]}
+										dateMonth={item.date.split(' ')[1]}
+										local={item.address.neighborhood}
+										payment={item.payment.toFixed(2)}
+										openCard={() => navigation.navigate('SearchJobDetailsPage', {
+											jobId: item._id
+										})}
+									/>
+								)}
+							/>}
 					</View>
 				</ScrollView>
 				<View style={styles.menu}>

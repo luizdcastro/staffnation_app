@@ -8,12 +8,13 @@ import { TextInputMask } from "react-native-masked-text";
 import * as Animatable from "react-native-animatable";
 import { Feather } from "@expo/vector-icons";
 import { MaterialIcons } from "@expo/vector-icons";
+import { Ionicons } from '@expo/vector-icons';
 
 import { selectUserData } from '../../redux/reducers/user/userSelector'
 import GradientButton from '../../components/GradientButton'
 
 const TransferPage = ({ navigation, user }) => {
-    const [transferValue, setTransferValue] = useState('')
+    const [transferValue, setTransferValue] = useState(0)
     const [confirm, setConfirm] = useState(false)
 
     useEffect(() => {
@@ -27,15 +28,19 @@ const TransferPage = ({ navigation, user }) => {
         })
     }, [transferValue])
 
+    const format = amount => {
+        return Number(amount)
+            .toFixed(2)
+            .replace(/\d(?=(\d{3})+\.)/g, '$&,');
+    };
 
     return (
-        <KeyboardAvoidingView keyboardVerticalOffset={useHeaderHeight()} behavior={Platform.OS === "ios" ? "padding" : "height"} style={styles.mainContainer}>
-
+        <KeyboardAvoidingView keyboardVerticalOffset={useHeaderHeight()}
+            behavior={Platform.OS === "ios" ? "padding" : "height"} style={styles.mainContainer}>
             <View style={styles.formContainer}>
                 <TextInputMask
                     keyboardType='number-pad'
                     placeholder='R$ 0,00'
-                    autoFocus={true}
                     blurOnSubmit={false}
                     type={'money'}
                     options={{
@@ -46,37 +51,46 @@ const TransferPage = ({ navigation, user }) => {
                         suffixUnit: ''
                     }}
                     value={transferValue}
-                    onChangeText={text => setTransferValue(text)}
+                    onChangeText={text => setTransferValue(text.toString().split(' ')[1])}
                     maxLength={11}
                     style={{ fontSize: 26, fontFamily: 'NunitoSans_700Bold', color: '#484848', width: 150 }}
                 />
             </View>
-            {transferValue.length >= 6 ? (
-                <Animatable.View animation="fadeInUp" style={{ flex: 1, marginHorizontal: 15, flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
-                    <View>
-                        <Text style={styles.confirmText}>Banco: Itaú</Text>
-                        <Text style={styles.confirmText}>Agência: 0000 Conta: 0000-0</Text>
-                        <Text style={styles.confirmText}>Valor: {transferValue}</Text>
-                    </View>
-                    <View>
-                        <TouchableOpacity onPress={() => setConfirm(!confirm)}>
-                            {confirm ? (
-                                <MaterialIcons
-                                    name="check-circle"
-                                    size={30}
-                                    color="#00A699"
-                                />
-                            ) : (
-                                    <Feather name="circle" size={30} color="#00A699" />
-                                )}
+            {transferValue.length > 2 ? (
+                <Animatable.View animation="fadeInUp" style={{ marginHorizontal: 15, marginBottom: 30 }}>
+                    {user.data.bankData.name.length >= 2 & user.data.bankData.agency >= 3 & user.data.bankData.account >= 4 ?
+                        <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
+                            <View>
+                                <Text style={styles.confirmText}>Banco: {user.data.bankData.name}</Text>
+                                <Text style={styles.confirmText}>Agência: {user.data.bankData.agency} Conta: {user.data.bankData.account}</Text>
+                                <Text style={styles.confirmText}>Valor: R$ {transferValue}</Text>
+                            </View>
+                            <View>
+                                <TouchableOpacity onPress={() => setConfirm(!confirm)}>
+                                    {confirm ? (
+                                        <MaterialIcons
+                                            name="check-circle"
+                                            size={30}
+                                            color="#00A699"
+                                        />
+                                    ) : (
+                                            <Feather name="circle" size={30} color="#00A699" />
+                                        )}
+                                </TouchableOpacity>
+                            </View>
+                        </View>
+                        :
+                        <TouchableOpacity style={styles.noBankDataCard} onPress={() => navigation.navigate('BankDataPage')}>
+                            <Text style={styles.noBankDataText}>Atualize seus dados bancários para continuar</Text>
+                            <Ionicons name="ios-arrow-forward" size={28} color="#00A699" />
                         </TouchableOpacity>
-                    </View>
+                    }
                 </Animatable.View>
             ) : null}
             <View style={styles.buttonContainer}>
                 {confirm ?
                     <GradientButton
-                        title="Continuar"
+                        title="Transferir"
                         gradient={["#00A699", "#00A699"]}
                         onPress={() => { }}
                     />
@@ -84,7 +98,7 @@ const TransferPage = ({ navigation, user }) => {
                     <GradientButton
                         onPress={() => { }}
                         gradient={["#E8E8E8", "#E8E8E8"]}
-                        title="Confirmar"
+                        title="Transferir"
                         textStyle={{ color: "#767676" }}
                     />
                 }
@@ -134,6 +148,17 @@ const styles = StyleSheet.create({
     confirmText: {
         fontSize: 15,
         fontFamily: 'NunitoSans_400Regular'
+    },
+    noBankDataCard: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'space-evenly',
+    },
+    noBankDataText: {
+        fontFamily: 'NunitoSans_400Regular',
+        fontSize: 15,
+        color: '#484848'
+
     }
 })
 

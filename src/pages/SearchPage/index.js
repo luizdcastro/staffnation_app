@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
 import { createStructuredSelector } from 'reselect';
-import { View, TextInput, FlatList, TouchableOpacity, KeyboardAvoidingView, Platform, StyleSheet } from "react-native";
+import { View, TextInput, Text, FlatList, Image, TouchableOpacity, KeyboardAvoidingView, Platform, StyleSheet } from "react-native";
 
 import { Feather } from '@expo/vector-icons';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
@@ -58,26 +58,32 @@ const SearchPage = ({ navigation, jobs, dispatchGetAllJobsAction }) => {
 						</TouchableOpacity>
 					</View>
 				</View>
-				<FlatList
-					style={{ marginHorizontal: 20, marginBottom: 20 }}
-					showsVerticalScrollIndicator={false}
-					data={filteredJobs}
-					renderItem={({ item }) => (
-						<JobCard
-							title={item.title}
-							dateDay={item.date.split(' ')[0]}
-							dateMonth={item.date.split(' ')[1].substring(0, 3)}
-							local={item.address.neighborhood}
-							category={item.category}
-							payment={item.payment.toFixed(2)}
-							timeStart={item.time.start}
-							timeEnd={item.time.end}
-							openCard={() => navigation.navigate('SearchJobDetailsPage', {
-								jobId: item._id
-							})}
-						/>
-					)}
-				/>
+				{filteredJobs.length >= 1 ?
+					<FlatList
+						style={{ marginHorizontal: 20, marginBottom: 20 }}
+						showsVerticalScrollIndicator={false}
+						data={filteredJobs}
+						renderItem={({ item }) => (
+							<JobCard
+								title={item.title}
+								dateDay={item.date.split(' ')[0]}
+								dateMonth={item.date.split(' ')[1].substring(0, 3)}
+								local={item.address.neighborhood}
+								category={item.category}
+								payment={item.payment.toFixed(2)}
+								timeStart={item.time.start}
+								timeEnd={item.time.end}
+								openCard={() => navigation.navigate('SearchJobDetailsPage', {
+									jobId: item._id
+								})}
+							/>
+						)}
+					/> :
+					<View style={styles.noContentBox}>
+						<Image source={require('../../assets/images/no-result.png')} style={styles.noContentImage} />
+						<Text style={styles.noContentText}>Desculpe, nenhum resultado encontrado</Text>
+					</View>
+				}
 
 			</KeyboardAvoidingView>
 		</View>
@@ -138,7 +144,24 @@ const styles = StyleSheet.create({
 		},
 		shadowOpacity: 0.18,
 		shadowRadius: 1.00,
-	}
+	},
+	noContentBox: {
+		flex: 1,
+		justifyContent: 'center',
+		alignItems: 'center'
+	},
+	noContentText: {
+		fontSize: 17,
+		fontFamily: 'NunitoSans_400Regular',
+		color: '#484848',
+		paddingTop: 30,
+		marginBottom: '30%'
+	},
+	noContentImage: {
+		width: '80%',
+		height: 187,
+		resizeMode: "cover"
+	},
 });
 
 const mapDispatchToProps = (dispatch) => ({
