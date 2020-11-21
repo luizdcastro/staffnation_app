@@ -12,11 +12,21 @@ import { Ionicons } from '@expo/vector-icons';
 
 const Tab = createMaterialTopTabNavigator();
 
-const JobsTab = ({ user, dispatchGetUserAction }) => {
+const JobsTab = ({ navigation, user, dispatchGetUserAction }) => {
 
     useEffect(() => {
         dispatchGetUserAction(user.data._id)
     }, [dispatchGetUserAction])
+
+    useEffect(() => {
+        navigation.setOptions({
+            headerRight: () => (
+                <TouchableOpacity style={{ paddingRight: 15 }} onPress={() => navigation.navigate('HelpPage')}>
+                    <Ionicons name="ios-help-circle-outline" size={30} color="#00A699" />
+                </TouchableOpacity>
+            ),
+        })
+    }, [])
 
     return (
         <Tab.Navigator style={{ backgroundColor: '#FAFAFA' }} tabBarOptions={{
@@ -65,11 +75,6 @@ export const pageOptions = {
 
     },
     headerTintColor: '#00A699',
-    headerRight: () => (
-        <TouchableOpacity style={{ paddingRight: 15 }}>
-            <Ionicons name="ios-help-circle-outline" size={28} color="#00A699" />
-        </TouchableOpacity>
-    )
 
 }
 

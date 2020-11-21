@@ -5,6 +5,7 @@ const JobDetails = ({
     title,
     category,
     positions,
+    date,
     timeStart,
     timeEnd,
     payment,
@@ -30,7 +31,7 @@ const JobDetails = ({
                 <View style={styles.labelContainer}>
                     <Text style={styles.label}>Data e horário</Text>
                 </View>
-                <Text style={styles.text}>15 de Fevereiro</Text>
+                <Text style={styles.text}>{date}</Text>
                 <Text style={styles.text}>{timeStart} às {timeEnd}</Text>
             </View>
             <View style={styles.dataContent}>

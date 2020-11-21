@@ -32,8 +32,8 @@ const AvatarPage = ({
 
             if (status !== 'granted') {
                 alert('Precisamos de permissão para galeria de fotos')
-                return
             }
+
         }
         const data = await ImagePicker.launchImageLibraryAsync({
             mediaTypes: ImagePicker.MediaTypeOptions.Images,

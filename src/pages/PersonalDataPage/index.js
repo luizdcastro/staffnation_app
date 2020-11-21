@@ -15,6 +15,7 @@ const PersonalDataPage = ({ navigation, dispatchGetUserAction, dispatchUpdateUse
     const [date, setDate] = useState(user.data.birthdayDate)
     const [email, setEmail] = useState(user.data.email)
     const [phone, setPhone] = useState(user.data.phone)
+    const [gender, setGender] = useState(user.data.gender)
 
     const hanleUpdateUser = (event) => {
         event.preventDefault();
@@ -66,6 +67,10 @@ const PersonalDataPage = ({ navigation, dispatchGetUserAction, dispatchUpdateUse
                         value={date}
                         onChangeText={(value) => setDate(value)}
                     />
+                </View>
+                <View style={styles.formContent}>
+                    <Text style={styles.label}>Gênero</Text>
+                    <Text style={styles.input}>{gender}</Text>
                 </View>
                 <View style={styles.formContent}>
                     <Text style={styles.label}>Email</Text>

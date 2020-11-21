@@ -40,6 +40,7 @@ const PendingJobDetailsPage = ({ user, route, navigation, dispatchGetJobAction, 
             {jobDetails._id ?
                 <JobDetails
                     title={jobDetails.title}
+                    date={jobDetails.date}
                     category={jobDetails.category}
                     positions={jobDetails.positions}
                     timeStart={jobDetails.time.start}
@@ -70,7 +71,7 @@ const PendingJobDetailsPage = ({ user, route, navigation, dispatchGetJobAction, 
 }
 
 export const pageOptions = {
-    headerTitle: 'Detalhes',
+    headerTitle: 'Detalhes da Vaga',
     headerTitleAlign: 'center',
     headerTitleStyle: {
         color: '#484848',

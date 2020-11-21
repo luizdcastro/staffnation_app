@@ -20,6 +20,8 @@ const NextJobsPage = ({ navigation, user, dispatchGetUserAction }) => {
                         renderItem={({ item }) => (
                             <JobCard
                                 title={item.title}
+                                dateDay={item.date.split(' ')[0]}
+                                dateMonth={item.date.split(' ')[1].substring(0, 3)}
                                 local={item.address.neighborhood}
                                 category={item.category}
                                 payment={item.payment.toFixed(2)}

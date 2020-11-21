@@ -2,12 +2,13 @@ import React from 'react'
 import { View, Text, TouchableOpacity, StyleSheet } from 'react-native'
 import { Entypo } from '@expo/vector-icons';
 
-const JobCard = ({ openCard, timeStart, timeEnd, title, local, category, payment }) => {
+const JobCard = ({ openCard, timeStart, timeEnd, title, local, category, payment, dateMonth, dateDay }) => {
     return (
-        <View style={styles.container}>
+
+        <TouchableOpacity style={styles.container} onPress={openCard}>
             <View style={styles.dateContainer}>
-                <Text style={styles.dateDayText}>15</Text>
-                <Text style={styles.dateMonthText}>Fev</Text>
+                <Text style={styles.dateDayText}>{dateDay}</Text>
+                <Text style={styles.dateMonthText}>{dateMonth}</Text>
                 <Text style={[styles.smallText, { textAlign: 'center', lineHeight: 12 }]}>{timeStart}{"\n"} às {"\n"} {timeEnd}</Text>
             </View>
             <View style={styles.mainContent}>
@@ -21,11 +22,11 @@ const JobCard = ({ openCard, timeStart, timeEnd, title, local, category, payment
                 </View>
             </View>
             <View style={styles.icon}>
-                <TouchableOpacity onPress={openCard}>
+                <TouchableOpacity>
                     <Entypo name="dots-three-horizontal" size={25} color="#00A699" />
                 </TouchableOpacity>
             </View>
-        </View>
+        </TouchableOpacity>
     )
 }
 
@@ -47,7 +48,7 @@ const styles = StyleSheet.create({
         elevation: 1,
     },
     mainContent: {
-        flex: 3,
+        flex: 4,
         paddingLeft: 15,
         paddingTop: 8,
         justifyContent: 'space-around'
@@ -61,7 +62,7 @@ const styles = StyleSheet.create({
 
     },
     dateContainer: {
-        flex: 1,
+        flex: 2,
         borderRightWidth: 0.5,
         borderRightColor: '#E8E8E8',
         alignItems: 'center',
@@ -70,7 +71,7 @@ const styles = StyleSheet.create({
     dateDayText: {
         fontFamily: 'NunitoSans_800ExtraBold',
         fontSize: 22,
-        letterSpacing: 0.8,
+        letterSpacing: 1,
         color: '#484848',
         height: 25
 

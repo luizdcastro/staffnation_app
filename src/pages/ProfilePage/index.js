@@ -1,4 +1,4 @@
-import * as React from "react";
+import React, { useEffect } from "react";
 import { connect } from "react-redux";
 import { createStructuredSelector } from 'reselect';
 import { View, Text, Image, TouchableOpacity, StyleSheet } from "react-native";
@@ -9,6 +9,16 @@ import { Feather } from '@expo/vector-icons';
 import { Ionicons } from '@expo/vector-icons';
 
 const ProfilePage = ({ navigation, user }) => {
+
+	useEffect(() => {
+		navigation.setOptions({
+			headerRight: () => (
+				<TouchableOpacity style={{ paddingRight: 15 }} onPress={() => navigation.navigate('HelpPage')}>
+					<Ionicons name="ios-help-circle-outline" size={30} color="#00A699" />
+				</TouchableOpacity>
+			),
+		})
+	}, [])
 
 	return (
 		<View style={styles.container}>
@@ -63,11 +73,6 @@ export const pageOptions = {
 		height: Platform.OS === 'ios' ? 90 : 70,
 
 	},
-	headerRight: () => (
-		<TouchableOpacity style={{ paddingRight: 15 }}>
-			<Ionicons name="ios-help-circle-outline" size={28} color="#00A699" />
-		</TouchableOpacity>
-	),
 	headerTintColor: '#00A699',
 
 }

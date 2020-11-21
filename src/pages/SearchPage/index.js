@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
 import { createStructuredSelector } from 'reselect';
-import { View, ScrollView, TextInput, FlatList, TouchableOpacity, KeyboardAvoidingView, Platform, StyleSheet } from "react-native";
+import { View, TextInput, FlatList, TouchableOpacity, KeyboardAvoidingView, Platform, StyleSheet } from "react-native";
 
 import { Feather } from '@expo/vector-icons';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
@@ -37,8 +37,6 @@ const SearchPage = ({ navigation, jobs, dispatchGetAllJobsAction }) => {
 		);
 	}, [jobs, search]);
 
-	console.log(filteredJobs)
-
 	return (
 		<View style={styles.container} >
 			<KeyboardAvoidingView style={styles.main} behavior={Platform.OS === "ios" ? "padding" : "height"}>
@@ -61,12 +59,14 @@ const SearchPage = ({ navigation, jobs, dispatchGetAllJobsAction }) => {
 					</View>
 				</View>
 				<FlatList
-					style={{ marginHorizontal: 20 }}
+					style={{ marginHorizontal: 20, marginBottom: 20 }}
 					showsVerticalScrollIndicator={false}
 					data={filteredJobs}
 					renderItem={({ item }) => (
 						<JobCard
 							title={item.title}
+							dateDay={item.date.split(' ')[0]}
+							dateMonth={item.date.split(' ')[1].substring(0, 3)}
 							local={item.address.neighborhood}
 							category={item.category}
 							payment={item.payment.toFixed(2)}

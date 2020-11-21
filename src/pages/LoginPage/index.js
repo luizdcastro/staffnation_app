@@ -7,8 +7,6 @@ import {
 	TouchableOpacity,
 	KeyboardAvoidingView,
 	TextInput,
-	ScrollView,
-	TouchableWithoutFeedback,
 	ActivityIndicator,
 	StatusBar,
 	Platform,
@@ -74,19 +72,17 @@ const LoginPage = ({ navigation, dispatchLoginAction, dispatchGetUserAction }) =
 			style={styles.mainContainer}
 		>
 			<StatusBar barStyle='dark-content' backgroundColor='#fafafa' />
-			<View style={{ flex: 1 }}>
-				<TouchableWithoutFeedback
-					onPress={() => {
-						navigation.goBack();
-						setCpfFormFilled(false);
-					}}
-				>
-					<ScrollView></ScrollView>
-				</TouchableWithoutFeedback>
-			</View>
+			<TouchableOpacity
+				style={styles.buttonClose}
+				onPress={() => { !cpfFormFilled ? navigation.navigate("AuthPage") : setCpfFormFilled(false) }}
+			>
+				<Ionicons name="ios-arrow-back" size={30} color="#00A699" />
+			</TouchableOpacity>
 			{cpfFormFilled === false ? (
-				<Animatable.View animation="fadeInUp" style={styles.formContainer}>
-					<Text style={styles.title}>Digite seu CPF</Text>
+				<View style={{ flex: 1, justifyContent: "space-between" }}>
+					<Animatable.Text animation="fadeInUp" style={styles.title}>
+						Para entrar, digite seu CPF
+						</Animatable.Text>
 					<View style={{ flexDirection: "row", alignItems: "center" }}>
 						<TextInputMask
 							blurOnSubmit={false}
@@ -110,8 +106,11 @@ const LoginPage = ({ navigation, dispatchLoginAction, dispatchGetUserAction }) =
 							</TouchableOpacity>
 						) : null}
 					</View>
-
 					<View style={styles.buttonContainer}>
+						<TouchableOpacity style={styles.footerLink} onPress={() => navigation.navigate('RegisterPage')}>
+							<Text style={styles.footerText}>Ainda não tem conta? Começar</Text>
+							<Ionicons name="ios-arrow-forward" size={15} color="#00A699" />
+						</TouchableOpacity>
 						{verifyUserCpf ? (
 							<GradientButton
 								title="Continuar"
@@ -127,11 +126,11 @@ const LoginPage = ({ navigation, dispatchLoginAction, dispatchGetUserAction }) =
 								/>
 							)}
 					</View>
-				</Animatable.View>
+				</View>
 			) : (
-					<View style={styles.formContainer}>
+					<View style={{ flex: 1, justifyContent: "space-between" }}>
 						<Animatable.Text animation="fadeInUp" style={styles.title}>
-							Insira a senha de acesso
+							Qual sua senha de acesso?
 					  </Animatable.Text>
 						{errorMessage ?
 							<Animatable.Text animation="fadeInLeft" style={styles.error}>
@@ -152,13 +151,17 @@ const LoginPage = ({ navigation, dispatchLoginAction, dispatchGetUserAction }) =
 							/>
 							<TouchableOpacity onPress={() => setSecureTextEntry(!secureTextEntry)}>
 								{secureTextEntry ? (
-									<Feather name="eye-off" color="#a8a8a8" size={20} />
+									<Feather name="eye-off" color="#a8a8a8" size={24} />
 								) : (
-										<Feather name="eye" color="#a8a8a8" size={20} />
+										<Feather name="eye" color="#a8a8a8" size={24} />
 									)}
 							</TouchableOpacity>
 						</View>
 						<View style={styles.buttonContainer}>
+							<TouchableOpacity style={styles.footerLink} onPress={() => { }}>
+								<Text style={styles.footerText}>Esqueci minha senha</Text>
+								<Ionicons name="ios-arrow-forward" size={15} color="#00A699" />
+							</TouchableOpacity>
 							{userPassword.length >= 6 & !loading ?
 								<GradientButton
 									onPress={handleLogin}
@@ -191,22 +194,11 @@ const LoginPage = ({ navigation, dispatchLoginAction, dispatchGetUserAction }) =
 const styles = StyleSheet.create({
 	mainContainer: {
 		flex: 1,
-		backgroundColor: "#f4f4f4",
-	},
-	formContainer: {
-		flex: 1,
-		justifyContent: "space-around",
-		borderTopEndRadius: 20,
-		borderTopStartRadius: 20,
 		backgroundColor: "#fafafa",
-		shadowColor: "#000",
-		shadowOffset: {
-			width: 0,
-			height: 1,
-		},
-		shadowOpacity: 0.20,
-		shadowRadius: 1.41,
-		elevation: 2,
+	},
+	buttonClose: {
+		marginTop: 35,
+		paddingHorizontal: 15,
 	},
 	title: {
 		fontSize: 24,
@@ -222,6 +214,19 @@ const styles = StyleSheet.create({
 		width: "90%",
 		height: 45,
 		paddingHorizontal: 15,
+	},
+	footerLink: {
+		alignSelf: 'flex-start',
+		marginLeft: 15,
+		marginBottom: 30,
+		flexDirection: 'row',
+		alignItems: 'center'
+	},
+	footerText: {
+		fontFamily: 'NunitoSans_400Regular',
+		fontSize: 15,
+		color: '#484848',
+		marginRight: 5
 	},
 	buttonContainer: {
 		justifyContent: "flex-end",

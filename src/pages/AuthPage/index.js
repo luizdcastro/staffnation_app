@@ -6,7 +6,8 @@ import {
 	TouchableOpacity,
 	StatusBar,
 	ImageBackground,
-	Platform
+	Platform,
+	Modal
 } from "react-native";
 import * as Animatable from "react-native-animatable";
 import { LinearGradient } from "expo-linear-gradient";
@@ -69,7 +70,7 @@ const styles = StyleSheet.create({
 		flex: 1,
 		justifyContent: "flex-end",
 		alignItems: "center",
-		marginBottom: 20,
+		marginBottom: 25,
 	},
 
 	buttonLogin: {
@@ -79,8 +80,9 @@ const styles = StyleSheet.create({
 		alignItems: "center",
 		flexDirection: "row",
 		borderRadius: 5,
-		backgroundColor: '#121212',
 		marginTop: 10,
+		borderColor: '#fafafa',
+		borderWidth: 1
 	},
 	gradientButton: {
 		width: "100%",
@@ -93,7 +95,7 @@ const styles = StyleSheet.create({
 		color: "#fafafa",
 		textTransform: "uppercase",
 		fontSize: 14,
-		fontFamily: "NunitoSans_600SemiBold",
+		fontFamily: "NunitoSans_700Bold",
 	},
 	buttonRegister: {
 		marginTop: 15,
@@ -108,7 +110,7 @@ const styles = StyleSheet.create({
 		color: "#fafafa",
 		textTransform: "uppercase",
 		fontSize: 14,
-		fontFamily: "NunitoSans_600SemiBold",
+		fontFamily: "NunitoSans_700Bold",
 	},
 });
 

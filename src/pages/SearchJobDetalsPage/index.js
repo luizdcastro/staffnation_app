@@ -39,6 +39,7 @@ const SearchJobDetailsPage = ({ user, route, navigation, dispatchGetJobAction, d
                 <JobDetails
                     title={jobDetails.title}
                     category={jobDetails.category}
+                    date={jobDetails.date}
                     positions={jobDetails.positions}
                     timeStart={jobDetails.time.start}
                     timeEnd={jobDetails.time.end}
@@ -65,7 +66,7 @@ const SearchJobDetailsPage = ({ user, route, navigation, dispatchGetJobAction, d
 }
 
 export const pageOptions = {
-    headerTitle: 'Detalhes',
+    headerTitle: 'Detalhes da Vaga',
     headerTitleAlign: 'center',
     headerTitleStyle: {
         color: '#484848',

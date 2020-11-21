@@ -6,6 +6,7 @@ import Slider from "@react-native-community/slider";
 import { Feather } from "@expo/vector-icons";
 import { MaterialIcons } from "@expo/vector-icons";
 import GradientButton from '../../components/GradientButton'
+import { color } from 'react-native-reanimated';
 
 
 const LateNotification = ({ navigation, setModalNotification }) => {
@@ -87,11 +88,10 @@ const LateNotification = ({ navigation, setModalNotification }) => {
                     </TouchableOpacity>
                 </View>
                 <View style={styles.buttonsContainer}>
-                    <GradientButton
-                        title="ENVIAR NOTIFICAÇÃO"
-                        gradient={["#00A699", "#00A699"]}
-                        onPress={() => setModalNotification(false)}
-                    />
+                    <TouchableOpacity style={styles.button} onPress={() => setModalNotification(false)}>
+                        <Text style={styles.textButton}>Enviar Notificação</Text>
+                    </TouchableOpacity>
+
                 </View>
             </View>
         </View>
@@ -103,7 +103,7 @@ const styles = StyleSheet.create({
         flex: 1,
         justifyContent: 'center',
         alignItems: 'center',
-        backgroundColor: 'rgba(0, 0, 0, 0.6)'
+        backgroundColor: 'rgba(0, 0, 0, 0.4)'
     },
     notification: {
         backgroundColor: '#fafafa',
@@ -132,11 +132,24 @@ const styles = StyleSheet.create({
         textAlign: 'center',
         marginBottom: 15, color: '#484848',
         fontFamily: 'NunitoSans_400Regular'
-
+    },
+    button: {
+        height: 50,
+        width: '100%',
+        borderWidth: 1,
+        borderColor: '#00A699',
+        justifyContent: 'center',
+        alignItems: 'center',
+        borderRadius: 5
+    },
+    textButton: {
+        fontFamily: 'NunitoSans_700Bold',
+        textTransform: 'uppercase',
+        color: '#00A699'
     },
     buttonsContainer: {
         flex: 1,
-        marginBottom: 20,
+        marginBottom: 25,
         justifyContent: 'flex-end',
         alignItems: 'center'
     },

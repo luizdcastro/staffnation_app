@@ -128,7 +128,7 @@ const RegisterPage = ({ navigation, dispatchRegisterUser, dispatchGetUserAction 
 			},
 			(response) => {
 				setError(true);
-				setErrorMessage(response.error)
+				setErrorMessage(response)
 			}
 		);
 	};
@@ -139,8 +139,6 @@ const RegisterPage = ({ navigation, dispatchRegisterUser, dispatchGetUserAction 
 			setError(false)
 		}
 	}, [error, loading])
-
-	console.log(errorMessage)
 
 	return (
 		<KeyboardAvoidingView

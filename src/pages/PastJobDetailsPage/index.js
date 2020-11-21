@@ -29,6 +29,7 @@ const PastJobDetailsPage = ({ route, dispatchGetJobAction }) => {
                     title={jobDetails.title}
                     category={jobDetails.category}
                     positions={jobDetails.positions}
+                    date={jobDetails.date}
                     timeStart={jobDetails.time.start}
                     timeEnd={jobDetails.time.end}
                     payment={jobDetails.payment.toFixed(2)}
@@ -53,7 +54,7 @@ const PastJobDetailsPage = ({ route, dispatchGetJobAction }) => {
 }
 
 export const pageOptions = {
-    headerTitle: 'Detalhes',
+    headerTitle: 'Detalhes da Vaga',
     headerTitleAlign: 'center',
     headerTitleStyle: {
         color: '#484848',

@@ -223,7 +223,7 @@ const styles = StyleSheet.create({
 		fontSize: 13,
 		color: "#ff5555",
 		marginLeft: 15,
-		top: '70%'
+		top: '54%'
 	},
 });
 
