@@ -4,6 +4,7 @@ import {
 	View,
 	Text,
 	TextInput,
+	Modal,
 	TouchableOpacity,
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
@@ -31,6 +32,7 @@ const FormNameDate = ({
 	const [genderOptionMan, setGenderOptionMan] = useState(false)
 	const [genderOptionWoman, setGenderOptionWoman] = useState(false)
 	const [genderOptionTrans, setOptionTrans] = useState(false)
+	const [genderModal, setGenderModal] = useState(false)
 
 	useEffect(() => {
 		if (date.length === 10) {
@@ -121,41 +123,70 @@ const FormNameDate = ({
 						Data de nascimento inválida
 					</Animatable.Text>
 				) : null}
-				<View style={{ flexDirection: 'row', justifyContent: 'space-between', marginHorizontal: 15 }}>
-					<View style={{ alignItems: 'center' }}>
-						<Text style={styles.genderText}>Maculino</Text>
-						<TouchableOpacity onPress={() => {
-							setGenderOptionMan(!genderOptionMan);
-							setGenderOptionWoman(false)
-							setOptionTrans(false)
+				<Modal
+					animationType='fade'
+					transparent={true}
+					visible={genderModal}
+				>
+					<View style={{
+						flex: 1,
+						justifyContent: 'center',
+						alignItems: 'center',
+						backgroundColor: 'rgba(0, 0, 0, 0.4)'
+					}}>
+						<View style={{
+							backgroundColor: '#fafafa',
+							width: '90%',
+							height: '45%',
+							borderRadius: 10,
+							paddingHorizontal: 20,
+							paddingBottom: 20,
+							justifyContent: 'center'
 						}}>
-							{!genderOptionMan ? <Feather name="circle" size={30} color="#00A699" /> :
-								<MaterialIcons name="check-circle" size={30} color="#00A699" />}
-						</TouchableOpacity>
+							<View style={styles.genderCard}>
+								<Text style={styles.genderText}>Maculino</Text>
+								<TouchableOpacity onPress={() => {
+									setGenderOptionMan(!genderOptionMan);
+									setGenderOptionWoman(false)
+									setOptionTrans(false)
+									setGenderModal(false)
+								}}>
+									{!genderOptionMan ? <Feather name="circle" size={30} color="#00A699" /> :
+										<MaterialIcons name="check-circle" size={30} color="#00A699" />}
+								</TouchableOpacity>
+							</View>
+							<View style={styles.genderCard}>
+								<Text style={styles.genderText}>Feminino</Text>
+								<TouchableOpacity onPress={() => {
+									setGenderOptionWoman(!genderOptionWoman);
+									setGenderOptionMan(false)
+									setOptionTrans(false)
+									setGenderModal(false)
+								}}>
+									{!genderOptionWoman ? <Feather name="circle" size={30} color="#00A699" /> :
+										<MaterialIcons name="check-circle" size={30} color="#00A699" />}
+								</TouchableOpacity>
+							</View>
+							<View style={styles.genderCard}>
+								<Text style={styles.genderText}>Transgênero</Text>
+								<TouchableOpacity onPress={() => {
+									setOptionTrans(!genderOptionTrans);
+									setGenderOptionMan(false)
+									setGenderOptionWoman(false)
+									setGenderModal(false)
+								}}>
+									{!genderOptionTrans ? <Feather name="circle" size={30} color="#00A699" /> :
+										<MaterialIcons name="check-circle" size={30} color="#00A699" />}
+								</TouchableOpacity>
+							</View>
+						</View>
 					</View>
-					<View style={{ alignItems: 'center' }}>
-						<Text style={styles.genderText}>Feminino</Text>
-						<TouchableOpacity onPress={() => {
-							setGenderOptionWoman(!genderOptionWoman);
-							setGenderOptionMan(false)
-							setOptionTrans(false)
-						}}>
-							{!genderOptionWoman ? <Feather name="circle" size={30} color="#00A699" /> :
-								<MaterialIcons name="check-circle" size={30} color="#00A699" />}
-						</TouchableOpacity>
-					</View>
-					<View style={{ alignItems: 'center' }}>
-						<Text style={styles.genderText}> Transgênero</Text>
-						<TouchableOpacity onPress={() => {
-							setOptionTrans(!genderOptionTrans);
-							setGenderOptionMan(false)
-							setGenderOptionWoman(false)
-						}}>
-							{!genderOptionTrans ? <Feather name="circle" size={30} color="#00A699" /> :
-								<MaterialIcons name="check-circle" size={30} color="#00A699" />}
-						</TouchableOpacity>
-					</View>
-				</View>
+				</Modal>
+				<TouchableOpacity onPress={() => setGenderModal(!genderModal)}>
+					<Text style={!gender.length >= 1 ? styles.genderInputText : [styles.genderInputText, { color: '#484848' }]}>
+						{gender.length >= 1 ? `${gender}` : 'Selecionar gênero'}
+					</Text>
+				</TouchableOpacity>
 				<View style={styles.buttonContainer}>
 					{dateIsValid & date.length === 10 & name.length >= 3 & gender.length >= 3 ? (
 						<GradientButton
@@ -201,11 +232,36 @@ const styles = StyleSheet.create({
 		height: 45,
 		paddingHorizontal: 15,
 	},
+	genderCard: {
+		flexDirection: "row",
+		alignItems: "center",
+		justifyContent: "space-between",
+		height: 60,
+		borderTopLeftRadius: 5,
+		borderTopRightRadius: 5,
+		paddingHorizontal: 20,
+		marginTop: 20,
+		backgroundColor: "#fff",
+		elevation: 1,
+		shadowColor: "#000",
+		shadowOffset: {
+			width: 0,
+			height: 1,
+		},
+		shadowOpacity: 0.18,
+		shadowRadius: 1.0,
+	},
 	genderText: {
 		fontFamily: 'NunitoSans_400Regular',
 		fontSize: 18,
 		marginBottom: 4,
 		color: '#484848'
+	},
+	genderInputText: {
+		marginLeft: 15,
+		fontSize: 24,
+		fontFamily: 'NunitoSans_400Regular',
+		color: "#C0C0C0"
 	},
 	buttonContainer: {
 		justifyContent: "flex-end",
@@ -223,7 +279,7 @@ const styles = StyleSheet.create({
 		fontSize: 13,
 		color: "#ff5555",
 		marginLeft: 15,
-		top: '54%'
+		top: '58%'
 	},
 });
 
