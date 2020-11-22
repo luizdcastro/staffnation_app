@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react'
 import { connect } from "react-redux";
 import { createStructuredSelector } from 'reselect';
 import { View, Text, Image, TouchableOpacity, StyleSheet, Platform } from 'react-native'
-import { selectUserData } from '../../redux/reducers/user/userSelector'
 
 import * as Permissions from 'expo-permissions'
 import * as ImagePicker from 'expo-image-picker';
@@ -11,15 +10,17 @@ import {
     uploadImage,
     deleteImage,
 } from '../../redux/actions/fileActions';
-import { getUser, updateUser } from "../../redux/actions/userActions"
+import { updateUser } from "../../redux/actions/userActions"
+import { getMe } from "../../redux/actions/getMeActions"
+
 
 import GradientButton from '../../components/GradientButton'
 
 const AvatarPage = ({
     navigation,
-    user,
+    getme,
     dispathUploadAction,
-    dispatchGetUserAction,
+    dispatchGetMe,
     dispatchUpdateUserAction,
     dispatchDeleteImage
 }) => {
@@ -64,16 +65,16 @@ const AvatarPage = ({
             async (response) => {
                 const data = await response
                 dispatchUpdateUserAction(
-                    user.data._id,
+                    getme.data._id,
                     { id: data._id, url: data.url },
                     () => {
-                        if (user.data.avatar.id) {
-                            dispatchDeleteImage(user.data.avatar.id)
+                        if (getme.data.avatar.id) {
+                            dispatchDeleteImage(getme.data.avatar.id)
                         }
                     },
                     (error) => console.log(error)
                 )
-                dispatchGetUserAction(user.data._id)
+                dispatchGetMe()
             },
             (error) => console.log('error:', error)
         )
@@ -85,7 +86,7 @@ const AvatarPage = ({
             <View style={{ alignItems: 'center', flex: 1, justifyContent: 'flex-end', }}>
                 <Image
                     style={styles.avatar}
-                    source={{ uri: `${imagePreview.uri ? imagePreview.uri : user.data.avatar?.url}` }}
+                    source={{ uri: `${imagePreview.uri ? imagePreview.uri : getme.data.avatar?.url}` }}
                 />
             </View>
             <View style={styles.buttonsContainer}>
@@ -170,18 +171,17 @@ const styles = StyleSheet.create({
     },
 })
 
-const mapStateToProps = createStructuredSelector({
-    user: selectUserData,
-});
-
 const mapDispatchToProps = (dispatch) => ({
-    dispatchGetUserAction: (id) => dispatch(getUser(id)),
+    dispatchGetMe: () => dispatch(getMe()),
     dispathUploadAction: (file, onSuccess, onError) =>
         dispatch(uploadImage(file, onSuccess, onError)),
     dispatchUpdateUserAction: (id, avatar, onSuccess, onError) =>
         dispatch(updateUser(id, { avatar }, onSuccess, onError)),
     dispatchDeleteImage: (imageId) => dispatch(deleteImage(imageId)),
+});
 
+const mapStateToProps = (state) => ({
+    getme: state.getme,
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(AvatarPage)

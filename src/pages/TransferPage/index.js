@@ -10,10 +10,9 @@ import { Feather } from "@expo/vector-icons";
 import { MaterialIcons } from "@expo/vector-icons";
 import { Ionicons } from '@expo/vector-icons';
 
-import { selectUserData } from '../../redux/reducers/user/userSelector'
 import GradientButton from '../../components/GradientButton'
 
-const TransferPage = ({ navigation, user }) => {
+const TransferPage = ({ navigation, getme }) => {
     const [transferValue, setTransferValue] = useState(0)
     const [confirm, setConfirm] = useState(false)
 
@@ -22,7 +21,7 @@ const TransferPage = ({ navigation, user }) => {
             headerRight: () => (
                 <View style={{ paddingRight: 15, paddingTop: 10, alignItems: 'flex-end' }}>
                     <Text style={{ fontSize: 14, fontFamily: 'NunitoSans_400Regular' }}>Meu saldo</Text>
-                    <Text style={{ fontSize: 17, fontFamily: 'NunitoSans_700Bold', color: '#00A699' }}>R$ {user.data.totalCash.toFixed(2)}</Text>
+                    <Text style={{ fontSize: 17, fontFamily: 'NunitoSans_700Bold', color: '#00A699' }}>R$ {getme.data.totalCash.toFixed(2)}</Text>
                 </View>
             )
         })
@@ -58,11 +57,11 @@ const TransferPage = ({ navigation, user }) => {
             </View>
             {transferValue.length > 2 ? (
                 <Animatable.View animation="fadeInUp" style={{ marginHorizontal: 15, marginBottom: 30 }}>
-                    {user.data.bankData.name.length >= 2 & user.data.bankData.agency >= 3 & user.data.bankData.account >= 4 ?
+                    {getme.data.bankData.name.length >= 2 & getme.data.bankData.agency >= 3 & getme.data.bankData.account >= 4 ?
                         <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
                             <View>
-                                <Text style={styles.confirmText}>Banco: {user.data.bankData.name}</Text>
-                                <Text style={styles.confirmText}>Agência: {user.data.bankData.agency} Conta: {user.data.bankData.account}</Text>
+                                <Text style={styles.confirmText}>Banco: {getme.data.bankData.name}</Text>
+                                <Text style={styles.confirmText}>Agência: {getme.data.bankData.agency} Conta: {getme.data.bankData.account}</Text>
                                 <Text style={styles.confirmText}>Valor: R$ {transferValue}</Text>
                             </View>
                             <View>
@@ -161,9 +160,8 @@ const styles = StyleSheet.create({
 
     }
 })
-
-const mapStateToProps = createStructuredSelector({
-    user: selectUserData,
+const mapStateToProps = (state) => ({
+    getme: state.getme,
 });
 
 export default connect(mapStateToProps)(TransferPage)

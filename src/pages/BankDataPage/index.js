@@ -1,21 +1,16 @@
 
 import React, { useState, useEffect } from 'react'
 import { connect } from "react-redux";
-import { createStructuredSelector } from 'reselect';
 import { View, Text, Platform, StyleSheet, ScrollView, KeyboardAvoidingView, TextInput, TouchableOpacity } from 'react-native'
 import { useHeaderHeight } from '@react-navigation/stack';
 
+import { updateUser } from "../../redux/actions/userActions"
+import { getMe } from "../../redux/actions/getMeActions"
 
-import { selectUserData } from '../../redux/reducers/user/userSelector'
-import { getUser, updateUser } from "../../redux/actions/userActions"
-
-import { TextInputMask } from "react-native-masked-text";
-import { acc } from 'react-native-reanimated';
-
-const BankDataPage = ({ navigation, dispatchGetUserAction, dispatchUpdateUserAction, user }) => {
-    const [account, setAccount] = useState(user.data.bankData.account)
-    const [agency, setAgency] = useState(user.data.bankData.agency)
-    const [bank, setBank] = useState(user.data.bankData.name)
+const BankDataPage = ({ navigation, dispatchGetMe, dispatchUpdateUserAction, getme }) => {
+    const [account, setAccount] = useState(getme.data.bankData.account)
+    const [agency, setAgency] = useState(getme.data.bankData.agency)
+    const [bank, setBank] = useState(getme.data.bankData.name)
     const data = {
         name: bank,
         agency: agency,
@@ -25,11 +20,12 @@ const BankDataPage = ({ navigation, dispatchGetUserAction, dispatchUpdateUserAct
     const hanleUpdateUser = (event) => {
         event.preventDefault();
         dispatchUpdateUserAction(
-            user.data._id,
+            getme.data._id,
             data,
-            async (response) => { await dispatchGetUserAction(user.data._id) },
+            () => console.log('updated...'),
             (error) => console.log(error)
         )
+        dispatchGetMe()
         navigation.navigate('ProfilePage')
     }
 
@@ -127,13 +123,13 @@ const styles = StyleSheet.create({
 })
 
 const mapDispatchToProps = (dispatch) => ({
-    dispatchGetUserAction: (id) => dispatch(getUser(id)),
+    dispatchGetMe: () => dispatch(getMe()),
     dispatchUpdateUserAction: (id, bankData, onSuccess, onError) =>
         dispatch(updateUser(id, { bankData }, onSuccess, onError))
 });
 
-const mapStateToProps = createStructuredSelector({
-    user: selectUserData,
+const mapStateToProps = (state) => ({
+    getme: state.getme,
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(BankDataPage)

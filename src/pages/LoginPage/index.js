@@ -12,7 +12,6 @@ import {
 	Platform,
 } from "react-native";
 
-import { TextInputMask } from "react-native-masked-text";
 import * as Animatable from "react-native-animatable";
 import { cpf } from "cpf-cnpj-validator";
 import { Ionicons } from "@expo/vector-icons";
@@ -22,14 +21,13 @@ import Feather from "react-native-vector-icons/Feather";
 import GradientButton from "../../components/GradientButton";
 import LoginCpf from '../../components/LoginCpf'
 import { loginUser } from "../../redux/actions/authActions";
-import { getUser } from "../../redux/actions/userActions"
+import { getMe } from "../../redux/actions/getMeActions"
 
-const LoginPage = ({ navigation, dispatchLoginAction, dispatchGetUserAction }) => {
+const LoginPage = ({ getme, dispatchLoginAction, dispatchGetMe }) => {
 	const [cpfFormFilled, setCpfFormFilled] = useState(false);
 	const [userCpf, setUserCpf] = useState("");
 
 	const [userPassword, setUserPassword] = useState("");
-	const [passwordFormFilled, setPasswordFormFilled] = useState(false)
 	const [secureTextEntry, setSecureTextEntry] = useState(true);
 	const [error, setError] = useState(false);
 	const [errorMessage, setErrorMessage] = useState('')
@@ -41,16 +39,16 @@ const LoginPage = ({ navigation, dispatchLoginAction, dispatchGetUserAction }) =
 		dispatchLoginAction(
 			userCpf,
 			userPassword,
-			(response) => {
-				console.log('logged in!');
-				dispatchGetUserAction(response.data._id)
-			},
+			() => console.log('logged'),
 			(response) => {
 				setError(true);
 				setErrorMessage(response.error)
 			}
 		);
+		dispatchGetMe()
 	};
+
+	useEffect(() => dispatchGetMe(), [dispatchGetMe])
 
 	useEffect(() => {
 		if (error === true) {
@@ -207,7 +205,10 @@ const styles = StyleSheet.create({
 const mapDispatchToProps = (dispatch) => ({
 	dispatchLoginAction: (cpf, password, onSuccess, onError) =>
 		dispatch(loginUser({ cpf, password }, onSuccess, onError)),
-	dispatchGetUserAction: (id) => dispatch(getUser(id))
+	dispatchGetMe: () => dispatch(getMe())
 });
 
-export default connect(null, mapDispatchToProps)(LoginPage);
+const mapStateToProps = (state) => ({ auth: state.auth, getme: state.getme });
+
+
+export default connect(mapStateToProps, mapDispatchToProps)(LoginPage);

@@ -1,14 +1,18 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { View, Text, Image, SafeAreaView, TouchableOpacity, StyleSheet } from 'react-native'
 import { connect } from "react-redux";
-import { createStructuredSelector } from 'reselect';
 import { Ionicons } from '@expo/vector-icons';
 import { Feather } from '@expo/vector-icons';
 
 import { logoutUser } from "../../redux/actions/authActions";
-import { selectUserData } from '../../redux/reducers/user/userSelector'
+import { getMe } from "../../redux/actions/getMeActions"
 
-const DrawerContent = ({ dispatchLogoutAction, navigation, user }) => {
+
+const DrawerContent = ({ dispatchLogoutAction, navigation, getme, dispatchGetMe }) => {
+
+    useEffect(() => {
+        dispatchGetMe()
+    }, [dispatchGetMe])
 
     const handleLogOut = (event) => {
         event.preventDefault();
@@ -21,12 +25,12 @@ const DrawerContent = ({ dispatchLogoutAction, navigation, user }) => {
                 <View style={styles.personalData}>
                     <Image
                         style={styles.avatar}
-                        source={{ uri: `${user.data?.avatar.url}` }}
+                        source={{ uri: `${getme.data?.avatar.url}` }}
                     />
                     <View>
-                        <Text style={styles.name}>{user.data.name}</Text>
+                        <Text style={styles.name}>{getme.data?.name}</Text>
                         <View style={{ flexDirection: 'row', alignItems: 'center', }} >
-                            <Text style={styles.rate}>{user.data.rating.toFixed(2)}</Text>
+                            <Text style={styles.rate}>{getme.data?.rating.toFixed(2)}</Text>
                             <Ionicons name="ios-star" size={13} color="#767676" />
                         </View>
                     </View>
@@ -117,17 +121,16 @@ const styles = StyleSheet.create({
         color: '#767676',
         paddingRight: 5,
     },
-
-
 })
 
 
 const mapDispatchToProps = (dispatch) => ({
+    dispatchGetMe: () => dispatch(getMe()),
     dispatchLogoutAction: () => dispatch(logoutUser()),
 });
 
-const mapStateToProps = createStructuredSelector({
-    user: selectUserData,
+const mapStateToProps = (state) => ({
+    getme: state.getme,
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(DrawerContent)

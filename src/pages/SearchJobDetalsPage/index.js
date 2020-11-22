@@ -4,13 +4,11 @@ import { createStructuredSelector } from 'reselect';
 import { View, StyleSheet } from 'react-native'
 
 import { getSingleJob, createPendingApplication } from '../../redux/actions/jobActions'
-import { getUser } from "../../redux/actions/userActions"
-import { selectUserData } from '../../redux/reducers/user/userSelector'
 
 import GradientButton from '../../components/GradientButton'
 import JobDetails from '../../components/JobDetails'
 
-const SearchJobDetailsPage = ({ user, route, navigation, dispatchGetJobAction, dispatchJobApplicationAction }) => {
+const SearchJobDetailsPage = ({ getme, route, navigation, dispatchGetJobAction, dispatchJobApplicationAction }) => {
     const [jobDetails, setJobDetails] = useState({})
     const { jobId } = route.params;
 
@@ -28,7 +26,7 @@ const SearchJobDetailsPage = ({ user, route, navigation, dispatchGetJobAction, d
     const jobApplication = () => {
         dispatchJobApplicationAction(
             jobId,
-            user.data._id
+            getme.data._id
         )
         navigation.navigate('HomePage')
     }
@@ -116,13 +114,11 @@ const mapDispatchToProps = (dispatch) => ({
     dispatchGetJobAction: (id, onSuccess, onError) =>
         dispatch(getSingleJob(id, onSuccess, onError)),
     dispatchJobApplicationAction: (id, applicationsPending) =>
-        dispatch(createPendingApplication(id, { applicationsPending })),
-    dispatchGetUserAction: (id) => dispatch(getUser(id))
-
+        dispatch(createPendingApplication(id, { applicationsPending }))
 });
 
-const mapStateToProps = createStructuredSelector({
-    user: selectUserData,
+const mapStateToProps = (state) => ({
+    getme: state.getme,
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(SearchJobDetailsPage)

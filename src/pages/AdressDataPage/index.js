@@ -1,18 +1,17 @@
 import React, { useState, useEffect } from 'react'
 import { connect } from "react-redux";
-import { createStructuredSelector } from 'reselect';
 import { View, Text, Platform, StyleSheet, ScrollView, KeyboardAvoidingView, TextInput, TouchableOpacity } from 'react-native'
 import { useHeaderHeight } from '@react-navigation/stack';
 import * as Animatable from "react-native-animatable";
 
-import { selectUserData } from '../../redux/reducers/user/userSelector'
-import { getUser, updateUser } from "../../redux/actions/userActions"
+import { updateUser } from "../../redux/actions/userActions"
+import { getMe } from "../../redux/actions/getMeActions"
 
 import { TextInputMask } from "react-native-masked-text";
 
-const AdressDataPage = ({ navigation, user, dispatchUpdateUserAction, dispatchGetUserAction }) => {
-    const [cep, setCep] = useState(user.data.address.cep);
-    const [number, setNumber] = useState(user.data.address.number);
+const AdressDataPage = ({ getme, navigation, dispatchUpdateUserAction, dispatchGetMe }) => {
+    const [cep, setCep] = useState(getme.data.address.cep);
+    const [number, setNumber] = useState(getme.data.address.number);
     const [address, setAddress] = useState({})
     const [errorCep, setErrorCep] = useState(false);
 
@@ -52,12 +51,13 @@ const AdressDataPage = ({ navigation, user, dispatchUpdateUserAction, dispatchGe
     const handleUpdateAddress = (event) => {
         event.preventDefault();
         dispatchUpdateUserAction(
-            user.data._id,
+            getme.data._id,
             address,
-            async (response) => { await dispatchGetUserAction(user.data._id) },
+            () => console.log('updated...'),
             (error) => console.log(error)
         )
-        navigation.navigate('ProfilePage')
+        dispatchGetMe();
+        navigation.navigate('ProfilePage');
     }
 
     useEffect(() => {
@@ -164,13 +164,13 @@ const styles = StyleSheet.create({
 })
 
 const mapDispatchToProps = (dispatch) => ({
-    dispatchGetUserAction: (id) => dispatch(getUser(id)),
+    dispatchGetMe: () => dispatch(getMe()),
     dispatchUpdateUserAction: (id, address, onSuccess, onError) =>
         dispatch(updateUser(id, { address }, onSuccess, onError))
 });
 
-const mapStateToProps = createStructuredSelector({
-    user: selectUserData,
+const mapStateToProps = (state) => ({
+    getme: state.getme,
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(AdressDataPage)

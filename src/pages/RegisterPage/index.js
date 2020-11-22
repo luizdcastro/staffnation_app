@@ -25,9 +25,9 @@ import FormAdress from "../../components/FormAddress";
 import FormEmailPhone from "../../components/FormEmailPhone";
 import SelectorCategory from "../../components/SelectorCategory";
 import { registerUser } from "../../redux/actions/authActions";
-import { getUser } from "../../redux/actions/userActions"
+import { getMe } from "../../redux/actions/getMeActions"
 
-const RegisterPage = ({ navigation, dispatchRegisterUser, dispatchGetUserAction }) => {
+const RegisterPage = ({ navigation, dispatchRegisterUser, dispatchGetme }) => {
 	//Getting data from child components
 	const [cpfFormFilled, setCpfFormFilled] = useState(false);
 	const [nameDateFormFilled, setNameDateFormFilled] = useState(false);
@@ -122,16 +122,17 @@ const RegisterPage = ({ navigation, dispatchRegisterUser, dispatchGetUserAction 
 			userCategories,
 			password,
 			confirmPassword,
-			(response) => {
-				console.log('registered!');
-				dispatchGetUserAction(response.data._id)
-			},
+			() => console.log('registered!'),
 			(response) => {
 				setError(true);
 				setErrorMessage(response)
 			}
 		);
+		dispatchGetme()
 	};
+
+	useEffect(() => dispatchGetme(), [dispatchGetme])
+
 
 	useEffect(() => {
 		if (error === true) {
@@ -460,7 +461,7 @@ const mapDispatchToProps = (dispatch) => ({
 				onError
 			)
 		),
-	dispatchGetUserAction: (id) => dispatch(getUser(id))
+	dispatchGetme: () => dispatch(getMe())
 });
 
 export default connect(null, mapDispatchToProps)(RegisterPage);

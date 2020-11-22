@@ -1,22 +1,20 @@
 import React from "react";
 import { connect } from "react-redux";
-import { createStructuredSelector } from 'reselect';
 import { View, FlatList, Text, Image, StyleSheet } from "react-native";
 
-import { selectUserData } from '../../redux/reducers/user/userSelector'
-import { getUser } from "../../redux/actions/userActions"
+import { getMe } from "../../redux/actions/getMeActions"
 import JobCard from '../../components/JobCard'
 
-const PendingJobsPage = ({ navigation, user }) => {
+const PendingJobsPage = ({ navigation, getme }) => {
 
     return (
         <View style={styles.container}>
             <View style={styles.main}>
-                {user.data.jobsPending.length >= 1 ?
+                {getme.data.jobsPending.length >= 1 ?
                     <FlatList
                         style={{ marginHorizontal: 20 }}
                         showsVerticalScrollIndicator={false}
-                        data={user.data.jobsPending}
+                        data={getme.data.jobsPending}
                         renderItem={({ item }) => (
                             <JobCard
                                 title={item.title}
@@ -77,11 +75,11 @@ const styles = StyleSheet.create({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-    dispatchGetUserAction: (id) => dispatch(getUser(id))
+    dispatchGetMe: () => dispatch(getMe())
 });
 
-const mapStateToProps = createStructuredSelector({
-    user: selectUserData,
+const mapStateToProps = (state) => ({
+    getme: state.getme,
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(PendingJobsPage);

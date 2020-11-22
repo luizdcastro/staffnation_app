@@ -1,34 +1,33 @@
 import React, { useState, useEffect } from 'react'
 import { connect } from "react-redux";
-import { createStructuredSelector } from 'reselect';
 import { View, Text, Platform, StyleSheet, ScrollView, KeyboardAvoidingView, TextInput, TouchableOpacity } from 'react-native'
 import { useHeaderHeight } from '@react-navigation/stack';
 
-
-import { selectUserData } from '../../redux/reducers/user/userSelector'
-import { getUser, updateUser } from "../../redux/actions/userActions"
+import { updateUser } from "../../redux/actions/userActions"
+import { getMe } from "../../redux/actions/getMeActions"
 
 import { TextInputMask } from "react-native-masked-text";
 
-const PersonalDataPage = ({ navigation, dispatchGetUserAction, dispatchUpdateUserAction, user }) => {
-    const [name, setName] = useState(user.data.name)
-    const [date, setDate] = useState(user.data.birthdayDate)
-    const [email, setEmail] = useState(user.data.email)
-    const [phone, setPhone] = useState(user.data.phone)
-    const [gender, setGender] = useState(user.data.gender)
+const PersonalDataPage = ({ getme, navigation, dispatchGetMe, dispatchUpdateUserAction }) => {
+    const [name, setName] = useState(getme.data.name)
+    const [date, setDate] = useState(getme.data.birthdayDate)
+    const [email, setEmail] = useState(getme.data.email)
+    const [phone, setPhone] = useState(getme.data.phone)
+    const [gender, setGender] = useState(getme.data.gender)
 
     const hanleUpdateUser = (event) => {
         event.preventDefault();
         dispatchUpdateUserAction(
-            user.data._id,
+            getme.data._id,
             name,
             date,
             email,
             phone,
-            async (response) => { await dispatchGetUserAction(user.data._id) },
+            () => console.log('updated...'),
             (error) => console.log(error)
         )
-        navigation.navigate('ProfilePage')
+        dispatchGetMe();
+        navigation.navigate('ProfilePage');
     }
 
     useEffect(() => {
@@ -147,13 +146,13 @@ const styles = StyleSheet.create({
 })
 
 const mapDispatchToProps = (dispatch) => ({
-    dispatchGetUserAction: (id) => dispatch(getUser(id)),
+    dispatchGetMe: () => dispatch(getMe()),
     dispatchUpdateUserAction: (id, name, birthdayDate, email, phone, onSuccess, onError) =>
         dispatch(updateUser(id, { name, birthdayDate, email, phone }, onSuccess, onError))
 });
 
-const mapStateToProps = createStructuredSelector({
-    user: selectUserData,
+const mapStateToProps = (state) => ({
+    getme: state.getme,
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(PersonalDataPage)

@@ -7,7 +7,6 @@ import { Feather } from '@expo/vector-icons';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 
 import { getAllJobs } from '../../redux/actions/jobActions'
-import { selectJobData } from '../../redux/reducers/job/jobSelector'
 
 import JobCard from '../../components/JobCard'
 
@@ -169,8 +168,8 @@ const mapDispatchToProps = (dispatch) => ({
 		dispatch(getAllJobs()),
 });
 
-const mapStateToProps = createStructuredSelector({
-	jobs: selectJobData,
+const mapStateToProps = (state) => ({
+	jobs: state.jobs
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(SearchPage);

@@ -3,18 +3,15 @@ import { connect } from "react-redux";
 import { createStructuredSelector } from 'reselect';
 import { View, FlatList, Image, Text, StyleSheet } from "react-native";
 
-import { selectUserData } from '../../redux/reducers/user/userSelector'
-import { getUser } from "../../redux/actions/userActions"
+import { getMe } from "../../redux/actions/getMeActions"
 import JobCard from '../../components/JobCard'
 
-
-const PastJobsPage = ({ navigation, user, dispatchGetUserAction }) => {
+const PastJobsPage = ({ navigation, getme, dispatchGetMe }) => {
     const [pastJobs, setPastJobs] = useState([])
     const [noContent, setNoContent] = useState(false)
 
     useEffect(() => {
-        dispatchGetUserAction(
-            user.data._id,
+        dispatchGetMe(
             async (response) => {
                 const data = await response.data.jobsPending
                 if (data.length >= 1) {
@@ -25,7 +22,7 @@ const PastJobsPage = ({ navigation, user, dispatchGetUserAction }) => {
             },
             error => console.log(error)
         )
-    }, [dispatchGetUserAction])
+    }, [dispatchGetMe])
 
     return (
         <View style={styles.container}>
@@ -94,11 +91,11 @@ const styles = StyleSheet.create({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-    dispatchGetUserAction: (id, onSuccess, onError) => dispatch(getUser(id, onSuccess, onError))
+    dispatchGetMe: (onSuccess, onError) => dispatch(getMe(onSuccess, onError))
 });
 
-const mapStateToProps = createStructuredSelector({
-    user: selectUserData,
+const mapStateToProps = (state) => ({
+    getme: state.getme,
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(PastJobsPage);

@@ -3,15 +3,13 @@ import { connect } from "react-redux";
 import { View, Text, StyleSheet, Modal, TouchableOpacity } from 'react-native'
 
 import { getSingleJob, cancelAcceptedApplication } from '../../redux/actions/jobActions'
-import { getUser } from "../../redux/actions/userActions"
-import { createStructuredSelector } from 'reselect';
-import { selectUserData } from '../../redux/reducers/user/userSelector'
+import { getMe } from "../../redux/actions/getMeActions"
 
 import GradientButton from '../../components/GradientButton'
 import LateNotification from '../../components/LateNotification'
 import JobDetails from '../../components/JobDetails'
 
-const NextJobDetailsPage = ({ user, navigation, route, dispatchGetJobAction, dispatchCancelApplication, dispatchGetUserAction }) => {
+const NextJobDetailsPage = ({ getme, navigation, route, dispatchGetJobAction, dispatchCancelApplication, dispatchGetMe }) => {
     const [jobDetails, setJobDetails] = useState({})
     const [modalNotification, setModalNotification] = useState(false);
     const { jobId } = route.params;
@@ -30,9 +28,9 @@ const NextJobDetailsPage = ({ user, navigation, route, dispatchGetJobAction, dis
     const handleCancelApplication = () => {
         dispatchCancelApplication(
             jobId,
-            user.data._id
+            getme.data._id
         )
-        dispatchGetUserAction(user.data._id)
+        dispatchGetMe()
         navigation.navigate('JobsTab');
     }
 
@@ -131,12 +129,11 @@ const mapDispatchToProps = (dispatch) => ({
         dispatch(getSingleJob(id, onSuccess, onError)),
     dispatchCancelApplication: (id, applicationsAccepted) =>
         dispatch(cancelAcceptedApplication(id, { applicationsAccepted })),
-    dispatchGetUserAction: (id) => dispatch(getUser(id)),
-
+    dispatchGetMe: () => dispatch(getMe())
 });
 
-const mapStateToProps = createStructuredSelector({
-    user: selectUserData,
+const mapStateToProps = (state) => ({
+    getme: state.getme,
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(NextJobDetailsPage)

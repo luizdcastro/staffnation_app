@@ -1,14 +1,11 @@
 import React, { useEffect } from "react";
 import { connect } from "react-redux";
-import { createStructuredSelector } from 'reselect';
 import { View, Text, Image, TouchableOpacity, StyleSheet } from "react-native";
-
-import { selectUserData } from '../../redux/reducers/user/userSelector'
 
 import { Feather } from '@expo/vector-icons';
 import { Ionicons } from '@expo/vector-icons';
 
-const ProfilePage = ({ navigation, user }) => {
+const ProfilePage = ({ navigation, getme }) => {
 
 	useEffect(() => {
 		navigation.setOptions({
@@ -25,10 +22,10 @@ const ProfilePage = ({ navigation, user }) => {
 			<View style={styles.personalData}>
 				<Image
 					style={styles.avatar}
-					source={{ uri: `${user.data.avatar?.url}`, }}
+					source={{ uri: `${getme.data.avatar?.url}`, }}
 				/>
 				<View>
-					<Text style={styles.name}>{user.data.name}</Text>
+					<Text style={styles.name}>{getme.data.name}</Text>
 					<TouchableOpacity onPress={() => navigation.navigate('AvatarPage')}>
 						<Text style={styles.pictureText}>Alterar foto</Text>
 					</TouchableOpacity>
@@ -123,8 +120,8 @@ const styles = StyleSheet.create({
 
 });
 
-const mapStateToProps = createStructuredSelector({
-	user: selectUserData,
+const mapStateToProps = (state) => ({
+	getme: state.getme,
 });
 
 export default connect(mapStateToProps)(ProfilePage);

@@ -3,14 +3,13 @@ import { connect } from "react-redux";
 import { View, Text, StyleSheet } from 'react-native'
 
 import { getSingleJob, removePendingApplication } from '../../redux/actions/jobActions'
-import { getUser } from "../../redux/actions/userActions"
+import { getMe } from "../../redux/actions/getMeActions"
 import { createStructuredSelector } from 'reselect';
-import { selectUserData } from '../../redux/reducers/user/userSelector'
 
 import GradientButton from '../../components/GradientButton'
 import JobDetails from '../../components/JobDetails'
 
-const PendingJobDetailsPage = ({ user, route, navigation, dispatchGetJobAction, dispatchCancelApplication, dispatchGetUserAction }) => {
+const PendingJobDetailsPage = ({ getme, route, navigation, dispatchGetJobAction, dispatchCancelApplication, dispatchGetMe }) => {
     const [jobDetails, setJobDetails] = useState({})
     const { jobId } = route.params;
 
@@ -29,9 +28,9 @@ const PendingJobDetailsPage = ({ user, route, navigation, dispatchGetJobAction, 
     const handleCancelApplication = () => {
         dispatchCancelApplication(
             jobId,
-            user.data._id
+            getme.data._id
         )
-        dispatchGetUserAction(user.data._id)
+        dispatchGetMe()
         navigation.navigate('JobsTab');
     }
 
@@ -122,12 +121,12 @@ const mapDispatchToProps = (dispatch) => ({
         dispatch(getSingleJob(id, onSuccess, onError)),
     dispatchCancelApplication: (id, applicationsPending) =>
         dispatch(removePendingApplication(id, { applicationsPending })),
-    dispatchGetUserAction: (id) => dispatch(getUser(id)),
+    dispatchGetMe: () => dispatch(getMe()),
 
 });
 
-const mapStateToProps = createStructuredSelector({
-    user: selectUserData,
+const mapStateToProps = (state) => ({
+    getme: state.getme,
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(PendingJobDetailsPage)

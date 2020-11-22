@@ -1,15 +1,14 @@
 import React, { useState, useEffect } from 'react'
 import { connect } from "react-redux";
-import { createStructuredSelector } from 'reselect';
 import { View, Text, TouchableOpacity, ScrollView, StyleSheet } from 'react-native'
 
-import { selectUserData } from '../../redux/reducers/user/userSelector'
-import { getUser, updateUser } from "../../redux/actions/userActions"
+import { updateUser } from "../../redux/actions/userActions"
+import { getMe } from "../../redux/actions/getMeActions"
 
 import _ from "lodash";
 import SelectorCategory from '../../components/SelectorCategory'
 
-const ProfessionalDataPge = ({ navigation, user, dispatchGetUserAction, dispatchUpdateUserAction }) => {
+const ProfessionalDataPge = ({ navigation, getme, dispatchGetMe, dispatchUpdateUserAction }) => {
     const [segCardExpanded, setSegCardExpanded] = useState(false);
     const [segExperience, setSegExperience] = useState(0);
     const [segCertificate, setSegCertificate] = useState(false);
@@ -69,11 +68,12 @@ const ProfessionalDataPge = ({ navigation, user, dispatchGetUserAction, dispatch
     const handleUpdateCategories = (event) => {
         event.preventDefault();
         dispatchUpdateUserAction(
-            user.data._id,
+            getme.data._id,
             userCategories,
-            async (response) => { await dispatchGetUserAction(user.data._id) },
+            () => console.log('updated...'),
             (error) => console.log(error)
         )
+        dispatchGetMe()
         navigation.navigate('ProfilePage')
     }
 
@@ -92,8 +92,8 @@ const ProfessionalDataPge = ({ navigation, user, dispatchGetUserAction, dispatch
         <View style={styles.container}>
             <Text style={[styles.label, { marginBottom: 5 }]}>Categoria atual</Text>
             <View style={styles.tagContainer}>
-                {user.data.categories?.length > 0
-                    ? user.data.categories.map((item) => (
+                {getme.data.categories?.length > 0
+                    ? getme.data.categories.map((item) => (
                         <View key={item.id} style={styles.tag}>
                             <Text style={styles.tagText}>{item.name}</Text>
                         </View>
@@ -212,13 +212,13 @@ const styles = StyleSheet.create({
 })
 
 const mapDispatchToProps = (dispatch) => ({
-    dispatchGetUserAction: (id) => dispatch(getUser(id)),
+    dispatchGetMe: () => dispatch(getMe()),
     dispatchUpdateUserAction: (id, categories, onSuccess, onError) =>
         dispatch(updateUser(id, { categories }, onSuccess, onError))
 });
 
-const mapStateToProps = createStructuredSelector({
-    user: selectUserData,
+const mapStateToProps = (state) => ({
+    getme: state.getme,
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(ProfessionalDataPge)

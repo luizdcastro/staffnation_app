@@ -17,7 +17,11 @@
       "**/*"
     ],
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.staffnation.app"
+    },
+    "android": {
+      "package": "com.staffnation.app"
     },
     "web": {
       "favicon": "./assets/favicon.png"

@@ -1,40 +1,31 @@
 import React, { useEffect, useState } from "react";
 import { connect } from "react-redux";
-import { createStructuredSelector } from 'reselect';
 import { View, Text, TouchableOpacity, FlatList, StatusBar, ScrollView, StyleSheet, Platform } from "react-native";
 
 import { Feather } from '@expo/vector-icons';
 import { Ionicons } from '@expo/vector-icons';
 
-import { selectUserData } from '../../redux/reducers/user/userSelector'
-import { selectAuthData } from '../../redux/reducers/auth/authSelector'
 import { getAllJobs } from '../../redux/actions/jobActions'
-import { selectJobData } from '../../redux/reducers/job/jobSelector'
-import { getUser } from "../../redux/actions/userActions"
+import { getMe } from "../../redux/actions/getMeActions"
 
 import JobCardHome from '../../components/JobCardHome'
 
-const HomePage = ({ navigation, user, auth, jobs, dispatchGetUserAction, dispatchGetAllJobsAction }) => {
+const HomePage = ({ navigation, getme, jobs, dispatchGetMe, dispatchGetAllJobsAction }) => {
 
 	useEffect(() => {
-		dispatchGetUserAction(
-			auth.userId,
-			(response) => console.log(response),
-			(error) => console.log(error))
-	}, [dispatchGetUserAction])
+		dispatchGetMe()
+	}, [dispatchGetMe])
 
-	dispatchGetUserAction(user)
-
+	useEffect(() => dispatchGetAllJobsAction(),
+		[dispatchGetAllJobsAction])
 
 	useEffect(() => {
 		navigation.setOptions({
-			headerTitle: `Olá, ${user.data.name.split(' ')[0]}!`
+			headerTitle: `Olá, ${getme.data?.name.split(' ')[0]}!`
 		})
-	}, [user])
+	}, [dispatchGetMe, getme])
 
-	useEffect(() => {
-		dispatchGetAllJobsAction()
-	}, [dispatchGetAllJobsAction])
+	console.log(jobs)
 
 	return (
 		<View style={styles.container}>
@@ -49,12 +40,12 @@ const HomePage = ({ navigation, user, auth, jobs, dispatchGetUserAction, dispatc
 						</View>
 						<View style={styles.cardSection}>
 							<Text style={styles.cardSectionText}>Saldo Atual</Text>
-							<Text style={styles.cardSectionNumber}>R$ {user.data.totalCash.toFixed(2)}</Text>
+							<Text style={styles.cardSectionNumber}>R$ {getme.data?.totalCash.toFixed(2)}</Text>
 						</View>
 					</View>
 					<View style={{ flex: 1 }}>
 						<Text style={styles.titleSection}>Pŕoximos Trabalhos</Text>
-						{!user.data.jobsAccepted.length >= 1 ? (
+						{!getme.data?.jobsAccepted.length >= 1 ? (
 							<TouchableOpacity style={styles.cardJobsSection} onPress={() => navigation.navigate('SearchPage')}>
 								<Text style={styles.cardSectionText}>Você não possui trabalhos confirmados</Text>
 								<Ionicons name="ios-arrow-forward" size={28} color="#00A699" />
@@ -65,7 +56,7 @@ const HomePage = ({ navigation, user, auth, jobs, dispatchGetUserAction, dispatc
 								horizontal={true}
 								showsVerticalScrollIndicator={false}
 								showsHorizontalScrollIndicator={false}
-								data={user.data.jobsAccepted.slice(0, 5)}
+								data={getme.data.jobsAccepted.slice(0, 5)}
 								renderItem={({ item }) => (
 									<JobCardHome
 										title={item.title}
@@ -271,15 +262,14 @@ const styles = StyleSheet.create({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-	dispatchGetUserAction: (id, onSuccess, onError) => dispatch(getUser(id, onSuccess, onError)),
+	dispatchGetMe: () => dispatch(getMe()),
 	dispatchGetAllJobsAction: () =>
 		dispatch(getAllJobs()),
 });
 
-const mapStateToProps = createStructuredSelector({
-	user: selectUserData,
-	auth: selectAuthData,
-	jobs: selectJobData,
+const mapStateToProps = (state) => ({
+	getme: state.getme,
+	jobs: state.jobs
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(HomePage);

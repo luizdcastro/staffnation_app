@@ -1,13 +1,17 @@
 import { combineReducers } from "redux";
 
 import auth from './auth/authReducer'
+import getme from './getMe/getMeReducer'
 import user from "./user/userReducer";
-import job from './job/jobReducer'
+import jobs from './job/jobReducer'
+import file from './file/fileReducer'
 
 const rootReducer = combineReducers({
 	auth,
+	getme,
 	user,
-	job
+	jobs,
+	file,
 });
 
 export default rootReducer;
