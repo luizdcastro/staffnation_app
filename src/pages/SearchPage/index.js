@@ -37,55 +37,53 @@ const SearchPage = ({ navigation, jobs, dispatchGetAllJobsAction }) => {
 	}, [jobs, search]);
 
 	return (
-		<View style={styles.container} >
-			<KeyboardAvoidingView style={styles.main} behavior={Platform.OS === "ios" ? "padding" : "height"}>
-				<View style={styles.containerSearch}>
-					<TextInput
-						style={styles.searchBar}
-						placeholder="Search"
-						autoCorrect={false}
-						autoCapitalize='none'
-						keyboardType='default'
-						onChangeText={(value) => setSearch(value)}
-					/>
-					<View style={{ position: 'absolute', left: 10, top: 12, elevation: 1 }} >
-						<Feather name="search" size={26} color="#00A699" />
-					</View>
-					<View style={{ position: 'absolute', right: 10, top: 12, elevation: 1 }} >
-						<TouchableOpacity>
-							<MaterialCommunityIcons name="filter-variant" size={26} color="#00A699" />
-						</TouchableOpacity>
-					</View>
+		<KeyboardAvoidingView style={styles.container} behavior={Platform.OS === "ios" ? "padding" : "height"}>
+			<View style={styles.containerSearch}>
+				<TextInput
+					style={styles.searchBar}
+					placeholder="Search"
+					autoCorrect={false}
+					autoCapitalize='none'
+					keyboardType='default'
+					onChangeText={(value) => setSearch(value)}
+				/>
+				<View style={{ position: 'absolute', left: 10, top: 12, elevation: 1 }} >
+					<Feather name="search" size={26} color="#00A699" />
 				</View>
-				{filteredJobs.length >= 1 ?
-					<FlatList
-						style={{ marginHorizontal: 20, marginBottom: 20 }}
-						showsVerticalScrollIndicator={false}
-						data={filteredJobs}
-						renderItem={({ item }) => (
-							<JobCard
-								title={item.title}
-								dateDay={item.date.split(' ')[0]}
-								dateMonth={item.date.split(' ')[1].substring(0, 3)}
-								local={item.address.neighborhood}
-								category={item.category}
-								payment={item.payment.toFixed(2)}
-								timeStart={item.time.start}
-								timeEnd={item.time.end}
-								openCard={() => navigation.navigate('SearchJobDetailsPage', {
-									jobId: item._id
-								})}
-							/>
-						)}
-					/> :
-					<View style={styles.noContentBox}>
-						<Image source={require('../../assets/images/no-result.png')} style={styles.noContentImage} />
-						<Text style={styles.noContentText}>Desculpe, nenhum resultado encontrado</Text>
-					</View>
-				}
-
-			</KeyboardAvoidingView>
-		</View>
+				<View style={{ position: 'absolute', right: 10, top: 12, elevation: 1 }} >
+					<TouchableOpacity>
+						<MaterialCommunityIcons name="filter-variant" size={26} color="#00A699" />
+					</TouchableOpacity>
+				</View>
+			</View>
+			{filteredJobs.length >= 1 ?
+				<FlatList
+					style={{ marginHorizontal: 20, marginBottom: 20 }}
+					showsVerticalScrollIndicator={false}
+					data={filteredJobs}
+					renderItem={({ item }) => (
+						<JobCard
+							title={item.title}
+							dateDay={item.date.split(' ')[0]}
+							dateMonth={item.date.split(' ')[1].substring(0, 3)}
+							local={item.address.neighborhood}
+							category={item.category}
+							payment={item.payment.toFixed(2)}
+							timeStart={item.time.start}
+							timeEnd={item.time.end}
+							openCard={() => navigation.navigate('SearchJobDetailsPage', {
+								jobId: item._id
+							})}
+						/>
+					)}
+				/>
+				:
+				<View style={styles.noContentBox}>
+					<Image source={require('../../assets/images/no-result.png')} style={styles.noContentImage} />
+					<Text style={styles.noContentText}>Desculpe, nenhum resultado encontrado</Text>
+				</View>
+			}
+		</KeyboardAvoidingView>
 	);
 };
 
@@ -113,12 +111,6 @@ const styles = StyleSheet.create({
 	container: {
 		flex: 1,
 		backgroundColor: '#fafafa',
-		alignItems: 'center',
-	},
-	main: {
-		backgroundColor: '#fafafa',
-		height: '100%',
-		width: '100%',
 	},
 	containerSearch: {
 		position: 'relative',

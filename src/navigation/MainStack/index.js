@@ -7,6 +7,7 @@ import JobsTab, { pageOptions as JobsPageOptions } from '../JobsTab'
 import SearchJobDetailsPage, { pageOptions as SearchJobDetialsOptions } from '../../pages/SearchJobDetalsPage'
 import PendingJobDetailsPage, { pageOptions as PendingJobDetailsOptions } from '../../pages/PendingJobDetailsPage'
 import NextJobDetailsPage, { pageOptions as NextJibDetailsOption } from '../../pages/NextJobDetailsPage'
+import FinishedJobsDetailsPage, { pageOptions as FinishedJobsOption } from '../../pages/FinishedJobsDetailsPage'
 import SearchPage, { pageOptions as SearchPageOptions } from "../../pages/SearchPage";
 import ProfilePage, { pageOptions as ProfileOptions } from '../../pages/ProfilePage'
 import AvatarPage, { pageOptions as AvatarOptions } from '../../pages/AvatarPage'
@@ -26,6 +27,7 @@ const MainStackPage = ({ navigation }) => (
         <MainStack.Screen name="JobsTab" component={JobsTab} options={JobsPageOptions} />
         <MainStack.Screen name="SearchJobDetailsPage" component={SearchJobDetailsPage} options={SearchJobDetialsOptions} />
         <MainStack.Screen name="PendingJobDetailsPage" component={PendingJobDetailsPage} options={PendingJobDetailsOptions} />
+        <MainStack.Screen name="FinishedJobsDetailsPage" component={FinishedJobsDetailsPage} options={FinishedJobsOption} />
         <MainStack.Screen name="NextJobDetailsPage" component={NextJobDetailsPage} options={NextJibDetailsOption} />
         <MainStack.Screen name="SearchPage" component={SearchPage} options={SearchPageOptions} />
         <MainStack.Screen name="ProfilePage" component={ProfilePage} options={ProfileOptions} />

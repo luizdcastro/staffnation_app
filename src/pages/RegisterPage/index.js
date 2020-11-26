@@ -122,13 +122,12 @@ const RegisterPage = ({ navigation, dispatchRegisterUser, dispatchGetme }) => {
 			userCategories,
 			password,
 			confirmPassword,
-			() => console.log('registered!'),
+			() => dispatchGetMe(),
 			(response) => {
 				setError(true);
 				setErrorMessage(response)
 			}
 		);
-		dispatchGetme()
 	};
 
 	useEffect(() => dispatchGetme(), [dispatchGetme])

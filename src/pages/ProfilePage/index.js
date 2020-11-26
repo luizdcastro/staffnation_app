@@ -5,7 +5,14 @@ import { View, Text, Image, TouchableOpacity, StyleSheet } from "react-native";
 import { Feather } from '@expo/vector-icons';
 import { Ionicons } from '@expo/vector-icons';
 
-const ProfilePage = ({ navigation, getme }) => {
+import { getMe } from "../../redux/actions/getMeActions"
+
+
+const ProfilePage = ({ navigation, getme, dispatchGetMe }) => {
+
+	useEffect(() => {
+		dispatchGetMe()
+	}, [dispatchGetMe])
 
 	useEffect(() => {
 		navigation.setOptions({
@@ -22,7 +29,7 @@ const ProfilePage = ({ navigation, getme }) => {
 			<View style={styles.personalData}>
 				<Image
 					style={styles.avatar}
-					source={{ uri: `${getme.data.avatar?.url}`, }}
+					source={{ uri: `${getme.data?.avatar.url}`, }}
 				/>
 				<View>
 					<Text style={styles.name}>{getme.data.name}</Text>
@@ -120,8 +127,12 @@ const styles = StyleSheet.create({
 
 });
 
+const mapDispatchToProps = (dispatch) => ({
+	dispatchGetMe: () => dispatch(getMe()),
+});
+
 const mapStateToProps = (state) => ({
 	getme: state.getme,
 });
 
-export default connect(mapStateToProps)(ProfilePage);
+export default connect(mapStateToProps, mapDispatchToProps)(ProfilePage);

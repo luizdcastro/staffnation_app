@@ -70,10 +70,9 @@ const ProfessionalDataPge = ({ navigation, getme, dispatchGetMe, dispatchUpdateU
         dispatchUpdateUserAction(
             getme.data._id,
             userCategories,
-            () => console.log('updated...'),
+            () => dispatchGetMe(),
             (error) => console.log(error)
         )
-        dispatchGetMe()
         navigation.navigate('ProfilePage')
     }
 

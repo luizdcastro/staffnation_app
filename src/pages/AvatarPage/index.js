@@ -30,17 +30,17 @@ const AvatarPage = ({
     const ImagePickerCall = async () => {
         if (Platform.OS === 'ios') {
             const { status } = await Permissions.askAsync(Permissions.CAMERA_ROLL)
-
             if (status !== 'granted') {
-                alert('Precisamos de permissão para galeria de fotos')
+                alert('Desculpe, precisamos de permissão para acessar a galeria de fotos');
             }
-
         }
+
+
         const data = await ImagePicker.launchImageLibraryAsync({
             mediaTypes: ImagePicker.MediaTypeOptions.Images,
             allowsEditing: true,
             aspect: [4, 4],
-            quality: 0,
+            quality: 1,
         })
 
         if (data.cancelled) {
@@ -71,12 +71,13 @@ const AvatarPage = ({
                         if (getme.data.avatar.id) {
                             dispatchDeleteImage(getme.data.avatar.id)
                         }
+
                     },
                     (error) => console.log(error)
                 )
                 dispatchGetMe()
             },
-            (error) => console.log('error:', error)
+            (error) => console.log(error)
         )
         navigation.navigate('ProfilePage')
     }

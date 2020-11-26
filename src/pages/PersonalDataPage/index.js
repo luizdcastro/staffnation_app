@@ -23,12 +23,13 @@ const PersonalDataPage = ({ getme, navigation, dispatchGetMe, dispatchUpdateUser
             date,
             email,
             phone,
-            () => console.log('updated...'),
+            () => dispatchGetMe(),
             (error) => console.log(error)
         )
-        dispatchGetMe();
         navigation.navigate('ProfilePage');
     }
+
+
 
     useEffect(() => {
         navigation.setOptions({

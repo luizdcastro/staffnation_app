@@ -25,8 +25,6 @@ const HomePage = ({ navigation, getme, jobs, dispatchGetMe, dispatchGetAllJobsAc
 		})
 	}, [dispatchGetMe, getme])
 
-	console.log(jobs)
-
 	return (
 		<View style={styles.container}>
 			<StatusBar barStyle='dark-content' backgroundColor='#fafafa' />

@@ -7,7 +7,7 @@ import { getSingleJob } from '../../redux/actions/jobActions'
 import GradientButton from '../../components/GradientButton'
 import JobDetails from '../../components/JobDetails'
 
-const PastJobDetailsPage = ({ route, dispatchGetJobAction }) => {
+const FinishedJobsDetailsPage = ({ route, dispatchGetJobAction }) => {
     const [jobDetails, setJobDetails] = useState({})
     const { jobId } = route.params;
 
@@ -105,4 +105,4 @@ const mapDispatchToProps = (dispatch) => ({
         dispatch(getSingleJob(id, onSuccess, onError)),
 });
 
-export default connect(null, mapDispatchToProps)(PastJobDetailsPage)
+export default connect(null, mapDispatchToProps)(FinishedJobsDetailsPage)

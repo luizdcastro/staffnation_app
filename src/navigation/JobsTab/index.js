@@ -5,7 +5,7 @@ import { TouchableOpacity, Platform } from 'react-native'
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 import { getMe } from "../../redux/actions/getMeActions"
 import NextJobsPage from '../../pages/NextJobsPage'
-import PastJobsPage from '../../pages/PastJobsPage'
+import FinishedJobsPage from '../../pages/FinishedJobsPage'
 import PendingJobsPage from '../../pages/PendingJobsPage'
 import { Ionicons } from '@expo/vector-icons';
 
@@ -48,7 +48,7 @@ const JobsTab = ({ navigation, dispatchGetMe }) => {
         }>
             <Tab.Screen name="Próximos" component={NextJobsPage} />
             <Tab.Screen name="Pendentes" component={PendingJobsPage} />
-            <Tab.Screen name="Histórico" component={PastJobsPage} />
+            <Tab.Screen name="Histórico" component={FinishedJobsPage} />
         </Tab.Navigator>
     );
 }

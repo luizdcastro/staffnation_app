@@ -22,10 +22,9 @@ const BankDataPage = ({ navigation, dispatchGetMe, dispatchUpdateUserAction, get
         dispatchUpdateUserAction(
             getme.data._id,
             data,
-            () => console.log('updated...'),
+            () => dispatchGetMe(),
             (error) => console.log(error)
         )
-        dispatchGetMe()
         navigation.navigate('ProfilePage')
     }
 

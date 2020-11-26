@@ -1,19 +1,18 @@
 import React, { useEffect, useState } from "react";
 import { connect } from "react-redux";
-import { createStructuredSelector } from 'reselect';
 import { View, FlatList, Image, Text, StyleSheet } from "react-native";
 
 import { getMe } from "../../redux/actions/getMeActions"
 import JobCard from '../../components/JobCard'
 
-const PastJobsPage = ({ navigation, getme, dispatchGetMe }) => {
+const FinishedJobsPage = ({ navigation, getme, dispatchGetMe }) => {
     const [pastJobs, setPastJobs] = useState([])
     const [noContent, setNoContent] = useState(false)
 
     useEffect(() => {
         dispatchGetMe(
             async (response) => {
-                const data = await response.data.jobsPending
+                const data = await response.data.jobsFinished
                 if (data.length >= 1) {
                     setPastJobs(data)
                 } else {
@@ -42,7 +41,7 @@ const PastJobsPage = ({ navigation, getme, dispatchGetMe }) => {
                                 payment={item.payment.toFixed(2)}
                                 timeStart={item.time.start}
                                 timeEnd={item.time.end}
-                                openCard={() => navigation.navigate('PendingJobDetailsPage', {
+                                openCard={() => navigation.navigate('FinishedJobsDetailsPage', {
                                     jobId: item._id
                                 })}
                             />
@@ -98,4 +97,4 @@ const mapStateToProps = (state) => ({
     getme: state.getme,
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(PastJobsPage);
+export default connect(mapStateToProps, mapDispatchToProps)(FinishedJobsPage);

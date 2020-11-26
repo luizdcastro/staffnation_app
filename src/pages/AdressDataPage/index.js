@@ -53,10 +53,9 @@ const AdressDataPage = ({ getme, navigation, dispatchUpdateUserAction, dispatchG
         dispatchUpdateUserAction(
             getme.data._id,
             address,
-            () => console.log('updated...'),
+            () => dispatchGetMe(),
             (error) => console.log(error)
         )
-        dispatchGetMe();
         navigation.navigate('ProfilePage');
     }
 

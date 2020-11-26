@@ -39,13 +39,12 @@ const LoginPage = ({ getme, dispatchLoginAction, dispatchGetMe }) => {
 		dispatchLoginAction(
 			userCpf,
 			userPassword,
-			() => console.log('logged'),
+			() => dispatchGetMe(),
 			(response) => {
 				setError(true);
 				setErrorMessage(response.error)
 			}
 		);
-		dispatchGetMe()
 	};
 
 	useEffect(() => dispatchGetMe(), [dispatchGetMe])
