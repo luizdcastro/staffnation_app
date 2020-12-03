@@ -1,117 +1,48 @@
-import React from "react";
-import {
-	View,
-	Text,
-	StyleSheet,
-	TouchableOpacity,
-	StatusBar,
-	ImageBackground,
-	Platform,
-	Modal
-} from "react-native";
-import * as Animatable from "react-native-animatable";
-import { LinearGradient } from "expo-linear-gradient";
+import React, { useState } from 'react';
+import { StatusBar } from 'react-native'
+
+import LoginModal from '../../components/LoginModal'
+import RegisterModal from '../../components/RegisterModal'
+import DarkButton from '../../components/DarkButton'
+import LightButton from '../../components/LightButton'
+import { Container, Logo, ImageCover, Title, ButtonContainer } from './styles'
+import * as Animatable from 'react-native-animatable';
 
 const AuthPage = ({ navigation }) => {
+	const [loginModal, setLoginModal] = useState(false)
+	const [registerModal, setRegisterModal] = useState(false)
+
 	return (
-		<View style={styles.container}>
-			{
-				Platform.OS === "ios" ?
-					<StatusBar barStyle='light-content' animated /> :
-					<StatusBar barStyle='light-content' translucent={true} backgroundColor="rgba(0,0,0,0)" animated />
-
-			}
-			<ImageBackground
-				source={require("../../assets/images/barman_01.png")}
-				style={styles.background}
-			>
-				<Animatable.View style={{ flex: 1 }} animation="fadeInUpBig">
-					<View style={styles.buttonContainer}>
-						<TouchableOpacity
-							onPress={() => {
-								navigation.navigate("RegisterPage");
-							}}
-							style={[styles.buttonRegister, { backgroundColor: "transparent" }]}
-						>
-							<LinearGradient
-								style={styles.gradientButton}
-								colors={["#00A699", "#00A699"]}
-							>
-								<Text style={styles.textButtonRegister}>Criar sua conta</Text>
-							</LinearGradient>
-						</TouchableOpacity>
-
-						<TouchableOpacity
-							style={styles.buttonLogin}
-							onPress={() => navigation.navigate("LoginPage")}
-						>
-							<Text style={styles.textButtonLogin}>Já tenho conta</Text>
-						</TouchableOpacity>
-					</View>
-				</Animatable.View>
-			</ImageBackground>
-		</View>
-	);
-};
-
-const styles = StyleSheet.create({
-	container: {
-		flex: 1,
-	},
-	background: {
-		flex: 1,
-		resizeMode: "cover",
-	},
-	logo: {
-		fontSize: 35,
-		color: "#ececec",
-	},
-	buttonContainer: {
-		flex: 1,
-		justifyContent: "flex-end",
-		alignItems: "center",
-		marginBottom: 25,
-	},
-
-	buttonLogin: {
-		width: "90%",
-		height: 50,
-		justifyContent: "center",
-		alignItems: "center",
-		flexDirection: "row",
-		borderRadius: 5,
-		marginTop: 10,
-		borderColor: '#fafafa',
-		borderWidth: 1
-	},
-	gradientButton: {
-		width: "100%",
-		height: 50,
-		justifyContent: "center",
-		alignItems: "center",
-		borderRadius: 5,
-	},
-	textButtonLogin: {
-		color: "#fafafa",
-		textTransform: "uppercase",
-		fontSize: 14,
-		fontFamily: "NunitoSans_700Bold",
-	},
-	buttonRegister: {
-		marginTop: 15,
-		width: "90%",
-		height: 50,
-		borderRadius: 5,
-		justifyContent: "center",
-		alignItems: "center",
-		flexDirection: "row",
-	},
-	textButtonRegister: {
-		color: "#fafafa",
-		textTransform: "uppercase",
-		fontSize: 14,
-		fontFamily: "NunitoSans_700Bold",
-	},
-});
-
-export default AuthPage;
+		<Container behavior={Platform.OS === "ios" ? "padding" : "height"} >
+			<StatusBar barStyle='light-content' />
+			<ImageCover source={require("../../assets/images/barman_01.png")}>
+				{loginModal ?
+					<Animatable.View style={{ width: '100%', height: '100%', zIndex: 1 }} animation="slideInUp">
+						<LoginModal setLoginModal={setLoginModal} setRegisterModal={setRegisterModal} />
+					</Animatable.View>
+					: null
+				}
+				{registerModal ?
+					<Animatable.View style={{ width: '100%', height: '100%', zIndex: 1 }} animation="slideInUp">
+						<RegisterModal closeModal={() => setRegisterModal(false)} />
+					</Animatable.View>
+					: null
+				}
+				<Logo></Logo>
+				<ButtonContainer>
+					<Title>Os melhores {"\n"}benefícios sem {"\n"}complexidades</Title>
+					<DarkButton
+						name="Criar sua conta"
+						onPress={() => setRegisterModal(!registerModal)}
+					/>
+					<LightButton
+						textColor="#FAFAFA"
+						borderColor="#FAFAFA"
+						name="Já tenho conta"
+						onPress={() => setLoginModal(!loginModal)} />
+				</ButtonContainer>
+			</ImageCover>
+		</Container>
+	)
+}
+export default AuthPage

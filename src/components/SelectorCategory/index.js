@@ -1,9 +1,12 @@
 import React from "react";
-import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
+import { View, Text, TouchableOpacity, StyleSheet, Dimensions } from "react-native";
 
 import { Feather } from "@expo/vector-icons";
 import { MaterialIcons } from "@expo/vector-icons";
 import Slider from "@react-native-community/slider";
+
+const { width, height } = Dimensions.get('window')
+
 
 const SelectorCategory = ({
 	title,
@@ -18,28 +21,28 @@ const SelectorCategory = ({
 	return (
 		<View style={styles.containerCategory}>
 			<View style={{ justifyContent: "center", alignItems: "center" }}>
-				<View style={styles.cardCategory}>
-					<Text style={styles.titleCategory}>{title}</Text>
-					<TouchableOpacity
-						onPress={() => {
-							if (categoriesLimit >= 2) {
-								setCardExpanded(false);
-							} else {
-								setCardExpanded(!cardExpanded);
-							}
-						}}
-					>
+				<TouchableOpacity
+					onPress={() => {
+						if (categoriesLimit >= 2) {
+							setCardExpanded(false);
+						} else {
+							setCardExpanded(!cardExpanded);
+						}
+					}}
+				>
+					<View style={styles.cardCategory}>
+						<Text style={styles.titleCategory}>{title}</Text>
 						{cardExpanded ? (
 							<MaterialIcons
 								name="check-circle"
 								size={30}
-								color="#00A699"
+								color="#523BE4"
 							/>
 						) : (
-								<Feather name="circle" size={30} color="#00A699" />
+								<Feather name="circle" size={30} color="grey" />
 							)}
-					</TouchableOpacity>
-				</View>
+					</View>
+				</TouchableOpacity>
 
 				{cardExpanded ? (
 					<View style={styles.experience}>
@@ -62,9 +65,10 @@ const SelectorCategory = ({
 								minimumValue={0}
 								maximumValue={10}
 								step={1}
-								minimumTrackTintColor="#00A699"
-								maximumTrackTintColor="#b0bec5"
-								thumbTintColor="#00A699"
+								minimumTrackTintColor="#6978EA"
+								maximumTrackTintColor="#E8E8E8"
+								thumbTintColor="#523BE4"
+
 								value={experience}
 								onValueChange={(value) => setExperience(value)}
 							/>
@@ -79,10 +83,10 @@ const SelectorCategory = ({
 											<MaterialIcons
 												name="check-circle"
 												size={25}
-												color="#00A699"
+												color="#523BE4"
 											/>
 										) : (
-												<Feather name="circle" size={25} color="#00A699" />
+												<Feather name="circle" size={25} color="grey" />
 											)}
 									</TouchableOpacity>
 								</View>
@@ -93,10 +97,10 @@ const SelectorCategory = ({
 											<MaterialIcons
 												name="check-circle"
 												size={25}
-												color="#00A699"
+												color="#523BE4"
 											/>
 										) : (
-												<Feather name="circle" size={25} color="#00A699" />
+												<Feather name="circle" size={25} color="grey" />
 											)}
 									</TouchableOpacity>
 								</View>
@@ -112,60 +116,60 @@ const SelectorCategory = ({
 const styles = StyleSheet.create({
 	containerCategory: {
 		flex: 1,
+		marginHorizontal: '5%'
 	},
 	cardCategory: {
 		flexDirection: "row",
 		alignItems: "center",
 		justifyContent: "space-between",
-		width: "90%",
+		width: width - 30,
 		height: 60,
 		borderTopLeftRadius: 5,
 		borderTopRightRadius: 5,
 		paddingHorizontal: 20,
-		marginTop: 20,
 		backgroundColor: "#fff",
 		elevation: 1,
 		shadowColor: "#000",
 		shadowOffset: {
 			width: 0,
-			height: 1,
+			height: 0.5,
 		},
-		shadowOpacity: 0.18,
-		shadowRadius: 1.0,
+		shadowOpacity: 0.09,
+		shadowRadius: 0.5,
+		elevation: 0.5,
+		marginTop: 8
 	},
 	experience: {
-		width: "90%",
+		width: width - 30,
 		height: 175,
 		paddingHorizontal: 15,
+		borderBottomLeftRadius: 5,
+		borderBottomRightRadius: 5,
 		backgroundColor: "#fff",
 		elevation: 1,
 		shadowColor: "#000",
-		borderBottomLeftRadius: 5,
-		borderBottomRightRadius: 5,
 		shadowOffset: {
 			width: 0,
-			height: 1,
+			height: 0.5,
 		},
-		shadowOpacity: 0.18,
-		shadowRadius: 1.0,
+		shadowOpacity: 0.09,
+		shadowRadius: 0.5,
+		elevation: 0.5,
 	},
 	titleCategory: {
 		fontSize: 18,
 		fontFamily: "NunitoSans_600SemiBold",
-		color: '#484848'
 	},
 	titleExperience: {
 		fontSize: 16,
 		fontFamily: "NunitoSans_400Regular",
 		marginBottom: 10,
-		color: '#484848'
 
 	},
 	textExperience: {
 		fontSize: 17,
 		fontFamily: "NunitoSans_600SemiBold",
 		textAlign: "center",
-		color: '#484848'
 
 	},
 	textCetificate: {
@@ -173,7 +177,6 @@ const styles = StyleSheet.create({
 		fontFamily: "NunitoSans_600SemiBold",
 		textAlign: "center",
 		paddingHorizontal: 10,
-		color: '#484848'
 
 	},
 });
