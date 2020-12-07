@@ -4,7 +4,6 @@ import { View, Text, StyleSheet } from 'react-native'
 
 import { getSingleJob, removePendingApplication } from '../../redux/actions/jobActions'
 import { getMe } from "../../redux/actions/getMeActions"
-import { createStructuredSelector } from 'reselect';
 
 import GradientButton from '../../components/GradientButton'
 import JobDetails from '../../components/JobDetails'

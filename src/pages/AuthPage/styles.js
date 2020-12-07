@@ -14,7 +14,7 @@ export const ButtonContainer = styled.View`
     justify-content: flex-end;
     align-items: center;
     align-self: center;
-    margin-bottom: 25px
+    margin-bottom: 25px;
 `;
 
 export const Title = styled.Text`

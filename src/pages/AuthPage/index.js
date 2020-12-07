@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { StatusBar } from 'react-native'
+import { StatusBar, Dimensions, Platform } from 'react-native'
 
 import LoginModal from '../../components/LoginModal'
 import RegisterModal from '../../components/RegisterModal'
@@ -7,6 +7,7 @@ import DarkButton from '../../components/DarkButton'
 import LightButton from '../../components/LightButton'
 import { Container, Logo, ImageCover, Title, ButtonContainer } from './styles'
 import * as Animatable from 'react-native-animatable';
+
 
 const AuthPage = ({ navigation }) => {
 	const [loginModal, setLoginModal] = useState(false)

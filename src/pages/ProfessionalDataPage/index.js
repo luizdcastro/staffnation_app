@@ -4,6 +4,7 @@ import { View, Text, TouchableOpacity, ScrollView, StyleSheet } from 'react-nati
 
 import { updateUser } from "../../redux/actions/userActions"
 import { getMe } from "../../redux/actions/getMeActions"
+import { AntDesign } from '@expo/vector-icons';
 
 import _ from "lodash";
 import SelectorCategory from '../../components/SelectorCategory'
@@ -73,7 +74,7 @@ const ProfessionalDataPge = ({ navigation, getme, dispatchGetMe, dispatchUpdateU
             () => dispatchGetMe(),
             (error) => console.log(error)
         )
-        navigation.navigate('ProfilePage')
+        navigation.goBack()
     }
 
 
@@ -81,7 +82,7 @@ const ProfessionalDataPge = ({ navigation, getme, dispatchGetMe, dispatchUpdateU
         navigation.setOptions({
             headerRight: () => (
                 <TouchableOpacity style={{ paddingRight: 15 }} onPress={handleUpdateCategories}>
-                    <Text style={{ fontSize: 17, fontFamily: 'NunitoSans_700Bold', color: '#00A699' }}>Salvar</Text>
+                    <Text style={{ fontSize: 17, fontFamily: 'NunitoSans_700Bold', color: '#523BE4' }}>Salvar</Text>
                 </TouchableOpacity>
             )
         })
@@ -155,24 +156,27 @@ const ProfessionalDataPge = ({ navigation, getme, dispatchGetMe, dispatchUpdateU
         </View >
     )
 }
+export const pageOptions = ({ navigation }) => {
+    return {
+        headerTitle: 'Perfil Profissional',
+        headerTitleAlign: 'center',
+        headerTitleStyle: {
+            color: '#484848',
+            fontFamily: "NunitoSans_700Bold",
+            textAlign: 'center',
 
-export const pageOptions = {
-    headerTitle: 'Perfil Profissional',
-    headerTitleAlign: 'center',
-    headerTitleStyle: {
-        color: '#484848',
-        fontFamily: "NunitoSans_700Bold",
-        fontSize: 20,
-        textAlign: 'center',
-
-    },
-    headerBackTitleVisible: false,
-    headerStyle: {
-        backgroundColor: '#fafafa',
-        height: Platform.OS === 'ios' ? 90 : 70,
-
-    },
-    headerTintColor: '#00A699',
+        },
+        headerBackTitleVisible: false,
+        headerStyle: {
+            backgroundColor: '#fff',
+            height: Platform.OS === 'ios' ? 75 : 55,
+        },
+        headerLeft: () => (
+            <TouchableOpacity onPress={() => navigation.goBack()} >
+                <AntDesign name="arrowleft" size={25} color="grey" style={{ marginLeft: 10 }} />
+            </TouchableOpacity>
+        ),
+    }
 }
 
 const styles = StyleSheet.create({
@@ -182,20 +186,20 @@ const styles = StyleSheet.create({
     },
     label: {
         fontSize: 16,
-        fontFamily: 'NunitoSans_600SemiBold',
+        fontFamily: 'NunitoSans_700Bold',
         color: '#484848',
-        marginLeft: 20,
-        marginTop: 10
+        marginTop: 10,
+        marginLeft: 15
     },
     tagContainer: {
-        marginLeft: 20,
+        marginLeft: 15,
         marginTop: 10,
         marginBottom: 5,
         flexDirection: 'row'
     },
     tag: {
         borderWidth: 1,
-        borderColor: '#00A699',
+        borderColor: '#523BE4',
         borderRadius: 20,
         justifyContent: 'center',
         alignItems: 'center',
@@ -206,7 +210,7 @@ const styles = StyleSheet.create({
     tagText: {
         fontSize: 18,
         fontFamily: 'NunitoSans_600SemiBold',
-        color: '#00A699'
+        color: '#523BE4'
     }
 })
 

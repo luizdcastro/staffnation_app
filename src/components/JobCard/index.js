@@ -44,6 +44,7 @@ const styles = StyleSheet.create({
         shadowOpacity: 0.18,
         shadowRadius: 1.00,
         elevation: 1,
+
     },
     mainContent: {
         flex: 4,

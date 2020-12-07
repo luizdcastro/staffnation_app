@@ -6,6 +6,7 @@ import { useHeaderHeight } from '@react-navigation/stack';
 import { updateUser } from "../../redux/actions/userActions"
 import { getMe } from "../../redux/actions/getMeActions"
 
+import { AntDesign } from '@expo/vector-icons';
 import { TextInputMask } from "react-native-masked-text";
 
 const PersonalDataPage = ({ getme, navigation, dispatchGetMe, dispatchUpdateUserAction }) => {
@@ -26,16 +27,14 @@ const PersonalDataPage = ({ getme, navigation, dispatchGetMe, dispatchUpdateUser
             () => dispatchGetMe(),
             (error) => console.log(error)
         )
-        navigation.navigate('ProfilePage');
+        navigation.goBack();
     }
-
-
 
     useEffect(() => {
         navigation.setOptions({
             headerRight: () => (
                 <TouchableOpacity style={{ paddingRight: 15 }} onPress={hanleUpdateUser}>
-                    <Text style={{ fontSize: 17, fontFamily: 'NunitoSans_700Bold', color: '#00A699' }}>Salvar</Text>
+                    <Text style={{ fontSize: 17, fontFamily: 'NunitoSans_700Bold', color: '#523BE4' }}>Salvar</Text>
                 </TouchableOpacity>
             )
         })
@@ -101,24 +100,25 @@ const PersonalDataPage = ({ getme, navigation, dispatchGetMe, dispatchUpdateUser
     )
 }
 
-export const pageOptions = {
-    headerTitle: 'Dados Pessoais',
-    headerTitleAlign: 'center',
-    headerTitleStyle: {
-        color: '#484848',
-        fontFamily: "NunitoSans_700Bold",
-        fontSize: 20,
-        textAlign: 'center',
-
-    },
-    headerBackTitleVisible: false,
-    headerStyle: {
-        backgroundColor: '#fafafa',
-        height: Platform.OS === 'ios' ? 90 : 70,
-
-    },
-    headerTintColor: '#00A699',
-
+export const pageOptions = ({ navigation }) => {
+    return {
+        headerTitle: 'Dados Pessoais',
+        headerTitleAlign: 'center',
+        headerTitleStyle: {
+            color: '#484848',
+            fontFamily: "NunitoSans_700Bold",
+        },
+        headerBackTitleVisible: false,
+        headerStyle: {
+            backgroundColor: '#FFF',
+            height: Platform.OS === 'ios' ? 75 : 55,
+        },
+        headerLeft: () => (
+            <TouchableOpacity onPress={() => navigation.goBack()} >
+                <AntDesign name="arrowleft" size={25} color="grey" style={{ marginLeft: 10 }} />
+            </TouchableOpacity>
+        ),
+    }
 }
 
 const styles = StyleSheet.create({
@@ -128,20 +128,20 @@ const styles = StyleSheet.create({
     },
     label: {
         fontSize: 16,
-        fontFamily: 'NunitoSans_600SemiBold',
+        fontFamily: 'NunitoSans_700Bold',
         color: '#484848'
     },
     formContent: {
         marginTop: 15,
-        marginHorizontal: 20,
-        borderBottomColor: '#767676',
-        borderBottomWidth: 0.5
+        marginHorizontal: 15,
+        borderBottomColor: 'grey',
+        borderBottomWidth: 0.3
     },
     input: {
-        fontSize: 19,
+        fontSize: 18,
         fontFamily: 'NunitoSans_400Regular',
         marginTop: 5,
-        marginBottom: 20,
+        marginBottom: 10,
         color: '#484848'
     }
 })

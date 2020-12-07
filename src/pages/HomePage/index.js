@@ -1,14 +1,26 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { connect } from "react-redux";
-import { View, Text, TouchableOpacity, FlatList, StatusBar, ScrollView, StyleSheet, Platform } from "react-native";
+import { View, Text, TouchableOpacity, FlatList, ScrollView, StyleSheet, Dimensions } from "react-native";
+import { Container, Title, HeaderLeft, HeaderTitle } from './styles'
 
-import { Feather } from '@expo/vector-icons';
 import { Ionicons } from '@expo/vector-icons';
+import { Feather } from '@expo/vector-icons';
 
 import { getAllJobs } from '../../redux/actions/jobActions'
 import { getMe } from "../../redux/actions/getMeActions"
 
+import Header from '../../components/Header'
 import JobCardHome from '../../components/JobCardHome'
+import CategoryCard from '../../components/CategoryCard'
+import IconBar from '../../assets/svg/bar'
+import IconCleaner from '../../assets/svg/cleaner'
+import IconSecurity from '../../assets/svg/security'
+import Iconkitchen from '../../assets/svg/kitchen'
+import IconWaiter from '../../assets/svg/waiter'
+import IconHostess from '../../assets/svg/hostess'
+
+const { width, height } = Dimensions.get('window')
+
 
 const HomePage = ({ navigation, getme, jobs, dispatchGetMe, dispatchGetAllJobsAction }) => {
 
@@ -19,140 +31,89 @@ const HomePage = ({ navigation, getme, jobs, dispatchGetMe, dispatchGetAllJobsAc
 	useEffect(() => dispatchGetAllJobsAction(),
 		[dispatchGetAllJobsAction])
 
-	useEffect(() => {
-		navigation.setOptions({
-			headerTitle: `Olá, ${getme.data?.name.split(' ')[0]}!`
-		})
-	}, [dispatchGetMe, getme])
+	const LeftAction = () => (
+		<HeaderLeft>
+			<HeaderTitle>Curitiba, PR</HeaderTitle>
+			<Feather name="chevron-down" size={20} color="#484848" style={{ marginLeft: 4, paddingRight: 2 }} />
+		</HeaderLeft>
+	)
+
+	const RightAction = () => (
+		<TouchableOpacity>
+			<Feather name="bell" size={23} color="#484848" onPress={() => navigation.navigate('HelpPage')} />
+		</TouchableOpacity>
+	)
 
 	return (
-		<View style={styles.container}>
-			<StatusBar barStyle='dark-content' backgroundColor='#fafafa' />
-			<View style={styles.main}>
-				<ScrollView>
-					<Text style={styles.titleSection}>Resumo da Conta</Text>
-					<View style={styles.accountSection}>
-						<View style={styles.cardSection}>
-							<Text style={styles.cardSectionText}>Trabalhos Realizados</Text>
-							<Text style={styles.cardSectionNumber}>0</Text>
-						</View>
-						<View style={styles.cardSection}>
-							<Text style={styles.cardSectionText}>Saldo Atual</Text>
-							<Text style={styles.cardSectionNumber}>R$ {getme.data?.totalCash.toFixed(2)}</Text>
-						</View>
-					</View>
-					<View style={{ flex: 1 }}>
-						<Text style={styles.titleSection}>Pŕoximos Trabalhos</Text>
-						{!getme.data?.jobsAccepted.length >= 1 ? (
-							<TouchableOpacity style={styles.cardJobsSection} onPress={() => navigation.navigate('SearchPage')}>
-								<Text style={styles.cardSectionText}>Você não possui trabalhos confirmados</Text>
-								<Ionicons name="ios-arrow-forward" size={28} color="#00A699" />
-							</TouchableOpacity>
-						) :
-							<FlatList
-								style={{ marginHorizontal: 15, marginTop: 10 }}
-								horizontal={true}
-								showsVerticalScrollIndicator={false}
-								showsHorizontalScrollIndicator={false}
-								data={getme.data.jobsAccepted.slice(0, 5)}
-								renderItem={({ item }) => (
-									<JobCardHome
-										title={item.title}
-										dateDay={item.date.split(' ')[0]}
-										dateMonth={item.date.split(' ')[1]}
-										local={item.address.neighborhood}
-										payment={item.payment.toFixed(2)}
-										openCard={() => navigation.navigate('NextJobDetailsPage', {
-											jobId: item._id
-										})}
-									/>
-								)}
-							/>}
-						<Text style={styles.titleSection}>Vagas Recentes</Text>
-						{!jobs.length >= 1 ?
-							<TouchableOpacity style={styles.cardJobsSection} onPress={() => navigation.navigate('SearchPage')}>
-								<Text style={styles.cardSectionText}>Desculpe, nenhum resultado encontrado</Text>
-								<Ionicons name="ios-arrow-forward" size={28} color="#00A699" />
-							</TouchableOpacity>
-							:
-							<FlatList
-								style={{ marginHorizontal: 15, marginTop: 10 }}
-								horizontal={true}
-								showsVerticalScrollIndicator={false}
-								showsHorizontalScrollIndicator={false}
-								data={jobs.slice(0, 5)}
-								renderItem={({ item }) => (
-									<JobCardHome
-										title={item.title}
-										dateDay={item.date.split(' ')[0]}
-										dateMonth={item.date.split(' ')[1]}
-										local={item.address.neighborhood}
-										payment={item.payment.toFixed(2)}
-										openCard={() => navigation.navigate('SearchJobDetailsPage', {
-											jobId: item._id
-										})}
-									/>
-								)}
-							/>}
-					</View>
+		<Container>
+			<Header letfIcon={<LeftAction />} rightIcon={<RightAction />} />
+			<ScrollView >
+				<Title>Categorias</Title>
+				<ScrollView horizontal={true} showsHorizontalScrollIndicator={false} style={{ marginHorizontal: 15, height: 80 }} >
+					<CategoryCard title="Bar" children={<IconBar />} />
+					<CategoryCard title="Limpeza" children={<IconCleaner />} />
+					<CategoryCard title="Cozinha" children={<Iconkitchen />} />
+					<CategoryCard title="Segurança" children={<IconSecurity />} />
+					<CategoryCard title="Garçom" children={<IconWaiter />} />
+					<CategoryCard title="Hostess" children={<IconHostess />} />
 				</ScrollView>
-				<View style={styles.menu}>
-					<View style={styles.menuItem}>
-						<TouchableOpacity onPress={() => navigation.navigate('JobsTab')}>
-							<Feather name="calendar" size={24} color="#00A699" style={{ alignSelf: 'center' }} />
-							<Text style={styles.menuText}>Trabalhos</Text>
+				<Title>Pŕoximos Trabalhos</Title>
+				<View style={{ flex: 1 }}>
+					{!getme.data?.jobsAccepted.length >= 1 ? (
+						<TouchableOpacity style={styles.cardJobsSection} onPress={() => navigation.navigate('SearchPage')}>
+							<Text style={styles.cardSectionText}>Nenhum trabalho encontrado</Text>
+							<Ionicons name="ios-arrow-forward" size={28} color="#484848" />
 						</TouchableOpacity>
-					</View>
-					<View style={styles.separator} />
-					<View style={styles.menuItem}>
-						<TouchableOpacity onPress={() => navigation.navigate('TransferPage')}>
-							<Feather name="repeat" size={24} color="#00A699" style={{ alignSelf: 'center' }} />
-							<Text style={styles.menuText}>Transferir Saldo</Text>
+					) :
+						<FlatList
+							style={{ marginHorizontal: 15, marginTop: 10 }}
+							horizontal={false}
+							numColumns={2}
+							data={getme.data.jobsAccepted.slice(0, 5)}
+							renderItem={({ item }) => (
+								<JobCardHome />
+							)}
+						/>}
+					<Title>Vagas em Destaque</Title>
+					{!jobs.length >= 1 ?
+						<TouchableOpacity style={styles.cardJobsSection} onPress={() => navigation.navigate('SearchPage')}>
+							<Text style={styles.cardSectionText}>Desculpe, nenhum resultado encontrado</Text>
+							<Ionicons name="ios-arrow-forward" size={28} color="grey" />
 						</TouchableOpacity>
-					</View>
-					<View style={styles.separator} />
-					<View style={styles.menuItem} >
-						<TouchableOpacity onPress={() => navigation.navigate('ProfilePage')}>
-							<Feather name="user" size={24} color="#00A699" style={{ alignSelf: 'center' }} />
-							<Text style={styles.menuText}>Perfil</Text>
-						</TouchableOpacity>
-					</View>
+						:
+						<View>
+							<FlatList
+								style={{ marginLeft: 10 }}
+								horizontal={true}
+								contentContainerStyle={{ alignSelf: 'flex-start' }}
+								directionalLockEnabled={true}
+								showsVerticalScrollIndicator={false}
+								showsHorizontalScrollIndicator={false}
+								data={jobs.slice(0, 3)}
+								renderItem={({ item }) => (
+									<JobCardHome width={width - 20} buttonTitle="Detalhes" />
+								)}
+							/>
+							<FlatList
+								style={{ marginLeft: 10 }}
+								horizontal={true}
+								contentContainerStyle={{ alignSelf: 'flex-start' }}
+								directionalLockEnabled={true}
+								showsVerticalScrollIndicator={false}
+								showsHorizontalScrollIndicator={false}
+								data={jobs.slice(3, 5)}
+								renderItem={({ item }) => (
+									<JobCardHome width={width - 20} buttonTitle="Detalhes" />
+								)}
+							/>
+						</View>
+
+					}
 				</View>
-				<View >
-					<TouchableOpacity style={styles.footerButton} onPress={() => navigation.navigate('SearchPage')}>
-						<Text style={styles.footerButtonText}>Procurar Vagas</Text>
-					</TouchableOpacity>
-				</View>
-			</View>
-		</View>
+			</ScrollView>
+		</Container>
 	);
 };
-
-export const pageOptions = ({ navigation }) => {
-
-	return {
-		headerTitleStyle: {
-			color: '#484848',
-			fontFamily: "NunitoSans_700Bold",
-			fontSize: 20,
-			alignSelf: 'center'
-		},
-		headerStyle: {
-			backgroundColor: '#fafafa',
-			height: Platform.OS === 'ios' ? 90 : 70,
-		},
-		headerLeft: () => (
-			<TouchableOpacity style={{ paddingLeft: 15 }} >
-				<Ionicons name="ios-menu" size={30} color="#00A699" onPress={() => navigation.toggleDrawer()} />
-			</TouchableOpacity >
-		),
-		headerRight: () => (
-			<TouchableOpacity style={{ paddingRight: 15 }}>
-				<Ionicons name="ios-help-circle-outline" size={30} color="#00A699" onPress={() => navigation.navigate('HelpPage')} />
-			</TouchableOpacity>
-		)
-	}
-}
 
 const styles = StyleSheet.create({
 	container: {
@@ -173,90 +134,30 @@ const styles = StyleSheet.create({
 		marginLeft: 15,
 		marginTop: 10
 	},
-	accountSection: {
-		height: 110,
+	cardJobsSection: {
 		flexDirection: 'row',
-		justifyContent: 'space-between',
-		marginHorizontal: 15,
-		marginTop: 10
-	},
-	cardSection: {
-		width: '48%',
+		height: 80,
+		width: width - 20,
 		backgroundColor: '#fff',
-		justifyContent: 'space-evenly',
+		justifyContent: 'space-between',
 		alignItems: 'center',
 		borderRadius: 10,
 		shadowColor: "#000",
 		shadowOffset: {
 			width: 0,
-			height: 1,
+			height: 0.5,
 		},
-		shadowOpacity: 0.18,
-		shadowRadius: 1.00,
-		elevation: 1,
+		shadowOpacity: 0.09,
+		shadowRadius: 0.5,
+		elevation: 0.5,
+		marginLeft: 10,
+		paddingHorizontal: 15
 	},
 	cardSectionText: {
 		fontFamily: 'NunitoSans_400Regular',
-		color: '#484848',
-		fontSize: 14
-	},
-	cardSectionNumber: {
-		fontFamily: 'NunitoSans_600SemiBold',
-		color: '#00A699',
-		fontSize: 18
-	},
-	menu: {
-		flexDirection: 'row',
-		justifyContent: 'space-evenly',
-		marginBottom: 12
-	},
-	menuItem: {
-		justifyContent: 'flex-end',
-		alignItems: 'center',
-		textAlign: 'center',
-		width: '30%',
-	},
-	cardJobsSection: {
-		flexDirection: 'row',
-		backgroundColor: '#fff',
-		justifyContent: 'space-evenly',
-		alignItems: 'center', borderRadius: 10,
-		shadowColor: "#000",
-		shadowOffset: {
-			width: 0,
-			height: 1,
-		},
-		shadowOpacity: 0.18,
-		shadowRadius: 1.00,
-		elevation: 1,
-		marginHorizontal: 15,
-		height: 110,
-		marginTop: 10,
-		marginBottom: 5
-
-	},
-	menuText: {
-		fontFamily: "NunitoSans_400Regular",
-		paddingTop: 8,
-		color: '#484848',
-		fontSize: 13
-	},
-	separator: {
-		borderRightColor: '#E8E8E8',
-		borderRightWidth: 1,
-		height: 80,
-	},
-	footerButton: {
-		backgroundColor: '#00A699',
-		height: 60,
-		justifyContent: 'center',
-		alignItems: 'center',
-	},
-	footerButtonText: {
-		fontFamily: "NunitoSans_700Bold",
-		fontSize: 18,
-		color: '#fff'
+		fontSize: 15
 	}
+
 });
 
 const mapDispatchToProps = (dispatch) => ({

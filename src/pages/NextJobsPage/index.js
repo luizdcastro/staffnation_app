@@ -1,13 +1,11 @@
 import React from "react";
 import { connect } from "react-redux";
-import { createStructuredSelector } from 'reselect';
 import { View, FlatList, Text, Image, StyleSheet } from "react-native";
 
 import { getMe } from "../../redux/actions/getMeActions"
 import JobCard from '../../components/JobCard'
 
 const NextJobsPage = ({ navigation, getme, dispatchGetMe }) => {
-
     return (
         <View style={styles.container}>
             <View style={styles.main}>
@@ -35,7 +33,7 @@ const NextJobsPage = ({ navigation, getme, dispatchGetMe }) => {
                     :
                     <View style={styles.noContentBox}>
                         <Image source={require('../../assets/images/no-result-search.png')} style={styles.noContentImage} />
-                        <Text style={styles.noContentText}>Você ainda não possui trabalhos confirmados</Text>
+                        <Text style={styles.noContentText}>Você não possui trabalhos confirmados</Text>
                     </View>
                 }
             </View>
@@ -65,11 +63,11 @@ const styles = StyleSheet.create({
         fontFamily: 'NunitoSans_400Regular',
         color: '#484848',
         paddingTop: 40,
-        marginBottom: '30%'
+        marginBottom: '15%'
     },
     noContentImage: {
-        width: '60%',
-        height: 187,
+        width: '50%',
+        height: 160,
         resizeMode: "cover"
     },
 });

@@ -192,7 +192,7 @@ const RegisterModal = ({ closeModal, dispatchRegisterUser, dispatchGetme }) => {
 
     return (
         <Container>
-            <ModalContent behavior={Platform.OS === "ios" ? "padding" : "height"} >
+            <ModalContent>
                 {!isCpfFilled ? (
                     <RegisterContent>
                         <View>
@@ -377,8 +377,8 @@ const RegisterModal = ({ closeModal, dispatchRegisterUser, dispatchGetme }) => {
                                                 setGenderModal(false)
                                             }}>
                                             <Text style={styles.genderTitle}>Maculino</Text>
-                                            {!genderOptionMan ? <Feather name="circle" size={30} color="#00A699" /> :
-                                                <MaterialIcons name="check-circle" size={30} color="#00A699" />}
+                                            {!genderOptionMan ? <Feather name="circle" size={25} color="grey" /> :
+                                                <MaterialIcons name="check-circle" size={25} color="#523BE4" />}
                                         </TouchableOpacity>
                                     </InputContainer>
                                     <InputContainer>
@@ -390,8 +390,8 @@ const RegisterModal = ({ closeModal, dispatchRegisterUser, dispatchGetme }) => {
                                                 setGenderModal(false)
                                             }}>
                                             <Text style={styles.genderTitle}>Feminino</Text>
-                                            {!genderOptionWoman ? <Feather name="circle" size={30} color="#00A699" /> :
-                                                <MaterialIcons name="check-circle" size={30} color="#00A699" />}
+                                            {!genderOptionWoman ? <Feather name="circle" size={25} color="grey" /> :
+                                                <MaterialIcons name="check-circle" size={25} color="#523BE4" />}
                                         </TouchableOpacity>
                                     </InputContainer>
                                 </Animatable.View>
@@ -496,7 +496,7 @@ const RegisterModal = ({ closeModal, dispatchRegisterUser, dispatchGetme }) => {
                             </ScrollView>
 
                         </View>
-                        <View >
+                        <View>
                             {userCategories.length >= 1 ?
                                 <KeyboardButton
                                     name="Continuar"

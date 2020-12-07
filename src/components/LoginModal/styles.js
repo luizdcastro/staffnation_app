@@ -22,7 +22,6 @@ export const Title = styled.Text`
     font-family: 'NunitoSans_400Regular';
     color: #484848;
     margin: 5% 0 0 5%;
-
 `;
 
 export const TextLink = styled.Text`

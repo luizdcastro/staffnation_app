@@ -4,17 +4,18 @@ import { Ionicons } from '@expo/vector-icons';
 import { useNavigation } from "@react-navigation/native";
 
 
-const Header = ({ title }) => {
+const Header = ({ title, letfIcon, rightIcon, letfAction, rightAction }) => {
     const navigation = useNavigation();
 
     return (
         <View style={styles.container}>
-            <StatusBar barStyle='light-content' backgroundColor='#fafafa' />
-            <TouchableOpacity onPress={() => navigation.navigate('ProfilePage')}>
-                <Ionicons name="ios-menu" size={30} color="#fff" />
-            </TouchableOpacity>
+            <View >
+                {letfIcon}
+            </View>
             <Text style={styles.title}>{title}</Text>
-            <Ionicons name="ios-help-circle-outline" size={30} color="#fff" />
+            <View >
+                {rightIcon}
+            </View>
         </View>
     )
 }
@@ -22,17 +23,21 @@ const Header = ({ title }) => {
 const styles = StyleSheet.create({
     container: {
         flexDirection: 'row',
-        height: Platform.OS === 'ios' ? '12%' : '10%',
-        width: '100%',
-        paddingTop: 15,
-        paddingHorizontal: 15,
+        height: 70,
         alignItems: 'center',
+        paddingTop: 15,
+        width: '100%',
+        paddingHorizontal: 15,
         justifyContent: 'space-between',
-        backgroundColor: '#fafafa',
+        backgroundColor: '#fff',
+        borderBottomColor: '#E0E0E0',
+        borderBottomWidth: 0.3,
     },
     title: {
-        color: '#fff',
-        fontSize: 18
+        color: '#484848',
+        fontFamily: "NunitoSans_700Bold",
+        fontSize: 18,
+        paddingRight: 20
     }
 
 })

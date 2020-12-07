@@ -7,6 +7,7 @@ import * as Animatable from "react-native-animatable";
 import { updateUser } from "../../redux/actions/userActions"
 import { getMe } from "../../redux/actions/getMeActions"
 
+import { AntDesign } from '@expo/vector-icons';
 import { TextInputMask } from "react-native-masked-text";
 
 const AdressDataPage = ({ getme, navigation, dispatchUpdateUserAction, dispatchGetMe }) => {
@@ -56,14 +57,14 @@ const AdressDataPage = ({ getme, navigation, dispatchUpdateUserAction, dispatchG
             () => dispatchGetMe(),
             (error) => console.log(error)
         )
-        navigation.navigate('ProfilePage');
+        navigation.goBack();
     }
 
     useEffect(() => {
         navigation.setOptions({
             headerRight: () => (
                 <TouchableOpacity style={{ paddingRight: 15 }} onPress={handleUpdateAddress}>
-                    <Text style={{ fontSize: 17, fontFamily: 'NunitoSans_700Bold', color: '#00A699' }}>Salvar</Text>
+                    <Text style={{ fontSize: 17, fontFamily: 'NunitoSans_700Bold', color: '#523BE4' }}>Salvar</Text>
                 </TouchableOpacity>
             )
         })
@@ -77,8 +78,8 @@ const AdressDataPage = ({ getme, navigation, dispatchUpdateUserAction, dispatchG
                     <TextInputMask
                         style={[
                             errorCep
-                                ? [styles.input, { width: "90%", color: "#ff5555", marginBottom: 20, marginTop: 5 }]
-                                : [styles.input, { width: "90%", color: '#484848', marginBottom: 20, marginTop: 5 }],
+                                ? [styles.input, { width: "90%", color: "#ff5555", marginBottom: 10, marginTop: 5 }]
+                                : [styles.input, { width: "90%", color: '#484848', marginBottom: 10, marginTop: 5 }],
                         ]}
                         type={"zip-code"}
                         value={cep}
@@ -112,25 +113,26 @@ const AdressDataPage = ({ getme, navigation, dispatchUpdateUserAction, dispatchG
     )
 }
 
-
-export const pageOptions = {
-    headerTitle: 'Meu Endereço',
-    headerTitleAlign: 'center',
-    headerTitleStyle: {
-        color: '#484848',
-        fontFamily: "NunitoSans_700Bold",
-        fontSize: 20,
-        textAlign: 'center',
-
-    },
-    headerBackTitleVisible: false,
-    headerStyle: {
-        backgroundColor: '#fafafa',
-        height: Platform.OS === 'ios' ? 90 : 70,
-
-    },
-    headerTintColor: '#00A699',
-
+export const pageOptions = ({ navigation }) => {
+    return {
+        headerTitle: 'Meu Endereço',
+        headerTitleAlign: 'center',
+        headerTitleStyle: {
+            color: '#484848',
+            fontFamily: "NunitoSans_700Bold",
+            textAlign: 'center',
+        },
+        headerBackTitleVisible: false,
+        headerStyle: {
+            backgroundColor: '#fff',
+            height: Platform.OS === 'ios' ? 75 : 55,
+        },
+        headerLeft: () => (
+            <TouchableOpacity onPress={() => navigation.goBack()} >
+                <AntDesign name="arrowleft" size={25} color="grey" style={{ marginLeft: 10 }} />
+            </TouchableOpacity>
+        ),
+    }
 }
 
 const styles = StyleSheet.create({
@@ -140,24 +142,24 @@ const styles = StyleSheet.create({
     },
     label: {
         fontSize: 16,
-        fontFamily: 'NunitoSans_600SemiBold',
+        fontFamily: 'NunitoSans_700Bold',
         color: '#484848'
     },
     formContent: {
         marginTop: 15,
-        marginHorizontal: 20,
-        borderBottomColor: '#767676',
-        borderBottomWidth: 0.5,
-        marginBottom: 10
+        marginHorizontal: 15,
+        borderBottomColor: 'grey',
+        borderBottomWidth: 0.3
     },
     input: {
-        fontSize: 19,
+        fontSize: 18,
         fontFamily: 'NunitoSans_400Regular',
-        color: '#484848'
+        color: '#484848',
+        width: 120
     },
     address: {
-        fontSize: 19,
-        fontFamily: 'NunitoSans_400Regular',
+        fontSize: 18,
+        fontFamily: 'NunitoSans_600SemiBold',
         color: '#484848',
     }
 })

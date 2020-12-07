@@ -4,28 +4,32 @@ import { View, Text, Image, TouchableOpacity, StyleSheet } from "react-native";
 
 import { Feather } from '@expo/vector-icons';
 import { Ionicons } from '@expo/vector-icons';
+import { AntDesign } from '@expo/vector-icons';
+import Header from '../../components/Header'
 
+import { logoutUser } from '../../redux/actions/authActions'
 import { getMe } from "../../redux/actions/getMeActions"
 
-
-const ProfilePage = ({ navigation, getme, dispatchGetMe }) => {
+const ProfilePage = ({ navigation, getme, dispatchGetMe, dispatchLogoutAction, setHome, setProfile }) => {
 
 	useEffect(() => {
 		dispatchGetMe()
 	}, [dispatchGetMe])
 
-	useEffect(() => {
-		navigation.setOptions({
-			headerRight: () => (
-				<TouchableOpacity style={{ paddingRight: 15 }} onPress={() => navigation.navigate('HelpPage')}>
-					<Ionicons name="ios-help-circle-outline" size={30} color="#00A699" />
-				</TouchableOpacity>
-			),
-		})
-	}, [])
+	const handleLogOut = (event) => {
+		event.preventDefault();
+		dispatchLogoutAction()
+	}
+
+	const LeftAction = () => (
+		<TouchableOpacity onPress={() => { navigation.navigate('BottomTabPage'); setHome(true); setProfile(false) }}>
+			<AntDesign name="arrowleft" size={25} color="grey" />
+		</TouchableOpacity>
+	)
 
 	return (
 		<View style={styles.container}>
+			<Header title="Meu Perfil" letfIcon={<LeftAction />} />
 			<View style={styles.personalData}>
 				<Image
 					style={styles.avatar}
@@ -40,46 +44,47 @@ const ProfilePage = ({ navigation, getme, dispatchGetMe }) => {
 			</View>
 			<View>
 				<TouchableOpacity style={styles.button} onPress={() => navigation.navigate('PersonalDataPage')}>
-					<Text style={styles.buttonText}>Informações Pessoais</Text>
-					<Feather name="user" size={24} color="#00A699" />
+					<View style={{ flexDirection: 'row', alignItems: 'center' }}>
+						<Feather name="user" size={22} color="#523BE4" />
+						<Text style={styles.buttonText}>Informações Pessoais</Text>
+					</View>
+					<Feather name="chevron-right" size={22} color="grey" />
 				</TouchableOpacity>
 				<TouchableOpacity style={styles.button} onPress={() => navigation.navigate('AdressDataPage')}>
-					<Text style={styles.buttonText}>Meu Endereço</Text>
-					<Feather name="map-pin" size={24} color="#00A699" />
+					<View style={{ flexDirection: 'row', alignItems: 'center' }}>
+						<Feather name="map-pin" size={22} color="#523BE4" />
+						<Text style={styles.buttonText}>Meu Endereço</Text>
+					</View>
+					<Feather name="chevron-right" size={22} color="grey" />
 				</TouchableOpacity>
 				<TouchableOpacity style={styles.button} onPress={() => navigation.navigate('ProfessionalDataPage')}>
-					<Text style={styles.buttonText}>Perfil Profissional</Text>
-					<Feather name="award" size={24} color="#00A699" />
+					<View style={{ flexDirection: 'row', alignItems: 'center' }}>
+						<Feather name="award" size={22} color="#523BE4" />
+						<Text style={styles.buttonText}>Perfil Profissional</Text>
+					</View>
+					<Feather name="chevron-right" size={22} color="grey" />
 				</TouchableOpacity>
 				<TouchableOpacity style={styles.button} onPress={() => navigation.navigate('BankDataPage')}>
-					<Text style={styles.buttonText}>Dados Bancários</Text>
-					<Feather name="dollar-sign" size={24} color="#00A699" />
+					<View style={{ flexDirection: 'row', alignItems: 'center' }}>
+						<Feather name="dollar-sign" size={22} color="#523BE4" />
+						<Text style={styles.buttonText}>Dados Bancários</Text>
+					</View>
+					<Feather name="chevron-right" size={22} color="grey" />
+				</TouchableOpacity>
+			</View>
+			<View style={{ flex: 1, justifyContent: 'flex-end', marginBottom: 20 }}>
+
+				<TouchableOpacity style={styles.button} onPress={handleLogOut}>
+					<View style={{ flexDirection: 'row', alignItems: 'center' }}>
+						<Feather name="log-out" size={22} color="#523BE4" />
+						<Text style={styles.buttonText}>Sair</Text>
+					</View>
+					<Feather name="chevron-right" size={22} color="grey" />
 				</TouchableOpacity>
 			</View>
 		</View>
 	);
 };
-
-
-export const pageOptions = {
-	headerTitle: 'Meu Perfil',
-	headerTitleAlign: 'center',
-	headerTitleStyle: {
-		color: '#484848',
-		fontFamily: "NunitoSans_700Bold",
-		fontSize: 20,
-		textAlign: 'center',
-
-	},
-	headerBackTitleVisible: false,
-	headerStyle: {
-		backgroundColor: '#fafafa',
-		height: Platform.OS === 'ios' ? 90 : 70,
-
-	},
-	headerTintColor: '#00A699',
-
-}
 
 const styles = StyleSheet.create({
 	container: {
@@ -89,7 +94,7 @@ const styles = StyleSheet.create({
 	personalData: {
 		flexDirection: 'row',
 		alignItems: 'center',
-		marginTop: 25,
+		marginTop: 15,
 		marginBottom: 30
 	},
 	avatar: {
@@ -101,12 +106,12 @@ const styles = StyleSheet.create({
 	},
 	pictureText: {
 		fontFamily: 'NunitoSans_700Bold',
-		color: '#00A699',
-		fontSize: 13
+		color: '#523BE4',
+		fontSize: 12
 	},
 	name: {
 		fontFamily: "NunitoSans_700Bold",
-		fontSize: 17,
+		fontSize: 18,
 		color: '#484848',
 		paddingBottom: 3
 	},
@@ -118,17 +123,21 @@ const styles = StyleSheet.create({
 		paddingBottom: 10,
 		borderBottomWidth: 0.3,
 		borderBottomColor: '#484848',
-		marginBottom: 20
+		marginBottom: 20,
+
 	},
 	buttonText: {
 		fontFamily: 'NunitoSans_600SemiBold',
-		color: '#484848'
+		fontSize: 15,
+		marginLeft: 10,
+		color: '#484848',
 	},
 
 });
 
 const mapDispatchToProps = (dispatch) => ({
 	dispatchGetMe: () => dispatch(getMe()),
+	dispatchLogoutAction: () => dispatch(logoutUser()),
 });
 
 const mapStateToProps = (state) => ({

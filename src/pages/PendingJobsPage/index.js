@@ -34,7 +34,7 @@ const PendingJobsPage = ({ navigation, getme }) => {
                     :
                     <View style={styles.noContentBox}>
                         <Image source={require('../../assets/images/no-result-search.png')} style={styles.noContentImage} />
-                        <Text style={styles.noContentText}>Você ainda não possui trabalhos pendentes</Text>
+                        <Text style={styles.noContentText}>Você não possui trabalhos pendentes</Text>
                     </View>
                 }
             </View>
@@ -65,11 +65,11 @@ const styles = StyleSheet.create({
         fontFamily: 'NunitoSans_400Regular',
         color: '#484848',
         paddingTop: 30,
-        marginBottom: '30%'
+        marginBottom: '15%'
     },
     noContentImage: {
-        width: '60%',
-        height: 187,
+        width: '50%',
+        height: 160,
         resizeMode: "cover"
     },
 });

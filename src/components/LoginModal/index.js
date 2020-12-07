@@ -10,7 +10,7 @@ import {
     TextLink,
     ErrorMessage
 } from './styles'
-import { View, TouchableOpacity, ActivityIndicator } from 'react-native'
+import { View, TouchableOpacity, ActivityIndicator, Platform } from 'react-native'
 
 import { cpf } from "cpf-cnpj-validator";
 import { TextInputMask } from "react-native-masked-text";
@@ -62,8 +62,8 @@ const LoginModal = ({ setRegisterModal, setLoginModal, dispatchLoginAction }) =>
     }, [error, loading])
 
     return (
-        <Container>
-            <ModalContent behavior={Platform.OS === "ios" ? "padding" : "height"} >
+        <Container >
+            <ModalContent>
                 {!isCpfFilled ?
                     <LoginContent >
                         <View>
@@ -77,7 +77,7 @@ const LoginModal = ({ setRegisterModal, setLoginModal, dispatchLoginAction }) =>
                             <Title>Para entrar, digite seu CPF</Title>
                             <TextInputMask
                                 type={"cpf"}
-                                blurOnSubmit={true}
+                                blurOnSubmit={false}
                                 autoFocus={true}
                                 value={userCpf}
                                 keyboardType="number-pad"
@@ -95,7 +95,7 @@ const LoginModal = ({ setRegisterModal, setLoginModal, dispatchLoginAction }) =>
                                 }}
                             />
                         </View>
-                        <View style={{}}>
+                        <View>
                             <TouchableOpacity style={{ flexDirection: 'row', alignItems: 'center' }}
                                 onPress={() => {
                                     setLoginModal(false);

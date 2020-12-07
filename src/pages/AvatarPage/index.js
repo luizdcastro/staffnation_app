@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react'
 import { connect } from "react-redux";
-import { createStructuredSelector } from 'reselect';
 import { View, Text, Image, TouchableOpacity, StyleSheet, Platform } from 'react-native'
 
 import * as Permissions from 'expo-permissions'
@@ -13,8 +12,9 @@ import {
 import { updateUser } from "../../redux/actions/userActions"
 import { getMe } from "../../redux/actions/getMeActions"
 
-
-import GradientButton from '../../components/GradientButton'
+import { AntDesign } from '@expo/vector-icons';
+import LightButton from '../../components/LightButton'
+import CustomButton from '../../components/CustomButton'
 
 const AvatarPage = ({
     navigation,
@@ -34,7 +34,6 @@ const AvatarPage = ({
                 alert('Desculpe, precisamos de permissão para acessar a galeria de fotos');
             }
         }
-
 
         const data = await ImagePicker.launchImageLibraryAsync({
             mediaTypes: ImagePicker.MediaTypeOptions.Images,
@@ -91,23 +90,23 @@ const AvatarPage = ({
                 />
             </View>
             <View style={styles.buttonsContainer}>
-                <View style={{ width: '100%', alignItems: 'center' }}>
-                    <TouchableOpacity style={styles.button} onPress={ImagePickerCall}>
-                        <Text style={styles.textButton}>Procurar Imagem</Text>
-                    </TouchableOpacity>
+                <View style={{ width: '90%', alignItems: 'center' }}>
+                    <LightButton
+                        textColor="#523BE4"
+                        borderColor="#523BE4"
+                        name="Procurar Imagem"
+                        onPress={ImagePickerCall} />
                 </View>
-                <View>
+                <View style={{ width: '90%' }}>
                     {imagePreview.uri ?
-                        <GradientButton
-                            title="Salvar Alteração"
-                            gradient={["#00A699", "#00A699"]}
+                        <CustomButton
+                            name="Salvar Alteração"
+                            background="#523BE4"
                             onPress={handleUploadImage}
                         /> :
-                        <GradientButton
-                            onPress={() => { }}
-                            gradient={["#E8E8E8", "#E8E8E8"]}
-                            title="Salvar Alteração"
-                            textStyle={{ color: "#767676" }}
+                        <CustomButton
+                            name="Salvar Alteração"
+                            background="#96a0f0"
                         />
                     }
                 </View>
@@ -116,24 +115,27 @@ const AvatarPage = ({
         </View>
     )
 }
+export const pageOptions = ({ navigation }) => {
+    return {
+        headerTitle: 'Alterar Foto',
+        headerTitleAlign: 'center',
+        headerTitleStyle: {
+            color: '#484848',
+            fontFamily: "NunitoSans_700Bold",
+            textAlign: 'center',
 
-export const pageOptions = {
-    headerTitle: 'Alterar Foto',
-    headerTitleAlign: 'center',
-    headerTitleStyle: {
-        color: '#484848',
-        fontFamily: "NunitoSans_700Bold",
-        fontSize: 20,
-        textAlign: 'center',
-
-    },
-    headerBackTitleVisible: false,
-    headerStyle: {
-        backgroundColor: '#fafafa',
-        height: Platform.OS === 'ios' ? 90 : 70,
-
-    },
-    headerTintColor: '#00A699',
+        },
+        headerBackTitleVisible: false,
+        headerStyle: {
+            backgroundColor: '#FFF',
+            height: Platform.OS === 'ios' ? 75 : 55,
+        },
+        headerLeft: () => (
+            <TouchableOpacity onPress={() => navigation.goBack()} >
+                <AntDesign name="arrowleft" size={25} color="grey" style={{ marginLeft: 10 }} />
+            </TouchableOpacity>
+        ),
+    }
 }
 
 const styles = StyleSheet.create({

@@ -1,75 +1,85 @@
 import React from 'react'
-import { View, Text, TouchableOpacity, StyleSheet } from 'react-native'
-import { Entypo } from '@expo/vector-icons';
+import { View, TouchableOpacity, Text, Image, Dimensions, StyleSheet } from 'react-native'
 
-const JobsCardHome = ({ openCard, timeStart, timeEnd, title, local, category, payment, dateMonth, dateDay }) => {
+const { width, height } = Dimensions.get('window')
+
+const DiscontCard = ({ buttonTitle, onPress, width }) => {
     return (
-        <View style={styles.container}>
-
+        <TouchableOpacity style={[styles.container, { width: width }]} onPress={onPress}>
+            <Image style={styles.image} source={{ uri: 'https://sirene.com.br/wp/wp-content/uploads/2019/11/IMG_9472-1-.jpg' }} />
             <View style={styles.mainContent}>
-                <TouchableOpacity onPress={openCard}>
-                    <View>
-                        <Text style={styles.title}>{title}</Text>
-                        <Text style={{ fontSize: 13, fontFamily: 'NunitoSans_400Regular', color: '#484848' }}>{local}</Text>
-                    </View>
-                    <View style={{ marginTop: 6 }}>
-                        <Text style={styles.regularText}>{dateDay} de {dateMonth}</Text>
-                        <Text style={[styles.regularText, { paddingBottom: 10 }]}>R$ {payment}</Text>
-                    </View>
-                </TouchableOpacity>
+                <Text style={styles.title}>Sirene Fish and Chips</Text>
+                <Text style={styles.bottomText}>Categoria: Bar</Text>
+                <Text style={styles.bottomText}>Valor: 150,00</Text>
             </View>
-        </View >
+            <View style={{ flex: 1, alignItems: 'center', marginRight: 5 }}>
+                <Text style={styles.dateText}>15/Dez</Text>
+                <View style={styles.button}>
+                    <Text style={styles.buttonText}>{buttonTitle}</Text>
+                </View>
+            </View>
+        </TouchableOpacity>
     )
 }
 
 const styles = StyleSheet.create({
     container: {
-        flex: 1,
+        width: width - 20,
+        height: 80,
+        marginTop: 5,
+        borderRadius: 5,
         flexDirection: 'row',
-        height: 110,
-        width: 184,
+        alignItems: 'center',
         backgroundColor: '#fff',
-        borderRadius: 10,
-        marginBottom: 10,
         shadowColor: "#000",
         shadowOffset: {
             width: 0,
-            height: 1,
+            height: 0.5,
         },
-        shadowOpacity: 0.18,
-        shadowRadius: 1.00,
-        elevation: 1,
-        marginRight: 15
+        shadowOpacity: 0.09,
+        shadowRadius: 0.5,
+        elevation: 0.5,
+        marginRight: 10
+    },
+    image: {
+        width: 60,
+        height: 60,
+        borderRadius: 10,
+        marginLeft: 10
     },
     mainContent: {
+        marginLeft: 10,
         flex: 3,
-        paddingLeft: 15,
-        paddingTop: 8,
-        justifyContent: 'space-around'
-
     },
     title: {
         fontFamily: 'NunitoSans_600SemiBold',
-        fontSize: 17,
+        fontSize: 15
+    },
+    subtitle: {
+        fontFamily: 'NunitoSans_400Regular',
+        fontSize: 13
+    },
+    bottomText: {
+        fontFamily: 'NunitoSans_400Regular',
+        fontSize: 11
+    },
+    dateText: {
+        fontFamily: 'NunitoSans_700Bold',
+        fontSize: 18,
         color: '#484848',
-        height: 21
-
+        marginBottom: 3
     },
-    smallText: {
-        fontSize: 11,
-        fontFamily: 'NunitoSans_400Regular',
-        color: '#484848'
+    button: {
+        backgroundColor: '#fafafa',
+        paddingHorizontal: 10,
+        paddingVertical: 5,
+        borderRadius: 10,
     },
-    regularText: {
-        fontSize: 13,
-        fontFamily: 'NunitoSans_400Regular',
-        color: '#484848'
-    },
-    icon: {
-        paddingRight: 15,
-        paddingVertical: 15,
-        justifyContent: 'space-between'
+    buttonText: {
+        fontFamily: 'NunitoSans_700Bold',
+        fontSize: 12,
+        color: '#523BE4'
     }
 })
 
-export default JobsCardHome
+export default DiscontCard
