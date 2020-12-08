@@ -51,6 +51,7 @@ const SearchJobDetailsPage = ({ getme, route, navigation, dispatchGetJobAction, 
                     addressNeighborhood={jobDetails.address.neighborhood}
                     addressCity={jobDetails.address.city}
                     addressState={jobDetails.address.state}
+                    image={jobDetails.image}
 
                 /> : null}
             <View style={styles.buttonsContainer}>

@@ -15,7 +15,7 @@ export const BackIcon = styled.TouchableOpacity`
     top: 10%;
     left: 2%;
     z-index: 1;
-    background-color: rgba(0, 0, 0, 0.3);
+    background-color: rgba(0, 0, 0, 0.4);
     border-radius: 50px;
     padding: 5px;
 `;

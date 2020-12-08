@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { connect } from "react-redux";
-import { View, Text, TouchableOpacity, FlatList, ScrollView, StyleSheet, Dimensions } from "react-native";
+import { View, Text, TouchableOpacity, ScrollView, StyleSheet, Dimensions } from "react-native";
 import { Container, Title, HeaderLeft, HeaderTitle } from './styles'
 
 import { Ionicons } from '@expo/vector-icons';
@@ -13,12 +13,6 @@ import Header from '../../components/Header'
 import JobCard from '../../components/JobCard'
 import JobCardNoContent from '../../components/JobCardNoContent'
 import CategoryCard from '../../components/CategoryCard'
-import IconBar from '../../assets/svg/bar'
-import IconCleaner from '../../assets/svg/cleaner'
-import IconSecurity from '../../assets/svg/security'
-import Iconkitchen from '../../assets/svg/kitchen'
-import IconWaiter from '../../assets/svg/waiter'
-import IconHostess from '../../assets/svg/hostess'
 
 const { width, height } = Dimensions.get('window')
 
@@ -41,7 +35,7 @@ const HomePage = ({ navigation, getme, jobs, dispatchGetMe, dispatchGetAllJobsAc
 
 	const RightAction = () => (
 		<TouchableOpacity style={{ marginRight: 10 }}>
-			<Feather name="bell" size={23} color="grey" onPress={() => navigation.navigate('HelpPage')} />
+			<Feather name="bell" size={23} color="grey" onPress={() => navigation.navigate('NotificationPage')} />
 		</TouchableOpacity>
 	)
 
@@ -57,19 +51,30 @@ const HomePage = ({ navigation, getme, jobs, dispatchGetMe, dispatchGetAllJobsAc
 					<CategoryCard title="Garçom" image={require("../../assets/images/categories/waiter.jpg")} />
 					<CategoryCard title="Segurança" image={require("../../assets/images/categories/guard.jpg")} />
 					<CategoryCard title="Hostess" image={require("../../assets/images/categories/hostess.jpg")} />
-
-
-
 				</ScrollView>
 				<Title>Pŕoximos Trabalhos</Title>
 				<View style={{ flex: 1 }}>
 					<ScrollView style={{ marginLeft: 10 }} horizontal={true} showsHorizontalScrollIndicator={false}>
 						{!getme.data?.jobsAccepted.length >= 1 ? (
-							<JobCardNoContent onPress={() => { setHome(false); setJobs(true) }} />
+							<JobCardNoContent
+								width={width - 20}
+								onPress={() => { setHome(false); setJobs(true) }} />
 						) :
 							getme.data.jobsAccepted.slice(0, 5).map((item) => (
 								<View key={item._id}>
-									<JobCard width={width - 20} buttonTitle="Detalhes" />
+									<JobCard
+										width={width - 20}
+										buttonTitle="Detalhes"
+										title={item.title}
+										category={item.category}
+										payment={item.payment.toFixed(2)}
+										day={item.date.split(' ')[0]}
+										month={item.date.split(' ')[1].substring(0, 3)}
+										image={item.image}
+										onPress={() => navigation.navigate('NextJobDetailsPage', {
+											jobId: item._id
+										})}
+									/>
 								</View>
 							))}
 					</ScrollView>
@@ -86,14 +91,38 @@ const HomePage = ({ navigation, getme, jobs, dispatchGetMe, dispatchGetAllJobsAc
 								<View>
 									{jobs.slice(0, 2).map((item) => (
 										<View key={item._id}>
-											<JobCard width={width - 20} buttonTitle="Detalhes" />
+											<JobCard
+												width={width - 20}
+												buttonTitle="Detalhes"
+												title={item.title}
+												category={item.category}
+												payment={item.payment.toFixed(2)}
+												day={item.date.split(' ')[0]}
+												month={item.date.split(' ')[1].substring(0, 3)}
+												image={item.image}
+												onPress={() => navigation.navigate('SearchJobDetailsPage', {
+													jobId: item._id
+												})}
+											/>
 										</View>
 									))}
 								</View>
 								<View>
 									{jobs.slice(2, 4).map((item) => (
 										<View key={item._id}>
-											<JobCard width={width - 20} buttonTitle="Detalhes" />
+											<JobCard
+												width={width - 20}
+												buttonTitle="Detalhes"
+												title={item.title}
+												category={item.category}
+												payment={item.payment.toFixed(2)}
+												day={item.date.split(' ')[0]}
+												month={item.date.split(' ')[1].substring(0, 3)}
+												image={item.image}
+												onPress={() => navigation.navigate('SearchJobDetailsPage', {
+													jobId: item._id
+												})}
+											/>
 										</View>
 									))}
 								</View>

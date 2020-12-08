@@ -10,7 +10,7 @@ import {
     TextLink,
     ErrorMessage
 } from './styles'
-import { View, TouchableOpacity, ActivityIndicator, Platform } from 'react-native'
+import { View, TouchableOpacity, ActivityIndicator, Modal } from 'react-native'
 
 import { cpf } from "cpf-cnpj-validator";
 import { TextInputMask } from "react-native-masked-text";
@@ -18,10 +18,11 @@ import { AntDesign } from '@expo/vector-icons';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { EvilIcons } from '@expo/vector-icons';
 
-import { loginUser } from '../../redux/actions/authActions'
+import { loginUser, forgotPassword } from '../../redux/actions/authActions'
 import KeyboardButton from '../../components/KeyboardButton'
+import ForgotPassword from '../../components/ForgotPassword'
 
-const LoginModal = ({ setRegisterModal, setLoginModal, dispatchLoginAction }) => {
+const LoginModal = ({ setRegisterModal, setLoginModal, dispatchLoginAction, dispatchForgotPassword }) => {
     const [userCpf, setUserCpf] = useState("")
     const [verifyUserCpf, setVerifyUserCpf] = useState(false);
     const [isCpfFilled, setIsCpfFilled] = useState(false)
@@ -30,6 +31,7 @@ const LoginModal = ({ setRegisterModal, setLoginModal, dispatchLoginAction }) =>
     const [error, setError] = useState(false);
     const [errorMessage, setErrorMessage] = useState("")
     const [loading, setLoading] = useState(false);
+    const [forgotPassword, setForgotPassword] = useState(false)
 
 
     const handleCpfInput = (text) => {
@@ -54,6 +56,16 @@ const LoginModal = ({ setRegisterModal, setLoginModal, dispatchLoginAction }) =>
             }
         );
     };
+
+    const handleForgotPassword = (event) => {
+        event.preventDefault();
+        dispatchForgotPassword(
+            userCpf,
+            (response) => console.log(response),
+            (error) => console.log(error)
+        )
+        setForgotPassword(true)
+    }
 
     useEffect(() => {
         if (error) {
@@ -151,7 +163,7 @@ const LoginModal = ({ setRegisterModal, setLoginModal, dispatchLoginAction }) =>
                                 <ErrorMessage>{errorMessage}</ErrorMessage>
                                 : null
                             }
-                            <TouchableOpacity style={{ flexDirection: 'row', alignItems: 'center' }}>
+                            <TouchableOpacity style={{ flexDirection: 'row', alignItems: 'center' }} onPress={handleForgotPassword}>
                                 <TextLink>Esqueci minha senha</TextLink>
                                 <EvilIcons name="chevron-right" size={22} color="grey" style={{ alignSelf: 'flex-start', marginTop: 2, marginLeft: -5 }} />
                             </TouchableOpacity>
@@ -180,6 +192,9 @@ const LoginModal = ({ setRegisterModal, setLoginModal, dispatchLoginAction }) =>
                         </View>
                     </LoginContent>
                 }
+                <Modal visible={forgotPassword} transparent={true}>
+                    <ForgotPassword setForgotPassword={setForgotPassword} />
+                </Modal>
             </ModalContent>
         </Container>
     )
@@ -188,6 +203,8 @@ const LoginModal = ({ setRegisterModal, setLoginModal, dispatchLoginAction }) =>
 const mapDispatchToProps = (dispatch) => ({
     dispatchLoginAction: (cpf, password, onSuccess, onError) =>
         dispatch(loginUser({ cpf, password }, onSuccess, onError)),
+    dispatchForgotPassword: (cpf, onSuccess, onError) =>
+        dispatch(forgotPassword({ cpf }, onSuccess, onError)),
 });
 
 export default connect(null, mapDispatchToProps)(LoginModal)

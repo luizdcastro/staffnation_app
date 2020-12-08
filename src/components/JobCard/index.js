@@ -3,17 +3,17 @@ import { View, TouchableOpacity, Text, Image, Dimensions, StyleSheet } from 'rea
 
 const { width, height } = Dimensions.get('window')
 
-const DiscontCard = ({ buttonTitle, onPress, width }) => {
+const DiscontCard = ({ buttonTitle, onPress, width, title, category, payment, day, month, image }) => {
     return (
         <TouchableOpacity style={[styles.container, { width: width }]} onPress={onPress}>
-            <Image style={styles.image} source={{ uri: 'https://sirene.com.br/wp/wp-content/uploads/2019/11/IMG_9472-1-.jpg' }} />
+            <Image style={styles.image} source={{ uri: image }} />
             <View style={styles.mainContent}>
-                <Text style={styles.title}>Sirene Fish and Chips</Text>
-                <Text style={styles.bottomText}>Categoria: Bar</Text>
-                <Text style={styles.bottomText}>Valor: 150,00</Text>
+                <Text style={styles.title}>{title}</Text>
+                <Text style={styles.bottomText}>Categoria: {category}</Text>
+                <Text style={styles.bottomText}>Valor: {payment}</Text>
             </View>
             <View style={{ flex: 1, alignItems: 'center', marginRight: 5 }}>
-                <Text style={styles.dateText}>15/Dez</Text>
+                <Text style={styles.dateText}>{day}/{month}</Text>
                 <View style={styles.button}>
                     <Text style={styles.buttonText}>{buttonTitle}</Text>
                 </View>

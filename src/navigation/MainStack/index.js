@@ -1,19 +1,15 @@
 import React from "react";
-import { View, Text, StyleSheet } from 'react-native'
+import { StyleSheet } from 'react-native'
 
 import { createStackNavigator } from "@react-navigation/stack";
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-
-import Icon from 'react-native-vector-icons/Feather';
-import { LinearGradient } from 'expo-linear-gradient';
 
 import BottomTabPage from '../../pages/BottomTabPage';
 import HomePage from "../../pages/HomePage";
 import JobsTab, { pageOptions as JobsPageOptions } from '../JobsTab'
 import SearchJobDetailsPage from '../../pages/SearchJobDetalsPage'
-import PendingJobDetailsPage, { pageOptions as PendingJobDetailsOptions } from '../../pages/PendingJobDetailsPage'
-import NextJobDetailsPage, { pageOptions as NextJibDetailsOption } from '../../pages/NextJobDetailsPage'
-import FinishedJobsDetailsPage, { pageOptions as FinishedJobsOption } from '../../pages/FinishedJobsDetailsPage'
+import PendingJobDetailsPage from '../../pages/PendingJobDetailsPage'
+import NextJobDetailsPage from '../../pages/NextJobDetailsPage'
+import FinishedJobsDetailsPage from '../../pages/FinishedJobsDetailsPage'
 import SearchPage from "../../pages/SearchPage";
 import ProfilePage from '../../pages/ProfilePage'
 import AvatarPage, { pageOptions as AvatarOptions } from '../../pages/AvatarPage'
@@ -23,6 +19,7 @@ import ProfessionalDataPage, { pageOptions as ProfessionalOptions } from '../../
 import BankDataPage, { pageOptions as BankOptions } from '../../pages/BankDataPage'
 import TransferPage from '../../pages/TransferPage'
 import HelpPage, { pageOptions as HelpOptions } from '../../pages/HelpPage'
+import NotificationPage, { pageOptions as NotificationOptions } from '../../pages/NotificationPage'
 
 const MainStack = createStackNavigator();
 
@@ -30,19 +27,20 @@ const BottomStack = ({ navigation }) => (
     <MainStack.Navigator headerMode='screen'>
         <MainStack.Screen name="BottomTabPage" component={BottomTabPage} options={{ headerShown: false }} />
         <MainStack.Screen name="HomePage" component={HomePage} />
-        <MainStack.Screen name="JobsTab" component={JobsTab} options={JobsPageOptions} />
         <MainStack.Screen name="Search" component={SearchPage} />
-        <MainStack.Screen name="ProfilePage" component={ProfilePage} options={{ headerShown: false }} />
         <MainStack.Screen name="TransferPage" component={TransferPage} />
+        <MainStack.Screen name="JobsTab" component={JobsTab} options={JobsPageOptions} />
+        <MainStack.Screen name="ProfilePage" component={ProfilePage} options={{ headerShown: false }} />
+        <MainStack.Screen name="SearchJobDetailsPage" component={SearchJobDetailsPage} options={{ headerShown: false }} />
+        <MainStack.Screen name="PendingJobDetailsPage" component={PendingJobDetailsPage} options={{ headerShown: false }} />
+        <MainStack.Screen name="NextJobDetailsPage" component={NextJobDetailsPage} options={{ headerShown: false }} />
+        <MainStack.Screen name="FinishedJobsDetailsPage" component={FinishedJobsDetailsPage} options={{ headerShown: false }} />
         <MainStack.Screen name="PersonalDataPage" component={PersonalDataPage} options={PersonalOptions} />
         <MainStack.Screen name="AdressDataPage" component={AdressDataPage} options={AddressOptions} />
         <MainStack.Screen name="ProfessionalDataPage" component={ProfessionalDataPage} options={ProfessionalOptions} />
         <MainStack.Screen name="BankDataPage" component={BankDataPage} options={BankOptions} />
         <MainStack.Screen name="AvatarPage" component={AvatarPage} options={AvatarOptions} />
-        <MainStack.Screen name="SearchJobDetailsPage" component={SearchJobDetailsPage} options={{ headerShown: false }} />
-        <MainStack.Screen name="PendingJobDetailsPage" component={PendingJobDetailsPage} options={{ headerShown: false }} />
-        <MainStack.Screen name="NextJobDetailsPage" component={NextJobDetailsPage} options={{ headerShown: false }} />
-        <MainStack.Screen name="FinishedJobsDetailsPage" component={FinishedJobsDetailsPage} options={{ headerShown: false }} />
+        <MainStack.Screen name="NotificationPage" component={NotificationPage} options={NotificationOptions} />
     </MainStack.Navigator>
 )
 

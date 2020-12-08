@@ -86,6 +86,12 @@ const SearchPage = ({ navigation, jobs, dispatchGetAllJobsAction }) => {
 					renderItem={({ item }) => (
 						<JobCard
 							buttonTitle="Detalhes"
+							title={item.title}
+							category={item.category}
+							payment={item.payment.toFixed(2)}
+							day={item.date.split(' ')[0]}
+							month={item.date.split(' ')[1].substring(0, 3)}
+							image={item.image}
 							onPress={() => navigation.navigate('SearchJobDetailsPage', {
 								jobId: item._id
 							})}

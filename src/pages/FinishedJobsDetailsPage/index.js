@@ -39,6 +39,7 @@ const FinishedJobsDetailsPage = ({ route, dispatchGetJobAction, navigation }) =>
                     addressNeighborhood={jobDetails.address.neighborhood}
                     addressCity={jobDetails.address.city}
                     addressState={jobDetails.address.state}
+                    image={jobDetails.image}
 
                 /> : null}
         </View >

@@ -1,5 +1,6 @@
 {
   "expo": {
+    "scheme": "staffnation",
     "name": "staffnation",
     "slug": "staffnation",
     "version": "1.0.0",

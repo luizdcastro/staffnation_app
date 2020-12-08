@@ -61,6 +61,8 @@ const NextJobDetailsPage = ({ getme, navigation, route, dispatchGetJobAction, di
                     addressNeighborhood={jobDetails.address.neighborhood}
                     addressCity={jobDetails.address.city}
                     addressState={jobDetails.address.state}
+                    image={jobDetails.image}
+
 
                 /> : null}
             <View style={styles.buttonsContainer}>

@@ -20,7 +20,8 @@ const JobDetails = ({
     addressNeighborhood,
     addressCity,
     addressState,
-    navigation
+    navigation,
+    image
 }) => {
     return (
         <Container>
@@ -28,7 +29,7 @@ const JobDetails = ({
             <BackIcon>
                 <AntDesign name="arrowleft" size={25} color="#fafafa" onPress={() => navigation.goBack()} />
             </BackIcon>
-            <ImageBanner source={{ uri: 'https://sirene.com.br/wp/wp-content/uploads/2019/11/IMG_9472-1-.jpg' }} width={width} />
+            <ImageBanner source={{ uri: image }} width={width} />
             <MainContent width={width} height={height - 110}>
                 <DiscontDetails>
 

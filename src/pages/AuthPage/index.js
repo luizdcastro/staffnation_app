@@ -31,7 +31,7 @@ const AuthPage = ({ navigation }) => {
 				}
 				<Logo></Logo>
 				<ButtonContainer>
-					<Title>O jeito simples{"\n"}de encontrar as{"\n"}melhores vagas</Title>
+					<Title>Lorem ipsum{"\n"}dolor adipiscing{"\n"}consectetur</Title>
 					<DarkButton
 						name="Criar sua conta"
 						onPress={() => setRegisterModal(!registerModal)}

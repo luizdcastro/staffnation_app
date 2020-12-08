@@ -120,7 +120,6 @@ const styles = StyleSheet.create({
         backgroundColor: "#fafafa",
     },
     buttonContainer: {
-        justifyContent: "flex-end",
         alignItems: "center",
     },
     confirmText: {

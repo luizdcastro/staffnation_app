@@ -44,10 +44,10 @@ const LateNotification = ({ navigation, setModalNotification }) => {
                         setOptionThree(false)
                     }
                     }>
-                        {!optionOne ? <Feather name="circle" size={30} color="grey" /> :
+                        {!optionOne ? <Feather name="circle" size={26} color="grey" /> :
                             <MaterialIcons
                                 name="check-circle"
-                                size={30}
+                                size={26}
                                 color="#523BE4"
                             />
                         }
@@ -61,10 +61,10 @@ const LateNotification = ({ navigation, setModalNotification }) => {
                         setOptionThree(false)
                     }
                     }>
-                        {!optionTwo ? <Feather name="circle" size={30} color="grey" /> :
+                        {!optionTwo ? <Feather name="circle" size={26} color="grey" /> :
                             <MaterialIcons
                                 name="check-circle"
-                                size={30}
+                                size={26}
                                 color="#523BE4"
                             />
                         }
@@ -78,10 +78,10 @@ const LateNotification = ({ navigation, setModalNotification }) => {
                         setOptionTwo(false)
                     }
                     }>
-                        {!optionThree ? <Feather name="circle" size={30} color="grey" /> :
+                        {!optionThree ? <Feather name="circle" size={26} color="grey" /> :
                             <MaterialIcons
                                 name="check-circle"
-                                size={30}
+                                size={26}
                                 color="#523BE4"
                             />
                         }

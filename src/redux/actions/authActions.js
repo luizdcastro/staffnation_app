@@ -25,6 +25,17 @@ export const loginUser = (data, onSuccess, onError) => ({
 	},
 });
 
+export const forgotPassword = (data, onSuccess, onError) => ({
+	type: constants.API,
+	payload: {
+		method: "POST",
+		url: "/auth/forgotPassword",
+		data,
+		postProccessSuccess: onSuccess,
+		postProccessError: onError,
+	},
+});
+
 export const logoutUser = () => {
 	AsyncStorage.removeItem("auth");
 	return { type: constants.RESET_USER_INFO };
