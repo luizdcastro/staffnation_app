@@ -1,28 +1,22 @@
 import React from 'react'
-import { View, Text, TouchableOpacity, StyleSheet } from 'react-native'
-import { Entypo } from '@expo/vector-icons';
+import { View, TouchableOpacity, Text, Image, Dimensions, StyleSheet } from 'react-native'
 
-const JobCard = ({ openCard, timeStart, timeEnd, title, local, category, payment, dateMonth, dateDay }) => {
+const { width, height } = Dimensions.get('window')
+
+const DiscontCard = ({ buttonTitle, onPress, width }) => {
     return (
-
-        <TouchableOpacity style={styles.container} onPress={openCard}>
-            <View style={styles.dateContainer}>
-                <Text style={styles.dateDayText}>{dateDay}</Text>
-                <Text style={styles.dateMonthText}>{dateMonth}</Text>
-                <Text style={[styles.smallText, { textAlign: 'center', lineHeight: 12 }]}>{timeStart}{"\n"} às {"\n"} {timeEnd}</Text>
-            </View>
+        <TouchableOpacity style={[styles.container, { width: width }]} onPress={onPress}>
+            <Image style={styles.image} source={{ uri: 'https://sirene.com.br/wp/wp-content/uploads/2019/11/IMG_9472-1-.jpg' }} />
             <View style={styles.mainContent}>
-                <View>
-                    <Text style={styles.title}>{title}</Text>
-                    <Text style={{ fontSize: 13, fontFamily: 'NunitoSans_400Regular', color: '#484848' }}>{local}</Text>
-                </View>
-                <View>
-                    <Text style={styles.regularText}>Categoria: {category}</Text>
-                    <Text style={[styles.regularText, { paddingBottom: 10 }]}>Valor: R$ {payment}</Text>
-                </View>
+                <Text style={styles.title}>Sirene Fish and Chips</Text>
+                <Text style={styles.bottomText}>Categoria: Bar</Text>
+                <Text style={styles.bottomText}>Valor: 150,00</Text>
             </View>
-            <View style={styles.icon}>
-                <Entypo name="dots-three-horizontal" size={25} color="#00A699" />
+            <View style={{ flex: 1, alignItems: 'center', marginRight: 5 }}>
+                <Text style={styles.dateText}>15/Dez</Text>
+                <View style={styles.button}>
+                    <Text style={styles.buttonText}>{buttonTitle}</Text>
+                </View>
             </View>
         </TouchableOpacity>
     )
@@ -30,74 +24,62 @@ const JobCard = ({ openCard, timeStart, timeEnd, title, local, category, payment
 
 const styles = StyleSheet.create({
     container: {
-        flex: 1,
+        width: width - 20,
+        height: 80,
+        marginTop: 8,
+        borderRadius: 5,
         flexDirection: 'row',
-        height: 120,
+        alignItems: 'center',
         backgroundColor: '#fff',
-        borderRadius: 10,
-        marginBottom: 10,
         shadowColor: "#000",
         shadowOffset: {
             width: 0,
-            height: 1,
+            height: 0.5,
         },
-        shadowOpacity: 0.18,
-        shadowRadius: 1.00,
-        elevation: 1,
-
+        shadowOpacity: 0.09,
+        shadowRadius: 0.5,
+        elevation: 0.5,
+        marginRight: 10
+    },
+    image: {
+        width: 60,
+        height: 60,
+        borderRadius: 10,
+        marginLeft: 10
     },
     mainContent: {
-        flex: 4,
-        paddingLeft: 15,
-        paddingTop: 8,
-        justifyContent: 'space-around'
-
+        marginLeft: 10,
+        flex: 3,
     },
     title: {
+        fontFamily: 'NunitoSans_600SemiBold',
+        fontSize: 15
+    },
+    subtitle: {
+        fontFamily: 'NunitoSans_400Regular',
+        fontSize: 13
+    },
+    bottomText: {
+        fontFamily: 'NunitoSans_400Regular',
+        fontSize: 11
+    },
+    dateText: {
         fontFamily: 'NunitoSans_700Bold',
         fontSize: 18,
         color: '#484848',
-        height: 21
-
+        marginBottom: 3
     },
-    dateContainer: {
-        flex: 2,
-        borderRightWidth: 0.5,
-        borderRightColor: '#E8E8E8',
-        alignItems: 'center',
-        justifyContent: 'center',
+    button: {
+        backgroundColor: '#fafafa',
+        paddingHorizontal: 10,
+        paddingVertical: 5,
+        borderRadius: 10,
     },
-    dateDayText: {
-        fontFamily: 'NunitoSans_800ExtraBold',
-        fontSize: 22,
-        letterSpacing: 1,
-        color: '#484848',
-        height: 25
-
-    },
-    dateMonthText: {
+    buttonText: {
         fontFamily: 'NunitoSans_700Bold',
-        textTransform: 'uppercase',
-        fontSize: 16,
-        marginBottom: 8,
-        color: '#484848',
-
-    },
-    smallText: {
-        fontSize: 11,
-        fontFamily: 'NunitoSans_400Regular',
-        color: '#484848'
-    },
-    regularText: {
-        fontSize: 14,
-        fontFamily: 'NunitoSans_400Regular',
-        color: '#484848'
-    },
-    icon: {
-        paddingRight: 15,
-        paddingVertical: 15,
-        justifyContent: 'space-between'
+        fontSize: 12,
+        color: '#523BE4'
     }
 })
 
-export default JobCard
+export default DiscontCard

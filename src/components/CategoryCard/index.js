@@ -1,12 +1,11 @@
 import React from 'react'
-import { Container, CategoryIcon, Title } from './styles'
+import { Container, Title } from './styles'
+import { Image } from 'react-native'
 
-const CategoryCard = ({ title, children, style }) => {
+const CategoryCard = ({ title, image, style }) => {
     return (
-        <Container style={style} >
-            <CategoryIcon >
-                {children}
-            </CategoryIcon>
+        <Container style={style}>
+            <Image source={image} style={{ width: '100%', height: '100%', borderRadius: 8 }} />
             <Title>{title}</Title>
         </Container>
     )

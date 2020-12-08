@@ -1,16 +1,17 @@
 import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
-import { createStructuredSelector } from 'reselect';
-import { View, TextInput, Text, FlatList, Image, TouchableOpacity, KeyboardAvoidingView, Platform, StyleSheet } from "react-native";
+import { View, TextInput, Text, FlatList, Image, TouchableOpacity, Keyboard, Platform, StyleSheet } from "react-native";
+import { SearchBar, Container } from './styles'
 
 import { Feather } from '@expo/vector-icons';
-import { MaterialCommunityIcons } from '@expo/vector-icons';
+import { AntDesign } from '@expo/vector-icons';
 
 import { getAllJobs } from '../../redux/actions/jobActions'
-
 import JobCard from '../../components/JobCard'
+import { color } from "react-native-reanimated";
 
 const SearchPage = ({ navigation, jobs, dispatchGetAllJobsAction }) => {
+	const [isKeyboardVisible, setKeyboardVisible] = useState(false);
 	const [filteredJobs, setFilteredJobs] = useState([])
 	const [search, setSearch] = useState('')
 
@@ -36,42 +37,56 @@ const SearchPage = ({ navigation, jobs, dispatchGetAllJobsAction }) => {
 		);
 	}, [jobs, search]);
 
+	useEffect(() => {
+		const keyboardDidShowListener = Keyboard.addListener(
+			'keyboardDidShow',
+			() => {
+				setKeyboardVisible(true);
+			}
+		);
+		const keyboardDidHideListener = Keyboard.addListener(
+			'keyboardDidHide',
+			() => {
+				setKeyboardVisible(false);
+			}
+		);
+		return () => {
+			keyboardDidHideListener.remove();
+			keyboardDidShowListener.remove();
+		};
+	}, []);
+
 	return (
-		<KeyboardAvoidingView style={styles.container} behavior={Platform.OS === "ios" ? "padding" : "height"}>
-			<View style={styles.containerSearch}>
+		<Container behavior={Platform.OS === "ios" ? "padding" : "height"}>
+			<SearchBar>
 				<TextInput
 					style={styles.searchBar}
-					placeholder="Search"
+					placeholder="Buscar"
 					autoCorrect={false}
 					autoCapitalize='none'
 					keyboardType='default'
 					onChangeText={(value) => setSearch(value)}
 				/>
-				<View style={{ position: 'absolute', left: 10, top: 12, elevation: 1 }} >
-					<Feather name="search" size={26} color="#00A699" />
+				<View style={styles.searchIcon} >
+					<Feather name="search" size={26} color="#523BE4" />
 				</View>
-				<View style={{ position: 'absolute', right: 10, top: 12, elevation: 1 }} >
-					<TouchableOpacity>
-						<MaterialCommunityIcons name="filter-variant" size={26} color="#00A699" />
-					</TouchableOpacity>
+				<View style={styles.closeIcon} >
+					{isKeyboardVisible ?
+						<TouchableOpacity>
+							<AntDesign name="close" size={26} color="grey" onPress={() => Keyboard.dismiss()} />
+						</TouchableOpacity>
+						: null}
 				</View>
-			</View>
+			</SearchBar>
 			{filteredJobs.length >= 1 ?
 				<FlatList
-					style={{ marginHorizontal: 20, marginBottom: 20 }}
+					style={{ marginLeft: 10, marginBottom: 20, marginTop: 10 }}
 					showsVerticalScrollIndicator={false}
 					data={filteredJobs}
 					renderItem={({ item }) => (
 						<JobCard
-							title={item.title}
-							dateDay={item.date.split(' ')[0]}
-							dateMonth={item.date.split(' ')[1].substring(0, 3)}
-							local={item.address.neighborhood}
-							category={item.category}
-							payment={item.payment.toFixed(2)}
-							timeStart={item.time.start}
-							timeEnd={item.time.end}
-							openCard={() => navigation.navigate('SearchJobDetailsPage', {
+							buttonTitle="Detalhes"
+							onPress={() => navigation.navigate('SearchJobDetailsPage', {
 								jobId: item._id
 							})}
 						/>
@@ -80,73 +95,56 @@ const SearchPage = ({ navigation, jobs, dispatchGetAllJobsAction }) => {
 				:
 				<View style={styles.noContentBox}>
 					<Image source={require('../../assets/images/no-result.png')} style={styles.noContentImage} />
-					<Text style={styles.noContentText}>Desculpe, nenhum resultado encontrado</Text>
+					<Text style={styles.noContentText}>Oops! Nenhum resultado encontrado.</Text>
 				</View>
 			}
-		</KeyboardAvoidingView>
+		</Container>
 	);
 };
 
-export const pageOptions = {
-	headerTitle: 'Pesquisar Vagas',
-	headerTitleAlign: 'center',
-	headerTitleStyle: {
-		color: '#484848',
-		fontFamily: "NunitoSans_700Bold",
-		fontSize: 20,
-		textAlign: 'center',
-
-	},
-	headerBackTitleVisible: false,
-	headerStyle: {
-		backgroundColor: '#fafafa',
-		height: Platform.OS === 'ios' ? 90 : 70,
-
-	},
-	headerTintColor: '#00A699',
-
-}
-
 const styles = StyleSheet.create({
-	container: {
-		flex: 1,
-		backgroundColor: '#fafafa',
-	},
-	containerSearch: {
-		position: 'relative',
-		marginHorizontal: 15,
-		marginTop: 15,
-		marginBottom: 20
-	},
 	searchBar: {
 		width: '100%',
 		backgroundColor: '#fff',
-		borderRadius: 10,
+		borderRadius: 5,
 		height: 50,
 		paddingLeft: 50,
-		fontFamily: "NunitoSans_600SemiBold",
-		fontSize: 17,
-		color: '#484848',
-		elevation: 1,
+		fontFamily: "NunitoSans_400Regular",
+		fontSize: 16,
 		shadowColor: "#000",
 		shadowOffset: {
 			width: 0,
-			height: 1,
+			height: 0.5,
 		},
-		shadowOpacity: 0.18,
-		shadowRadius: 1.00,
+		shadowOpacity: 0.09,
+		shadowRadius: 0.5,
+		elevation: 0.5,
+	},
+	searchIcon: {
+		position: 'absolute',
+		left: 10,
+		top: 12,
+		elevation: 1
+	},
+	closeIcon: {
+		position: 'absolute',
+		right: 10,
+		top: 12,
+		elevation: 1
 	},
 	noContentBox: {
 		flex: 1,
 		justifyContent: 'center',
-		alignItems: 'center'
+		alignItems: 'center',
+		marginTop: '15%'
 	},
 	noContentText: {
 		fontSize: 17,
-		fontFamily: 'NunitoSans_400Regular',
+		fontFamily: 'NunitoSans_600SemiBold',
 		color: '#484848',
-		paddingTop: 30,
-		marginBottom: '30%'
+		paddingTop: '6%',
+		marginBottom: '30%',
+		color: 'grey'
 	},
 	noContentImage: {
 		width: '80%',

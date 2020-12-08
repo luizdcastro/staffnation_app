@@ -4,10 +4,9 @@ import { View, Text, StyleSheet, TouchableOpacity } from 'react-native'
 
 import { getSingleJob } from '../../redux/actions/jobActions'
 
-import GradientButton from '../../components/GradientButton'
 import JobDetails from '../../components/JobDetails'
 
-const FinishedJobsDetailsPage = ({ route, dispatchGetJobAction }) => {
+const FinishedJobsDetailsPage = ({ route, dispatchGetJobAction, navigation }) => {
     const [jobDetails, setJobDetails] = useState({})
     const { jobId } = route.params;
 
@@ -26,6 +25,7 @@ const FinishedJobsDetailsPage = ({ route, dispatchGetJobAction }) => {
         <View style={styles.container}>
             {jobDetails._id ?
                 <JobDetails
+                    navigation={navigation}
                     title={jobDetails.title}
                     category={jobDetails.category}
                     positions={jobDetails.positions}
@@ -41,14 +41,6 @@ const FinishedJobsDetailsPage = ({ route, dispatchGetJobAction }) => {
                     addressState={jobDetails.address.state}
 
                 /> : null}
-            <View style={styles.buttonsContainer}>
-                <GradientButton
-                    onPress={() => { }}
-                    gradient={["#E8E8E8", "#E8E8E8"]}
-                    title="Cancelar Trabalho"
-                    textStyle={{ color: "#767676" }}
-                />
-            </View>
         </View >
     )
 }

@@ -16,7 +16,7 @@ const AuthPage = ({ navigation }) => {
 	return (
 		<Container behavior={Platform.OS === "ios" ? "padding" : "height"} >
 			<StatusBar barStyle='light-content' />
-			<ImageCover source={require("../../assets/images/barman_01.png")}>
+			<ImageCover source={require("../../assets/images/bar_01.png")}>
 				{loginModal ?
 					<Animatable.View style={{ width: '100%', height: '100%', zIndex: 1 }} animation="slideInUp">
 						<LoginModal setLoginModal={setLoginModal} setRegisterModal={setRegisterModal} />
@@ -31,7 +31,7 @@ const AuthPage = ({ navigation }) => {
 				}
 				<Logo></Logo>
 				<ButtonContainer>
-					<Title>Os melhores {"\n"}benefícios sem {"\n"}complexidades</Title>
+					<Title>O jeito simples{"\n"}de encontrar as{"\n"}melhores vagas</Title>
 					<DarkButton
 						name="Criar sua conta"
 						onPress={() => setRegisterModal(!registerModal)}

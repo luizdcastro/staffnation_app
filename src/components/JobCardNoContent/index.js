@@ -3,19 +3,17 @@ import { View, TouchableOpacity, Text, Image, Dimensions, StyleSheet } from 'rea
 
 const { width, height } = Dimensions.get('window')
 
-const DiscontCard = ({ buttonTitle, onPress, width }) => {
+const JobCardNoContent = ({ onPress, width }) => {
     return (
         <TouchableOpacity style={[styles.container, { width: width }]} onPress={onPress}>
-            <Image style={styles.image} source={{ uri: 'https://sirene.com.br/wp/wp-content/uploads/2019/11/IMG_9472-1-.jpg' }} />
+            <Image style={styles.image} source={require('../../assets/images/oops.jpg')} />
             <View style={styles.mainContent}>
-                <Text style={styles.title}>Sirene Fish and Chips</Text>
-                <Text style={styles.bottomText}>Categoria: Bar</Text>
-                <Text style={styles.bottomText}>Valor: 150,00</Text>
+                <Text style={styles.title}>Nenhum trabalho encontrado</Text>
+                <Text style={styles.bottomText}>Confira o status da sua candidatura</Text>
             </View>
             <View style={{ flex: 1, alignItems: 'center', marginRight: 5 }}>
-                <Text style={styles.dateText}>15/Dez</Text>
                 <View style={styles.button}>
-                    <Text style={styles.buttonText}>{buttonTitle}</Text>
+                    <Text style={styles.buttonText}>Verificar</Text>
                 </View>
             </View>
         </TouchableOpacity>
@@ -82,4 +80,4 @@ const styles = StyleSheet.create({
     }
 })
 
-export default DiscontCard
+export default JobCardNoContent

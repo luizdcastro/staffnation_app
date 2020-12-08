@@ -5,7 +5,7 @@ import { View, Text, StyleSheet } from 'react-native'
 import { getSingleJob, removePendingApplication } from '../../redux/actions/jobActions'
 import { getMe } from "../../redux/actions/getMeActions"
 
-import GradientButton from '../../components/GradientButton'
+import LightButton from '../../components/LightButton'
 import JobDetails from '../../components/JobDetails'
 
 const PendingJobDetailsPage = ({ getme, route, navigation, dispatchGetJobAction, dispatchCancelApplication, dispatchGetMe }) => {
@@ -30,13 +30,14 @@ const PendingJobDetailsPage = ({ getme, route, navigation, dispatchGetJobAction,
             getme.data._id
         )
         dispatchGetMe()
-        navigation.navigate('JobsTab');
+        navigation.goBack();
     }
 
     return (
         <View style={styles.container}>
             {jobDetails._id ?
                 <JobDetails
+                    navigation={navigation}
                     title={jobDetails.title}
                     date={jobDetails.date}
                     category={jobDetails.category}
@@ -53,15 +54,15 @@ const PendingJobDetailsPage = ({ getme, route, navigation, dispatchGetJobAction,
 
                 /> : null}
             <View style={styles.buttonsContainer}>
-                <View style={{ marginBottom: 60 }}>
-                    <Text style={{ fontFamily: 'NunitoSans_400Regular', fontSize: 15 }}>Sua candidatura foi enviada com sucesso!{"\n"}Aguardando a confirmação do recrutador.</Text>
+                <View style={{ marginBottom: 45 }}>
+                    <Text style={{ fontFamily: 'NunitoSans_600SemiBold', fontSize: 15, color: 'grey' }}>Sua candidatura foi enviada com sucesso!{"\n"}Aguardando confirmação do recrutador.</Text>
                 </View>
-                <View>
-                    <GradientButton
-                        title="Cancelar Aplicação"
-                        gradient={["#00A699", "#00A699"]}
-                        onPress={handleCancelApplication}
-                    />
+                <View style={{ width: '95%' }}>
+                    <LightButton
+                        textColor="#523BE4"
+                        borderColor="#523BE4"
+                        name="Cancelar Aplicação"
+                        onPress={handleCancelApplication} />
                 </View>
             </View>
         </View >
@@ -94,7 +95,7 @@ const styles = StyleSheet.create({
     },
     buttonsContainer: {
         flex: 1,
-        marginBottom: 20,
+        marginBottom: 40,
         justifyContent: 'flex-end',
         alignItems: 'center'
     },

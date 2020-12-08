@@ -4,6 +4,7 @@ import { View, FlatList, Image, Text, StyleSheet } from "react-native";
 
 import { getMe } from "../../redux/actions/getMeActions"
 import JobCard from '../../components/JobCard'
+import { color } from "react-native-reanimated";
 
 const FinishedJobsPage = ({ navigation, getme, dispatchGetMe }) => {
     const [pastJobs, setPastJobs] = useState([])
@@ -33,15 +34,8 @@ const FinishedJobsPage = ({ navigation, getme, dispatchGetMe }) => {
                         data={pastJobs}
                         renderItem={({ item }) => (
                             <JobCard
-                                title={item.title}
-                                dateDay={item.date.split(' ')[0]}
-                                dateMonth={item.date.split(' ')[1].substring(0, 3)}
-                                local={item.address.neighborhood}
-                                category={item.category}
-                                payment={item.payment.toFixed(2)}
-                                timeStart={item.time.start}
-                                timeEnd={item.time.end}
-                                openCard={() => navigation.navigate('FinishedJobsDetailsPage', {
+                                buttonTitle="Detalhes"
+                                onPress={() => navigation.navigate('NextJobDetailsPage', {
                                     jobId: item._id
                                 })}
                             />
@@ -50,7 +44,7 @@ const FinishedJobsPage = ({ navigation, getme, dispatchGetMe }) => {
                     :
                     <View style={styles.noContentBox}>
                         <Image source={require('../../assets/images/no-result-search.png')} style={styles.noContentImage} />
-                        <Text style={styles.noContentText}>Você não possui trabalhos finalizados</Text>
+                        <Text style={styles.noContentText}>Você não possui trabalhos finalizados.</Text>
                     </View>
                 }
             </View>
@@ -77,10 +71,11 @@ const styles = StyleSheet.create({
     },
     noContentText: {
         fontSize: 16,
-        fontFamily: 'NunitoSans_400Regular',
+        fontFamily: 'NunitoSans_600SemiBold',
         color: '#484848',
         paddingTop: 30,
-        marginBottom: '15%'
+        marginBottom: '15%',
+        color: 'grey'
     },
     noContentImage: {
         width: '50%',

@@ -105,13 +105,13 @@ export const pageOptions = ({ navigation }) => {
         headerTitle: 'Dados Pessoais',
         headerTitleAlign: 'center',
         headerTitleStyle: {
-            color: '#484848',
+            color: 'grey',
             fontFamily: "NunitoSans_700Bold",
         },
         headerBackTitleVisible: false,
         headerStyle: {
             backgroundColor: '#FFF',
-            height: Platform.OS === 'ios' ? 75 : 55,
+            height: 80,
         },
         headerLeft: () => (
             <TouchableOpacity onPress={() => navigation.goBack()} >

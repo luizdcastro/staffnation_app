@@ -118,14 +118,14 @@ export const pageOptions = ({ navigation }) => {
         headerTitle: 'Meu Endereço',
         headerTitleAlign: 'center',
         headerTitleStyle: {
-            color: '#484848',
+            color: 'grey',
             fontFamily: "NunitoSans_700Bold",
             textAlign: 'center',
         },
         headerBackTitleVisible: false,
         headerStyle: {
             backgroundColor: '#fff',
-            height: Platform.OS === 'ios' ? 75 : 55,
+            height: 80,
         },
         headerLeft: () => (
             <TouchableOpacity onPress={() => navigation.goBack()} >
@@ -159,7 +159,7 @@ const styles = StyleSheet.create({
     },
     address: {
         fontSize: 18,
-        fontFamily: 'NunitoSans_600SemiBold',
+        fontFamily: 'NunitoSans_400Regular',
         color: '#484848',
     }
 })

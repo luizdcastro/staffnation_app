@@ -20,17 +20,16 @@ const JobsTab = ({ navigation, dispatchGetMe }) => {
             },
             labelStyle: {
                 textTransform: 'capitalize',
-                fontFamily: "NunitoSans_600SemiBold",
-                color: '#484848',
+                fontFamily: 'NunitoSans_700Bold',
+                color: 'grey',
                 fontSize: 16,
                 backgroundColor: '#fff',
                 alignItems: 'flex-start'
-
             },
             style: {
-                height: 70,
+                height: 80,
                 marginBottom: 15,
-                paddingTop: 25,
+                paddingTop: 30,
                 backgroundColor: '#fff',
             },
         }}>

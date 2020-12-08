@@ -1,7 +1,6 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import { connect } from "react-redux";
 import { View, Text, TouchableOpacity, Platform, StyleSheet, KeyboardAvoidingView, } from 'react-native'
-import { useHeaderHeight } from '@react-navigation/stack';
 
 import { TextInputMask } from "react-native-masked-text";
 import * as Animatable from "react-native-animatable";
@@ -19,14 +18,21 @@ const TransferPage = ({ navigation, getme, setHome, setTransfer }) => {
     const [confirm, setConfirm] = useState(false)
 
     const LeftAction = () => (
-        <TouchableOpacity onPress={() => { setHome(true); setTransfer(false) }} >
+        <TouchableOpacity onPress={() => { setHome(true); setTransfer(false) }} style={{ width: 50, height: 40, justifyContent: 'center', marginLeft: 10 }}>
             <AntDesign name="arrowleft" size={25} color="grey" />
-        </TouchableOpacity>
+        </TouchableOpacity >
+    )
+
+    const RightAction = () => (
+        <View style={{ justifyContent: 'center', marginRight: 10, alignItems: 'center' }}>
+            <Text style={{ fontFamily: 'NunitoSans_600SemiBold', color: "#484848" }}>Saldo</Text>
+            <Text style={{ fontFamily: 'NunitoSans_700Bold', color: "#523BE4", fontSize: 15 }}>R$ {getme.data.totalCash.toFixed(2)}</Text>
+        </View>
     )
 
     return (
-        <KeyboardAvoidingView keyboardVerticalOffset={useHeaderHeight()} behavior={Platform.OS === "ios" ? "padding" : "height"} style={styles.mainContainer} >
-            <Header title="Transferência" letfIcon={<LeftAction />} />
+        <KeyboardAvoidingView behavior={Platform.OS === "ios" ? "padding" : "height"} style={styles.mainContainer} >
+            <Header title="Transferência" letfIcon={<LeftAction />} rightIcon={<RightAction />} />
             <View style={styles.formContainer}>
                 <TextInputMask
                     keyboardType='number-pad'
@@ -96,7 +102,6 @@ const TransferPage = ({ navigation, getme, setHome, setTransfer }) => {
                         onPress={() => { }}
                     />
                 }
-
             </View>
         </KeyboardAvoidingView >
     )
@@ -117,7 +122,6 @@ const styles = StyleSheet.create({
     buttonContainer: {
         justifyContent: "flex-end",
         alignItems: "center",
-        marginBottom: Platform.OS === 'android' ? 22 : 0
     },
     confirmText: {
         fontSize: 15,

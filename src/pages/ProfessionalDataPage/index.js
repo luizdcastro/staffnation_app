@@ -161,7 +161,7 @@ export const pageOptions = ({ navigation }) => {
         headerTitle: 'Perfil Profissional',
         headerTitleAlign: 'center',
         headerTitleStyle: {
-            color: '#484848',
+            color: 'grey',
             fontFamily: "NunitoSans_700Bold",
             textAlign: 'center',
 
@@ -169,7 +169,7 @@ export const pageOptions = ({ navigation }) => {
         headerBackTitleVisible: false,
         headerStyle: {
             backgroundColor: '#fff',
-            height: Platform.OS === 'ios' ? 75 : 55,
+            height: 80,
         },
         headerLeft: () => (
             <TouchableOpacity onPress={() => navigation.goBack()} >
@@ -186,7 +186,7 @@ const styles = StyleSheet.create({
     },
     label: {
         fontSize: 16,
-        fontFamily: 'NunitoSans_700Bold',
+        fontFamily: 'NunitoSans_600SemiBold',
         color: '#484848',
         marginTop: 10,
         marginLeft: 15

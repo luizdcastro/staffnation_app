@@ -1,11 +1,9 @@
 import React from 'react'
-import { View, Text, StatusBar, TouchableOpacity, StyleSheet, Platform } from 'react-native'
-import { Ionicons } from '@expo/vector-icons';
+import { View, Text, StyleSheet } from 'react-native'
 import { useNavigation } from "@react-navigation/native";
 
 
-const Header = ({ title, letfIcon, rightIcon, letfAction, rightAction }) => {
-    const navigation = useNavigation();
+const Header = ({ title, letfIcon, rightIcon }) => {
 
     return (
         <View style={styles.container}>
@@ -13,7 +11,7 @@ const Header = ({ title, letfIcon, rightIcon, letfAction, rightAction }) => {
                 {letfIcon}
             </View>
             <Text style={styles.title}>{title}</Text>
-            <View >
+            <View>
                 {rightIcon}
             </View>
         </View>
@@ -23,18 +21,17 @@ const Header = ({ title, letfIcon, rightIcon, letfAction, rightAction }) => {
 const styles = StyleSheet.create({
     container: {
         flexDirection: 'row',
-        height: 70,
+        height: 80,
         alignItems: 'center',
-        paddingTop: 15,
+        paddingTop: 20,
         width: '100%',
-        paddingHorizontal: 15,
         justifyContent: 'space-between',
         backgroundColor: '#fff',
         borderBottomColor: '#E0E0E0',
         borderBottomWidth: 0.3,
     },
     title: {
-        color: '#484848',
+        color: 'grey',
         fontFamily: "NunitoSans_700Bold",
         fontSize: 18,
         paddingRight: 20

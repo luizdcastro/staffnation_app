@@ -78,7 +78,7 @@ const AvatarPage = ({
             },
             (error) => console.log(error)
         )
-        navigation.navigate('ProfilePage')
+        navigation.goBack()
     }
 
     return (
@@ -117,10 +117,10 @@ const AvatarPage = ({
 }
 export const pageOptions = ({ navigation }) => {
     return {
-        headerTitle: 'Alterar Foto',
+        headerTitle: 'Alterar Imagem',
         headerTitleAlign: 'center',
         headerTitleStyle: {
-            color: '#484848',
+            color: 'grey',
             fontFamily: "NunitoSans_700Bold",
             textAlign: 'center',
 
@@ -128,7 +128,7 @@ export const pageOptions = ({ navigation }) => {
         headerBackTitleVisible: false,
         headerStyle: {
             backgroundColor: '#FFF',
-            height: Platform.OS === 'ios' ? 75 : 55,
+            height: 80,
         },
         headerLeft: () => (
             <TouchableOpacity onPress={() => navigation.goBack()} >

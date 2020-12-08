@@ -22,7 +22,7 @@ const BottomTabPage = ({ navigation }) => {
     return (
         <View style={styles.container}>
             {home ? (
-                <HomePage navigation={navigation} />
+                <HomePage navigation={navigation} setHome={setHome} setJobs={setJobs} />
             ) : jobs ? (
                 <JobsPage navigation={navigation} />
             ) : search ? (
@@ -33,39 +33,39 @@ const BottomTabPage = ({ navigation }) => {
                 <ProfilePage navigation={navigation} setHome={setHome} setProfile={setProfile} />
             ) : <HomePage navigation={navigation} />
             }
-            {!profile ?
-                <View>
-
+            <View>
+                {!transfer ?
                     <View style={styles.bottomBar}>
-                        <TouchableOpacity activeOpacity={0.8} style={styles.buttonBar}
+                        <TouchableOpacity activeOpacity={0.5} style={styles.buttonBar}
                             onPress={() => { setHome(true); setJobs(false); setSearch(false); setTransfer(false); setProfile(false) }}>
                             <Icon name="home" size={home ? 28 : 26} color={home ? '#523BE4' : '#777'} />
                             <Text style={home ? styles.textActive : styles.textInactive}>Home</Text>
                         </TouchableOpacity>
-                        <TouchableOpacity activeOpacity={0.8} style={styles.buttonBar}
+                        <TouchableOpacity activeOpacity={0.5} style={styles.buttonBar}
                             onPress={() => { setHome(false); setJobs(true); setSearch(false); setTransfer(false); setProfile(false) }}>
                             <Icon name="calendar" size={jobs ? 28 : 26} color={jobs ? '#523BE4' : '#777'} />
                             <Text style={jobs ? styles.textActive : styles.textInactive}>Trabalhos</Text>
                         </TouchableOpacity>
-                        <TouchableOpacity activeOpacity={0.8} style={styles.buttonBar}
+                        <TouchableOpacity activeOpacity={0.5} style={styles.buttonBar}
                             onPress={() => { setHome(false); setJobs(false); setSearch(true); setTransfer(false); setProfile(false) }}>
                             <LinearGradient style={styles.iconTabRound} start={{ x: 0, y: 1 }} end={{ x: 0, y: 0 }} colors={['#523BE4', '#6978EA']}>
                                 <Icon name="search" size={search ? 28 : 26} color='#FFF' />
                             </LinearGradient>
                         </TouchableOpacity>
-                        <TouchableOpacity activeOpacity={0.8} style={styles.buttonBar}
+                        <TouchableOpacity activeOpacity={0.5} style={styles.buttonBar}
                             onPress={() => { setHome(false); setJobs(false); setSearch(false); setTransfer(true); setProfile(false) }}>
                             <Icon name="repeat" size={transfer ? 28 : 26} color={transfer ? '#523BE4' : '#777'} />
                             <Text style={transfer ? styles.textActive : styles.textInactive}>Transferir</Text>
                         </TouchableOpacity>
-                        <TouchableOpacity activeOpacity={0.8} style={styles.buttonBar}
+                        <TouchableOpacity activeOpacity={0.5} style={styles.buttonBar}
                             onPress={() => { setHome(false); setJobs(false); setSearch(false); setTransfer(false); setProfile(true) }}>
                             <Icon name="user" size={profile ? 28 : 26} color={profile ? '#523BE4' : '#777'} />
                             <Text style={profile ? styles.textActive : styles.textInactive}>Perfil</Text>
                         </TouchableOpacity>
                     </View>
-                </View>
-                : null}
+                    : null
+                }
+            </View>
         </View>
     )
 }
@@ -84,7 +84,7 @@ const styles = StyleSheet.create({
         borderTopColor: '#E0E0E0',
         borderTopWidth: 0.3,
         paddingBottom: 3,
-        paddingTop: 3
+        paddingTop: 3,
     },
     buttonBar: {
         width: width / 5,

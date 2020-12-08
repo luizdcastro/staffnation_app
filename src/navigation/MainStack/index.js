@@ -8,20 +8,20 @@ import Icon from 'react-native-vector-icons/Feather';
 import { LinearGradient } from 'expo-linear-gradient';
 
 import BottomTabPage from '../../pages/BottomTabPage';
-import HomePage, { pageOptions as HomePageOptions } from "../../pages/HomePage";
+import HomePage from "../../pages/HomePage";
 import JobsTab, { pageOptions as JobsPageOptions } from '../JobsTab'
-import SearchJobDetailsPage, { pageOptions as SearchJobDetialsOptions } from '../../pages/SearchJobDetalsPage'
+import SearchJobDetailsPage from '../../pages/SearchJobDetalsPage'
 import PendingJobDetailsPage, { pageOptions as PendingJobDetailsOptions } from '../../pages/PendingJobDetailsPage'
 import NextJobDetailsPage, { pageOptions as NextJibDetailsOption } from '../../pages/NextJobDetailsPage'
 import FinishedJobsDetailsPage, { pageOptions as FinishedJobsOption } from '../../pages/FinishedJobsDetailsPage'
-import SearchPage, { pageOptions as SearchPageOptions } from "../../pages/SearchPage";
-import ProfilePage, { pageOptions as ProfileOptions } from '../../pages/ProfilePage'
+import SearchPage from "../../pages/SearchPage";
+import ProfilePage from '../../pages/ProfilePage'
 import AvatarPage, { pageOptions as AvatarOptions } from '../../pages/AvatarPage'
 import PersonalDataPage, { pageOptions as PersonalOptions } from '../../pages/PersonalDataPage'
 import AdressDataPage, { pageOptions as AddressOptions } from '../../pages/AdressDataPage'
 import ProfessionalDataPage, { pageOptions as ProfessionalOptions } from '../../pages/ProfessionalDataPage'
 import BankDataPage, { pageOptions as BankOptions } from '../../pages/BankDataPage'
-import TransferPage, { pageOptions as TransferOptions } from '../../pages/TransferPage'
+import TransferPage from '../../pages/TransferPage'
 import HelpPage, { pageOptions as HelpOptions } from '../../pages/HelpPage'
 
 const MainStack = createStackNavigator();
@@ -39,14 +39,16 @@ const BottomStack = ({ navigation }) => (
         <MainStack.Screen name="ProfessionalDataPage" component={ProfessionalDataPage} options={ProfessionalOptions} />
         <MainStack.Screen name="BankDataPage" component={BankDataPage} options={BankOptions} />
         <MainStack.Screen name="AvatarPage" component={AvatarPage} options={AvatarOptions} />
-        <MainStack.Screen name="SearchJobDetailsPage" component={SearchJobDetailsPage} options={SearchJobDetialsOptions} />
+        <MainStack.Screen name="SearchJobDetailsPage" component={SearchJobDetailsPage} options={{ headerShown: false }} />
+        <MainStack.Screen name="PendingJobDetailsPage" component={PendingJobDetailsPage} options={{ headerShown: false }} />
+        <MainStack.Screen name="NextJobDetailsPage" component={NextJobDetailsPage} options={{ headerShown: false }} />
+        <MainStack.Screen name="FinishedJobsDetailsPage" component={FinishedJobsDetailsPage} options={{ headerShown: false }} />
     </MainStack.Navigator>
 )
 
 const MainStackPage = ({ navigation }) => (
     <MainStack.Navigator headerMode='screen'>
         <MainStack.Screen name="BottomStack" component={BottomStack} options={{ headerShown: false }} />
-
     </MainStack.Navigator>
 );
 

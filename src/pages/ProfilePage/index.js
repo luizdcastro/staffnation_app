@@ -3,8 +3,8 @@ import { connect } from "react-redux";
 import { View, Text, Image, TouchableOpacity, StyleSheet } from "react-native";
 
 import { Feather } from '@expo/vector-icons';
-import { Ionicons } from '@expo/vector-icons';
 import { AntDesign } from '@expo/vector-icons';
+import { Ionicons } from '@expo/vector-icons';
 import Header from '../../components/Header'
 
 import { logoutUser } from '../../redux/actions/authActions'
@@ -22,24 +22,28 @@ const ProfilePage = ({ navigation, getme, dispatchGetMe, dispatchLogoutAction, s
 	}
 
 	const LeftAction = () => (
-		<TouchableOpacity onPress={() => { navigation.navigate('BottomTabPage'); setHome(true); setProfile(false) }}>
+		<TouchableOpacity onPress={() => { navigation.navigate('BottomTabPage'); setHome(true); setProfile(false) }} style={{ marginLeft: 10 }}>
 			<AntDesign name="arrowleft" size={25} color="grey" />
 		</TouchableOpacity>
 	)
 
 	return (
 		<View style={styles.container}>
-			<Header title="Meu Perfil" letfIcon={<LeftAction />} />
+			<Header title="Configurações" letfIcon={<LeftAction />} />
 			<View style={styles.personalData}>
-				<Image
-					style={styles.avatar}
-					source={{ uri: `${getme.data?.avatar.url}`, }}
-				/>
-				<View>
+				<TouchableOpacity style={{ justifyContent: 'center', alignItems: 'center' }} onPress={() => navigation.navigate('AvatarPage')}>
+					<Image
+						style={styles.avatar}
+						source={{ uri: `${getme.data?.avatar.url}`, }}
+					/>
+					<Text style={styles.pictureText}>Editar</Text>
+				</TouchableOpacity>
+				<View style={{ marginBottom: 15, marginLeft: 12 }}>
 					<Text style={styles.name}>{getme.data.name}</Text>
-					<TouchableOpacity onPress={() => navigation.navigate('AvatarPage')}>
-						<Text style={styles.pictureText}>Alterar foto</Text>
-					</TouchableOpacity>
+					<View style={{ flexDirection: 'row', alignItems: 'center', }} >
+						<Text style={styles.rate}>{getme.data?.rating.toFixed(2)}</Text>
+						<Ionicons name="ios-star" size={13} color="#767676" />
+					</View>
 				</View>
 			</View>
 			<View>
@@ -72,16 +76,13 @@ const ProfilePage = ({ navigation, getme, dispatchGetMe, dispatchLogoutAction, s
 					<Feather name="chevron-right" size={22} color="grey" />
 				</TouchableOpacity>
 			</View>
-			<View style={{ flex: 1, justifyContent: 'flex-end', marginBottom: 20 }}>
-
-				<TouchableOpacity style={styles.button} onPress={handleLogOut}>
-					<View style={{ flexDirection: 'row', alignItems: 'center' }}>
-						<Feather name="log-out" size={22} color="#523BE4" />
-						<Text style={styles.buttonText}>Sair</Text>
-					</View>
-					<Feather name="chevron-right" size={22} color="grey" />
-				</TouchableOpacity>
-			</View>
+			<TouchableOpacity style={styles.button} onPress={handleLogOut}>
+				<View style={{ flexDirection: 'row', alignItems: 'center' }}>
+					<Feather name="log-out" size={22} color="#523BE4" />
+					<Text style={styles.buttonText}>Sair</Text>
+				</View>
+				<Feather name="chevron-right" size={22} color="grey" />
+			</TouchableOpacity>
 		</View>
 	);
 };
@@ -95,19 +96,24 @@ const styles = StyleSheet.create({
 		flexDirection: 'row',
 		alignItems: 'center',
 		marginTop: 15,
-		marginBottom: 30
+		marginBottom: 30,
+		marginHorizontal: 15
 	},
 	avatar: {
-		width: 60,
-		height: 60,
+		width: 65,
+		height: 65,
 		borderRadius: 50,
-		marginRight: 15,
-		marginLeft: 20,
+	},
+	rate: {
+		fontFamily: "NunitoSans_600SemiBold",
+		color: '#484848',
+		paddingRight: 5,
 	},
 	pictureText: {
 		fontFamily: 'NunitoSans_700Bold',
 		color: '#523BE4',
-		fontSize: 12
+		fontSize: 12,
+		marginTop: 5
 	},
 	name: {
 		fontFamily: "NunitoSans_700Bold",

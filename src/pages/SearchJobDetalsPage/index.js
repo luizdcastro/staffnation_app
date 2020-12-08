@@ -1,14 +1,15 @@
 import React, { useState, useEffect } from 'react'
 import { connect } from "react-redux";
-import { createStructuredSelector } from 'reselect';
 import { View, StyleSheet } from 'react-native'
+import _ from "lodash";
 
 import { getSingleJob, createPendingApplication } from '../../redux/actions/jobActions'
+import { getMe } from "../../redux/actions/getMeActions"
 
-import GradientButton from '../../components/GradientButton'
+import LightButton from '../../components/LightButton'
 import JobDetails from '../../components/JobDetails'
 
-const SearchJobDetailsPage = ({ getme, route, navigation, dispatchGetJobAction, dispatchJobApplicationAction }) => {
+const SearchJobDetailsPage = ({ getme, route, navigation, dispatchGetJobAction, dispatchJobApplicationAction, dispatchGetMe }) => {
     const [jobDetails, setJobDetails] = useState({})
     const { jobId } = route.params;
 
@@ -28,13 +29,15 @@ const SearchJobDetailsPage = ({ getme, route, navigation, dispatchGetJobAction, 
             jobId,
             getme.data._id
         )
-        navigation.navigate('HomePage')
+        dispatchGetMe()
+        navigation.goBack()
     }
 
     return (
         <View style={styles.container}>
             {jobDetails._id ?
                 <JobDetails
+                    navigation={navigation}
                     title={jobDetails.title}
                     category={jobDetails.category}
                     date={jobDetails.date}
@@ -51,35 +54,26 @@ const SearchJobDetailsPage = ({ getme, route, navigation, dispatchGetJobAction, 
 
                 /> : null}
             <View style={styles.buttonsContainer}>
-                <View>
-                    <GradientButton
-                        title="Candidatar-se"
-                        gradient={["#00A699", "#00A699"]}
-                        onPress={jobApplication}
-                    />
-                </View>
+                {_.filter(getme.data.jobsPending, ["_id", jobId]).length >= 1 ?
+                    <View style={{ width: '95%' }}>
+                        <LightButton
+                            textColor="#523BE4"
+                            borderColor="#523BE4"
+                            name="Candidatura Pendente"
+                            onPress={() => alert('Você já se candidatou para essa vaga')} />
+                    </View>
+                    :
+                    <View style={{ width: '95%' }}>
+                        <LightButton
+                            textColor="#523BE4"
+                            borderColor="#523BE4"
+                            name="Candidatar-se"
+                            onPress={jobApplication} />
+                    </View>
+                }
             </View>
         </View >
     )
-}
-
-export const pageOptions = {
-    headerTitle: 'Detalhes da Vaga',
-    headerTitleAlign: 'center',
-    headerTitleStyle: {
-        color: '#484848',
-        fontFamily: "NunitoSans_700Bold",
-        fontSize: 20,
-        textAlign: 'center',
-
-    },
-    headerBackTitleVisible: false,
-    headerStyle: {
-        backgroundColor: '#fafafa',
-        height: Platform.OS === 'ios' ? 90 : 70,
-
-    },
-    headerTintColor: '#00A699',
 }
 
 const styles = StyleSheet.create({
@@ -89,7 +83,7 @@ const styles = StyleSheet.create({
     },
     buttonsContainer: {
         flex: 1,
-        marginBottom: 50,
+        marginBottom: 40,
         justifyContent: 'flex-end',
         alignItems: 'center'
     },
@@ -111,6 +105,7 @@ const styles = StyleSheet.create({
 })
 
 const mapDispatchToProps = (dispatch) => ({
+    dispatchGetMe: () => dispatch(getMe()),
     dispatchGetJobAction: (id, onSuccess, onError) =>
         dispatch(getSingleJob(id, onSuccess, onError)),
     dispatchJobApplicationAction: (id, applicationsPending) =>

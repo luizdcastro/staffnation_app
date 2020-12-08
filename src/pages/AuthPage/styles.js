@@ -19,7 +19,7 @@ export const ButtonContainer = styled.View`
 
 export const Title = styled.Text`
     color: #FAFAFA;
-    font-family: "NunitoSans_300Light";
+    font-family: "NunitoSans_400Regular";
     font-size: 38px;
     line-height: 41px;
     align-self: flex-start;

@@ -11,20 +11,13 @@ const NextJobsPage = ({ navigation, getme, dispatchGetMe }) => {
             <View style={styles.main}>
                 {getme.data.jobsAccepted.length >= 1 ?
                     <FlatList
-                        style={{ marginHorizontal: 20 }}
+                        style={{ marginLeft: 10, }}
                         showsVerticalScrollIndicator={false}
                         data={getme.data.jobsAccepted}
                         renderItem={({ item }) => (
                             <JobCard
-                                title={item.title}
-                                dateDay={item.date.split(' ')[0]}
-                                dateMonth={item.date.split(' ')[1].substring(0, 3)}
-                                local={item.address.neighborhood}
-                                category={item.category}
-                                payment={item.payment.toFixed(2)}
-                                timeStart={item.time.start}
-                                timeEnd={item.time.end}
-                                openCard={() => navigation.navigate('NextJobDetailsPage', {
+                                buttonTitle="Detalhes"
+                                onPress={() => navigation.navigate('NextJobDetailsPage', {
                                     jobId: item._id
                                 })}
                             />
@@ -60,10 +53,11 @@ const styles = StyleSheet.create({
     },
     noContentText: {
         fontSize: 16,
-        fontFamily: 'NunitoSans_400Regular',
+        fontFamily: 'NunitoSans_600SemiBold',
         color: '#484848',
         paddingTop: 40,
-        marginBottom: '15%'
+        marginBottom: '15%',
+        color: 'grey'
     },
     noContentImage: {
         width: '50%',

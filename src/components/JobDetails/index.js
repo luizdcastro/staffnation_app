@@ -1,5 +1,10 @@
 import React from 'react'
-import { View, Text, StyleSheet } from 'react-native'
+import { View, Text, StyleSheet, ScrollView, StatusBar, Dimensions } from 'react-native'
+import { Container, ImageBanner, MainContent, DiscontDetails, DetailsHeader, Title, SubTitle, DiscontTitle, IconBar, IconButton, IconTitle, TitleContent, RegularText, ButtonContainer, BackIcon } from './styles'
+import { Feather } from '@expo/vector-icons';
+import { AntDesign } from '@expo/vector-icons';
+
+const { width, height } = Dimensions.get('window')
 
 const JobDetails = ({
     title,
@@ -14,93 +19,64 @@ const JobDetails = ({
     addressNumber,
     addressNeighborhood,
     addressCity,
-    addressState
+    addressState,
+    navigation
 }) => {
     return (
-        <View style={styles.container}>
-            <Text style={styles.title}>{title}</Text>
-            <View style={{ flexDirection: 'row', marginVertical: 20 }}>
-                <View style={[styles.tag, { marginRight: 15 }]}>
-                    <Text style={styles.tagText}>{category}</Text>
-                </View>
-                <View style={styles.tag}>
-                    <Text style={styles.tagText}>{positions} {positions <= 1 ? "vaga" : "vagas"}</Text>
-                </View>
-            </View>
-            <View style={styles.dataContent}>
-                <View style={styles.labelContainer}>
-                    <Text style={styles.label}>Data e horário</Text>
-                </View>
-                <Text style={styles.text}>{date}</Text>
-                <Text style={styles.text}>{timeStart} às {timeEnd}</Text>
-            </View>
-            <View style={styles.dataContent}>
-                <View style={styles.labelContainer}>
-                    <Text style={styles.label}>Pagamento</Text>
-                </View>
-                <Text style={styles.text}>R$ {payment}</Text>
-                <Text style={styles.text}>Transfência via app</Text>
-            </View>
-            <View style={styles.dataContent}>
-                <View style={styles.labelContainer}>
-                    <Text style={styles.label}>Uniforme</Text>
-                </View>
-                <Text style={styles.text}>{uniform}</Text>
-            </View>
-            <View style={styles.dataContent}>
-                <View style={styles.labelContainer}>
-                    <Text style={styles.label}>Endereço</Text>
-                </View>
-                <Text style={styles.text}>{addressStreet}, {addressNumber}{"\n"}{addressNeighborhood}, {addressCity} - {addressState}</Text>
-            </View>
-        </View>
+        <Container>
+            <StatusBar barStyle='light-content' />
+            <BackIcon>
+                <AntDesign name="arrowleft" size={25} color="#fafafa" onPress={() => navigation.goBack()} />
+            </BackIcon>
+            <ImageBanner source={{ uri: 'https://sirene.com.br/wp/wp-content/uploads/2019/11/IMG_9472-1-.jpg' }} width={width} />
+            <MainContent width={width} height={height - 110}>
+                <DiscontDetails>
+
+                    <DetailsHeader>
+                        <View>
+                            <Title>{title}</Title>
+                            <SubTitle>{category}</SubTitle>
+                        </View>
+                        <View>
+                            <SubTitle>Pagamento</SubTitle>
+                            <DiscontTitle>R$ {payment}</DiscontTitle>
+                        </View>
+                    </DetailsHeader>
+                    <IconBar>
+                        <IconButton>
+                            <Text style={{ fontSize: 22, fontFamily: 'NunitoSans_600SemiBold', color: "#523BE4" }}>{positions}</Text>
+                            <Text style={{ fontFamily: 'NunitoSans_600SemiBold', color: 'grey', lineHeight: 12 }}>{positions <= 1 ? "Vaga" : "Vagas"}</Text>
+                        </IconButton>
+                        <IconButton>
+                            <Feather name="map-pin" size={22} color="#523BE4" />
+                            <IconTitle>Localização</IconTitle>
+                        </IconButton>
+                        <IconButton>
+                            <Feather name="globe" size={22} color="#523BE4" />
+                            <IconTitle>Website</IconTitle>
+                        </IconButton>
+                    </IconBar>
+                    <View>
+                        <TitleContent>Data e Horário</TitleContent>
+                        <RegularText>Dia: {date}</RegularText>
+                        <RegularText>Horário: {timeStart} às {timeEnd}</RegularText>
+                    </View>
+                    <View>
+                        <TitleContent>Endereço</TitleContent>
+                        <RegularText>{addressStreet}, {addressNumber}{"\n"}{addressNeighborhood}, {addressCity} - {addressState}</RegularText>
+                    </View>
+                    <View>
+                        <TitleContent>Observações</TitleContent>
+                        <ScrollView style={{ maxHeight: 120 }} showsVerticalScrollIndicator={false}>
+                            <RegularText>Uniforme: {uniform}</RegularText>
+                        </ScrollView>
+                    </View>
+                </DiscontDetails>
+            </MainContent>
+        </Container>
     )
 }
 
-const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        marginHorizontal: 20
-    },
-    title: {
-        fontFamily: 'NunitoSans_700Bold',
-        fontSize: 20,
-        color: '#484848',
-        marginTop: 15
-    },
-    tag: {
-        width: 120,
-        height: 30,
-        borderColor: '#00A699',
-        borderWidth: 1,
-        borderRadius: 20,
-        justifyContent: 'center',
-        alignItems: 'center'
-    },
-    tagText: {
-        fontFamily: 'NunitoSans_600SemiBold',
-        color: '#00A699'
-    },
-    dataContent: {
-        borderBottomWidth: 0.3,
-        borderBottomColor: '#484848',
-        paddingBottom: 10,
-        marginBottom: 10
-    },
-    labelContainer: {
-        flexDirection: 'row',
-        alignItems: 'center',
-        justifyContent: 'space-between'
-    },
-    label: {
-        fontFamily: 'NunitoSans_600SemiBold',
-        color: '#484848',
-        fontSize: 15,
-    },
-    text: {
-        fontFamily: 'NunitoSans_400Regular',
-        color: '#484848'
-    },
-})
+const styles = StyleSheet.create({})
 
 export default JobDetails

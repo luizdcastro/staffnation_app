@@ -19,7 +19,7 @@ const LateNotification = ({ navigation, setModalNotification }) => {
         <View style={styles.container}>
             <View style={styles.notification}>
                 <TouchableOpacity onPress={() => setModalNotification(false)}>
-                    <Ionicons name="md-close" size={30} color="#00A699" style={{ alignSelf: 'flex-end', marginTop: 15 }} />
+                    <Ionicons name="md-close" size={30} color="grey" style={{ alignSelf: 'flex-end', marginTop: 15 }} />
                 </TouchableOpacity>
                 <Text style={styles.title}>Selecione seu tempo estimado de chegada. Tolerância de até uma hora de atraso.</Text>
                 <Slider
@@ -27,9 +27,9 @@ const LateNotification = ({ navigation, setModalNotification }) => {
                     minimumValue={15}
                     maximumValue={60}
                     step={15}
-                    minimumTrackTintColor="#00A699"
-                    maximumTrackTintColor="#b0bec5"
-                    thumbTintColor="#00A699"
+                    minimumTrackTintColor="#6978EA"
+                    maximumTrackTintColor="#E8E8E8"
+                    thumbTintColor="#523BE4"
                     value={time}
                     onValueChange={(value) => setTime(value)}
                 />
@@ -44,11 +44,11 @@ const LateNotification = ({ navigation, setModalNotification }) => {
                         setOptionThree(false)
                     }
                     }>
-                        {!optionOne ? <Feather name="circle" size={30} color="#00A699" /> :
+                        {!optionOne ? <Feather name="circle" size={30} color="grey" /> :
                             <MaterialIcons
                                 name="check-circle"
                                 size={30}
-                                color="#00A699"
+                                color="#523BE4"
                             />
                         }
                     </TouchableOpacity>
@@ -61,11 +61,11 @@ const LateNotification = ({ navigation, setModalNotification }) => {
                         setOptionThree(false)
                     }
                     }>
-                        {!optionTwo ? <Feather name="circle" size={30} color="#00A699" /> :
+                        {!optionTwo ? <Feather name="circle" size={30} color="grey" /> :
                             <MaterialIcons
                                 name="check-circle"
                                 size={30}
-                                color="#00A699"
+                                color="#523BE4"
                             />
                         }
                     </TouchableOpacity>
@@ -78,11 +78,11 @@ const LateNotification = ({ navigation, setModalNotification }) => {
                         setOptionTwo(false)
                     }
                     }>
-                        {!optionThree ? <Feather name="circle" size={30} color="#00A699" /> :
+                        {!optionThree ? <Feather name="circle" size={30} color="grey" /> :
                             <MaterialIcons
                                 name="check-circle"
                                 size={30}
-                                color="#00A699"
+                                color="#523BE4"
                             />
                         }
                     </TouchableOpacity>
@@ -103,7 +103,7 @@ const styles = StyleSheet.create({
         flex: 1,
         justifyContent: 'center',
         alignItems: 'center',
-        backgroundColor: 'rgba(0, 0, 0, 0.4)'
+        backgroundColor: 'rgba(0, 0, 0, 0.7)'
     },
     notification: {
         backgroundColor: '#fafafa',
@@ -137,7 +137,7 @@ const styles = StyleSheet.create({
         height: 50,
         width: '100%',
         borderWidth: 1,
-        borderColor: '#00A699',
+        borderColor: '#523BE4',
         justifyContent: 'center',
         alignItems: 'center',
         borderRadius: 5
@@ -145,7 +145,7 @@ const styles = StyleSheet.create({
     textButton: {
         fontFamily: 'NunitoSans_700Bold',
         textTransform: 'uppercase',
-        color: '#00A699'
+        color: '#523BE4'
     },
     buttonsContainer: {
         flex: 1,

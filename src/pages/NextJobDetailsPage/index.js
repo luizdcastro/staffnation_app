@@ -5,7 +5,8 @@ import { View, Text, StyleSheet, Modal, TouchableOpacity } from 'react-native'
 import { getSingleJob, cancelAcceptedApplication } from '../../redux/actions/jobActions'
 import { getMe } from "../../redux/actions/getMeActions"
 
-import GradientButton from '../../components/GradientButton'
+import LightButton from '../../components/LightButton'
+import CustomButton from '../../components/CustomButton'
 import LateNotification from '../../components/LateNotification'
 import JobDetails from '../../components/JobDetails'
 
@@ -37,7 +38,7 @@ const NextJobDetailsPage = ({ getme, navigation, route, dispatchGetJobAction, di
     return (
         <View style={styles.container}>
             <Modal
-                animationType="slide"
+                animationType="fade"
                 transparent={true}
                 visible={modalNotification}>
                 <LateNotification
@@ -46,6 +47,7 @@ const NextJobDetailsPage = ({ getme, navigation, route, dispatchGetJobAction, di
             </Modal>
             {jobDetails._id ?
                 <JobDetails
+                    navigation={navigation}
                     title={jobDetails.title}
                     category={jobDetails.category}
                     positions={jobDetails.positions}
@@ -62,16 +64,16 @@ const NextJobDetailsPage = ({ getme, navigation, route, dispatchGetJobAction, di
 
                 /> : null}
             <View style={styles.buttonsContainer}>
-                <TouchableOpacity style={styles.button} onPress={() => setModalNotification(true)}>
-                    <Text style={styles.textButton}>Notificar Atraso</Text>
-                </TouchableOpacity>
-                <View>
-                    <GradientButton
-                        title="Cancelar Trabalho"
-                        gradient={["#00A699", "#00A699"]}
-                        onPress={handleCancelApplication}
-                    />
-                </View>
+                <LightButton
+                    textColor="#523BE4"
+                    borderColor="#523BE4"
+                    name="Notificar Atraso"
+                    onPress={() => setModalNotification(true)} />
+                <CustomButton
+                    name="Cancelar Trabalho"
+                    background="#523BE4"
+                    onPress={handleCancelApplication}
+                />
             </View>
         </View >
     )
@@ -105,7 +107,8 @@ const styles = StyleSheet.create({
         flex: 1,
         marginBottom: 20,
         justifyContent: 'flex-end',
-        alignItems: 'center'
+        alignItems: 'center',
+        marginHorizontal: 10
     },
     button: {
         height: 50,

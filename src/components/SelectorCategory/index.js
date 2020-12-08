@@ -68,7 +68,6 @@ const SelectorCategory = ({
 								minimumTrackTintColor="#6978EA"
 								maximumTrackTintColor="#E8E8E8"
 								thumbTintColor="#523BE4"
-
 								value={experience}
 								onValueChange={(value) => setExperience(value)}
 							/>
@@ -157,26 +156,30 @@ const styles = StyleSheet.create({
 		elevation: 0.5,
 	},
 	titleCategory: {
-		fontSize: 18,
+		fontSize: 16,
 		fontFamily: "NunitoSans_600SemiBold",
+		color: "#484848"
 	},
 	titleExperience: {
-		fontSize: 16,
+		fontSize: 15,
 		fontFamily: "NunitoSans_400Regular",
 		marginBottom: 10,
 
 	},
 	textExperience: {
-		fontSize: 17,
+		fontSize: 16,
 		fontFamily: "NunitoSans_600SemiBold",
 		textAlign: "center",
+		color: "#484848"
 
 	},
 	textCetificate: {
-		fontSize: 17,
+		fontSize: 16,
 		fontFamily: "NunitoSans_600SemiBold",
 		textAlign: "center",
 		paddingHorizontal: 10,
+		color: "#484848"
+
 
 	},
 });

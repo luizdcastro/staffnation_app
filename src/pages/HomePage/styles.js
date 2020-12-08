@@ -8,14 +8,15 @@ export const Container = styled.KeyboardAvoidingView`
 export const Title = styled.Text`
     font-family: 'NunitoSans_600SemiBold';
     font-size: 20px;
-    margin-left: 15px;
+    margin-left: 10px;
     margin-top: 10px;
-    margin-bottom: 15px;
+    margin-bottom: 10px
 `;
 
 export const HeaderLeft = styled.TouchableOpacity`
     flex-direction: row;
     align-items: center;
+    margin-left: 10px;
     background-color: #fafafa;
     padding: 5px;
     border-radius: 30px;
@@ -24,7 +25,6 @@ export const HeaderLeft = styled.TouchableOpacity`
 export const HeaderTitle = styled.Text`
     font-family: 'NunitoSans_700Bold';
     font-size: 15px;
-    color: grey;
     padding-left: 5px;
-    color: #484848
+    color: grey
 `;

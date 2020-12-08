@@ -12,20 +12,13 @@ const PendingJobsPage = ({ navigation, getme }) => {
             <View style={styles.main}>
                 {getme.data.jobsPending.length >= 1 ?
                     <FlatList
-                        style={{ marginHorizontal: 20 }}
+                        style={{ marginLeft: 10, }}
                         showsVerticalScrollIndicator={false}
                         data={getme.data.jobsPending}
                         renderItem={({ item }) => (
                             <JobCard
-                                title={item.title}
-                                dateDay={item.date.split(' ')[0]}
-                                dateMonth={item.date.split(' ')[1].substring(0, 3)}
-                                local={item.address.neighborhood}
-                                category={item.category}
-                                payment={item.payment.toFixed(2)}
-                                timeStart={item.time.start}
-                                timeEnd={item.time.end}
-                                openCard={() => navigation.navigate('PendingJobDetailsPage', {
+                                buttonTitle="Detalhes"
+                                onPress={() => navigation.navigate('PendingJobDetailsPage', {
                                     jobId: item._id
                                 })}
                             />
@@ -62,10 +55,11 @@ const styles = StyleSheet.create({
     },
     noContentText: {
         fontSize: 16,
-        fontFamily: 'NunitoSans_400Regular',
+        fontFamily: 'NunitoSans_600SemiBold',
         color: '#484848',
         paddingTop: 30,
-        marginBottom: '15%'
+        marginBottom: '15%',
+        color: 'grey'
     },
     noContentImage: {
         width: '50%',
