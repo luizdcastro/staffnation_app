@@ -21,7 +21,7 @@ const Header = ({ title, letfIcon, rightIcon }) => {
 const styles = StyleSheet.create({
     container: {
         flexDirection: 'row',
-        height: 80,
+        height: 75,
         alignItems: 'center',
         paddingTop: 15,
         width: '100%',

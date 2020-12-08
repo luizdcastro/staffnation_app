@@ -111,7 +111,7 @@ export const pageOptions = ({ navigation }) => {
         headerBackTitleVisible: false,
         headerStyle: {
             backgroundColor: '#FFF',
-            height: 80,
+            height: 75,
         },
         headerLeft: () => (
             <TouchableOpacity onPress={() => navigation.goBack()} >

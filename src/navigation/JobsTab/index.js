@@ -23,11 +23,10 @@ const JobsTab = ({ navigation, dispatchGetMe }) => {
                 fontFamily: 'NunitoSans_700Bold',
                 color: 'grey',
                 fontSize: 16,
-                backgroundColor: '#fff',
                 alignItems: 'flex-start'
             },
             style: {
-                height: 80,
+                height: 75,
                 marginBottom: 15,
                 paddingTop: 30,
                 backgroundColor: '#fff',

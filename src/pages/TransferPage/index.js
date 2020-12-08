@@ -121,6 +121,8 @@ const styles = StyleSheet.create({
     },
     buttonContainer: {
         alignItems: "center",
+        justifyContent: 'flex-end',
+        marginBottom: Platform.OS === 'android' ? 20 : 0
     },
     confirmText: {
         fontSize: 15,
