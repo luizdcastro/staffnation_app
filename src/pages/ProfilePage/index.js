@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import { connect } from "react-redux";
 import { View, Text, Image, TouchableOpacity, StyleSheet } from "react-native";
 
+
 import { Feather } from '@expo/vector-icons';
 import { AntDesign } from '@expo/vector-icons';
 import { Ionicons } from '@expo/vector-icons';
@@ -11,6 +12,7 @@ import { logoutUser } from '../../redux/actions/authActions'
 import { getMe } from "../../redux/actions/getMeActions"
 
 const ProfilePage = ({ navigation, getme, dispatchGetMe, dispatchLogoutAction, setHome, setProfile }) => {
+
 
 	useEffect(() => {
 		dispatchGetMe()
@@ -63,7 +65,7 @@ const ProfilePage = ({ navigation, getme, dispatchGetMe, dispatchLogoutAction, s
 				</TouchableOpacity>
 				<TouchableOpacity style={styles.button} onPress={() => navigation.navigate('ProfessionalDataPage')}>
 					<View style={{ flexDirection: 'row', alignItems: 'center' }}>
-						<Feather name="award" size={22} color="#523BE4" />
+						<Feather name="list" size={22} color="#523BE4" />
 						<Text style={styles.buttonText}>Perfil Profissional</Text>
 					</View>
 					<Feather name="chevron-right" size={22} color="grey" />
@@ -72,6 +74,13 @@ const ProfilePage = ({ navigation, getme, dispatchGetMe, dispatchLogoutAction, s
 					<View style={{ flexDirection: 'row', alignItems: 'center' }}>
 						<Feather name="dollar-sign" size={22} color="#523BE4" />
 						<Text style={styles.buttonText}>Dados Bancários</Text>
+					</View>
+					<Feather name="chevron-right" size={22} color="grey" />
+				</TouchableOpacity>
+				<TouchableOpacity style={styles.button} onPress={() => navigation.navigate('SubscriptionPage')}>
+					<View style={{ flexDirection: 'row', alignItems: 'center' }}>
+						<Feather name="check-square" size={22} color="#523BE4" />
+						<Text style={styles.buttonText}>Assinatura</Text>
 					</View>
 					<Feather name="chevron-right" size={22} color="grey" />
 				</TouchableOpacity>
@@ -96,7 +105,7 @@ const styles = StyleSheet.create({
 		flexDirection: 'row',
 		alignItems: 'center',
 		marginTop: 15,
-		marginBottom: 30,
+		marginBottom: 35,
 		marginHorizontal: 15
 	},
 	avatar: {

@@ -3,17 +3,17 @@ import { View, TouchableOpacity, Text, Image, Dimensions, StyleSheet } from 'rea
 
 const { width, height } = Dimensions.get('window')
 
-const DiscontCard = ({ buttonTitle, onPress, width, title, category, payment, day, month, image }) => {
+const DiscontCard = ({ buttonTitle, onPress, width, title, category, payment, date, image }) => {
     return (
         <TouchableOpacity style={[styles.container, { width: width }]} onPress={onPress}>
             <Image style={styles.image} source={{ uri: image }} />
             <View style={styles.mainContent}>
                 <Text style={styles.title}>{title}</Text>
                 <Text style={styles.bottomText}>Categoria: {category}</Text>
-                <Text style={styles.bottomText}>Valor: {payment}</Text>
+                <Text style={styles.bottomText}>Valor: {parseInt(payment).toFixed(2)}</Text>
             </View>
             <View style={{ flex: 1, alignItems: 'center', marginRight: 5 }}>
-                <Text style={styles.dateText}>{day}/{month}</Text>
+                <Text style={styles.dateText}>{date}</Text>
                 <View style={styles.button}>
                     <Text style={styles.buttonText}>{buttonTitle}</Text>
                 </View>

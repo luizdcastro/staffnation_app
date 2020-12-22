@@ -8,7 +8,6 @@
     "eject": "expo eject"
   },
   "dependencies": {
-    "@expo-google-fonts/montserrat": "^0.1.0",
     "@expo-google-fonts/nunito-sans": "^0.1.0",
     "@react-native-community/async-storage": "^1.12.1",
     "@react-native-community/masked-view": "0.1.10",
@@ -31,6 +30,7 @@
     "expo-image-picker": "~9.1.0",
     "expo-linear-gradient": "~8.3.0",
     "expo-linking": "^1.0.5",
+    "expo-notifications": "~0.7.2",
     "expo-status-bar": "~1.0.2",
     "lodash": "^4.17.20",
     "moment": "^2.29.1",
@@ -42,6 +42,7 @@
     "react-native-gesture-handler": "~1.7.0",
     "react-native-masked-text": "^1.13.0",
     "react-native-paper": "^4.2.0",
+    "react-native-payment-inputs": "0.1.0-alpha.2",
     "react-native-reanimated": "~1.13.0",
     "react-native-safe-area-context": "3.1.4",
     "react-native-screens": "~2.10.1",

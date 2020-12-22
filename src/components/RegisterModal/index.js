@@ -175,7 +175,8 @@ const RegisterModal = ({ closeModal, dispatchRegisterUser, dispatchGetme }) => {
             () => dispatchGetMe(),
             (response) => {
                 setError(true);
-                setErrorMessage(response)
+                setErrorMessage(response);
+                console.log(response)
             }
         );
     };

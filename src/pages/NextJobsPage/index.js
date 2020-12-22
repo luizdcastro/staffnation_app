@@ -17,12 +17,11 @@ const NextJobsPage = ({ navigation, getme, dispatchGetMe }) => {
                         renderItem={({ item }) => (
                             <JobCard
                                 buttonTitle="Detalhes"
-                                title={item.title}
+                                title={item.store.name}
                                 category={item.category}
-                                payment={item.payment.toFixed(2)}
-                                day={item.date.split(' ')[0]}
-                                month={item.date.split(' ')[1].substring(0, 3)}
-                                image={item.image}
+                                payment={item.payment}
+                                image={item.store.image}
+                                date={item.date.slice(0, 5)}
                                 onPress={() => navigation.navigate('NextJobDetailsPage', {
                                     jobId: item._id
                                 })}

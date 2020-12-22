@@ -8,12 +8,10 @@ import { AntDesign } from '@expo/vector-icons';
 
 import { getAllJobs } from '../../redux/actions/jobActions'
 import JobCard from '../../components/JobCard'
-import { color } from "react-native-reanimated";
 
-const SearchPage = ({ navigation, jobs, dispatchGetAllJobsAction }) => {
+const SearchPage = ({ navigation, jobs, dispatchGetAllJobsAction, value, setValue }) => {
 	const [isKeyboardVisible, setKeyboardVisible] = useState(false);
 	const [filteredJobs, setFilteredJobs] = useState([])
-	const [search, setSearch] = useState('')
 
 	useEffect(() => {
 		dispatchGetAllJobsAction()
@@ -27,15 +25,14 @@ const SearchPage = ({ navigation, jobs, dispatchGetAllJobsAction }) => {
 		setFilteredJobs(
 			jobs.filter(
 				(job) =>
-					job.title
+					job?.store.name
 						.toLowerCase()
-						.includes(search.toLowerCase()) ||
-					job.category.toLowerCase().includes(search.toLowerCase()) ||
-					job.payment.toString().includes(search.toLowerCase()) ||
-					job.address.neighborhood.toLowerCase().includes(search.toLowerCase())
+						.includes(value.toLowerCase()) ||
+					job?.category.toLowerCase().includes(value.toLowerCase()) ||
+					job?.payment.toString().includes(value.toLowerCase())
 			)
 		);
-	}, [jobs, search]);
+	}, [jobs, value]);
 
 	useEffect(() => {
 		const keyboardDidShowListener = Keyboard.addListener(
@@ -65,7 +62,7 @@ const SearchPage = ({ navigation, jobs, dispatchGetAllJobsAction }) => {
 					autoCorrect={false}
 					autoCapitalize='none'
 					keyboardType='default'
-					onChangeText={(value) => setSearch(value)}
+					onChangeText={(value) => setValue(value)}
 				/>
 				<View style={styles.searchIcon} >
 					<Feather name="search" size={26} color="#523BE4" />
@@ -86,12 +83,11 @@ const SearchPage = ({ navigation, jobs, dispatchGetAllJobsAction }) => {
 					renderItem={({ item }) => (
 						<JobCard
 							buttonTitle="Detalhes"
-							title={item.title}
+							title={item.store.name}
 							category={item.category}
-							payment={item.payment.toFixed(2)}
-							day={item.date.split(' ')[0]}
-							month={item.date.split(' ')[1].substring(0, 3)}
-							image={item.image}
+							payment={item.payment}
+							image={item.store.image}
+							date={item.date.slice(0, 5)}
 							onPress={() => navigation.navigate('SearchJobDetailsPage', {
 								jobId: item._id
 							})}

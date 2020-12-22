@@ -5,7 +5,7 @@ export const registerUser = (data, onSuccess, onError) => ({
 	type: constants.API,
 	payload: {
 		method: "POST",
-		url: "/auth/registrar",
+		url: "/authUser/registrar",
 		data,
 		success: (response) => setAuthInfo(response),
 		postProccessSuccess: onSuccess,
@@ -17,7 +17,7 @@ export const loginUser = (data, onSuccess, onError) => ({
 	type: constants.API,
 	payload: {
 		method: "POST",
-		url: "/auth/login",
+		url: "/authUser/login",
 		data,
 		success: (response) => setAuthInfo(response),
 		postProccessSuccess: onSuccess,
@@ -29,7 +29,7 @@ export const forgotPassword = (data, onSuccess, onError) => ({
 	type: constants.API,
 	payload: {
 		method: "POST",
-		url: "/auth/forgotPassword",
+		url: "/authUser/forgotPassword",
 		data,
 		postProccessSuccess: onSuccess,
 		postProccessError: onError,

@@ -32,7 +32,7 @@ const NextJobDetailsPage = ({ getme, navigation, route, dispatchGetJobAction, di
             getme.data._id
         )
         dispatchGetMe()
-        navigation.navigate('JobsTab');
+        navigation.goBack();
     }
 
     return (
@@ -48,20 +48,20 @@ const NextJobDetailsPage = ({ getme, navigation, route, dispatchGetJobAction, di
             {jobDetails._id ?
                 <JobDetails
                     navigation={navigation}
-                    title={jobDetails.title}
+                    title={jobDetails.store.name}
                     category={jobDetails.category}
                     positions={jobDetails.positions}
                     date={jobDetails.date}
                     timeStart={jobDetails.time.start}
                     timeEnd={jobDetails.time.end}
-                    payment={jobDetails.payment.toFixed(2)}
+                    payment={parseInt(jobDetails.payment).toFixed(2)}
                     uniform={jobDetails.uniform}
-                    addressStreet={jobDetails.address.street}
-                    addressNumber={jobDetails.address.number}
-                    addressNeighborhood={jobDetails.address.neighborhood}
-                    addressCity={jobDetails.address.city}
-                    addressState={jobDetails.address.state}
-                    image={jobDetails.image}
+                    addressStreet={jobDetails.store.address.street}
+                    addressNumber={jobDetails.store.number}
+                    addressNeighborhood={jobDetails.store.address.neighborhood}
+                    addressCity={jobDetails.store.address.city}
+                    addressState={jobDetails.store.address.state}
+                    image={jobDetails.store.image}
 
 
                 /> : null}

@@ -56,11 +56,11 @@ const TransferPage = ({ navigation, getme, setHome, setTransfer }) => {
             {
                 transferValue.length > 2 ? (
                     <Animatable.View animation="fadeInLeft" style={{ marginHorizontal: 15, marginBottom: 30 }}>
-                        {getme.data.bankData.name.length >= 2 & getme.data.bankData.agency >= 3 & getme.data.bankData.account >= 4 ?
+                        {getme.data.bankData.bankNumber.length >= 1 & getme.data.bankData.agencyNumber >= 3 & getme.data.bankData.accountNumber >= 4 ?
                             <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
                                 <View>
-                                    <Text style={styles.confirmText}>Banco: {getme.data.bankData.name}</Text>
-                                    <Text style={styles.confirmText}>Agência: {getme.data.bankData.agency} Conta: {getme.data.bankData.account}</Text>
+                                    <Text style={styles.confirmText}>Banco: {getme.data.bankData.bankNumber}</Text>
+                                    <Text style={styles.confirmText}>Agência: {getme.data.bankData.agencyNumber} Conta: {getme.data.bankData.accountNumber}</Text>
                                     <Text style={styles.confirmText}>Valor: R$ {transferValue}</Text>
                                 </View>
                                 <View>
@@ -92,7 +92,7 @@ const TransferPage = ({ navigation, getme, setHome, setTransfer }) => {
                         name="Transferir"
                         textColor="grey"
                         borderColor="grey"
-                        onPress={() => navigation.navigate('Transfer')}
+                        onPress={() => { }}
                     />
                     :
                     <KeyboardButton
@@ -122,7 +122,7 @@ const styles = StyleSheet.create({
     buttonContainer: {
         alignItems: "center",
         justifyContent: 'flex-end',
-        marginBottom: Platform.OS === 'android' ? 20 : 0
+        marginBottom: Platform.OS === 'android' ? 22 : 0
     },
     confirmText: {
         fontSize: 15,

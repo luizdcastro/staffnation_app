@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { View, Text, TouchableOpacity, StyleSheet, Dimensions } from 'react-native'
 
 import Icon from 'react-native-vector-icons/Feather';
@@ -18,15 +18,16 @@ const BottomTabPage = ({ navigation }) => {
     const [search, setSearch] = useState(false)
     const [transfer, setTransfer] = useState(false)
     const [profile, setProfile] = useState(false)
+    const [value, setValue] = useState('')
 
     return (
         <View style={styles.container}>
             {home ? (
-                <HomePage navigation={navigation} setHome={setHome} setJobs={setJobs} />
+                <HomePage navigation={navigation} setHome={setHome} setJobs={setJobs} setSearch={setSearch} setValue={setValue} />
             ) : jobs ? (
                 <JobsPage navigation={navigation} />
             ) : search ? (
-                <SearchPage navigation={navigation} />
+                <SearchPage navigation={navigation} setHome={setHome} setSearch={setSearch} value={value} setValue={setValue} />
             ) : transfer ? (
                 < TransferPage navigation={navigation} setHome={setHome} setTransfer={setTransfer} />
             ) : profile ? (
@@ -47,7 +48,7 @@ const BottomTabPage = ({ navigation }) => {
                             <Text style={jobs ? styles.textActive : styles.textInactive}>Trabalhos</Text>
                         </TouchableOpacity>
                         <TouchableOpacity activeOpacity={0.5} style={styles.buttonBar}
-                            onPress={() => { setHome(false); setJobs(false); setSearch(true); setTransfer(false); setProfile(false) }}>
+                            onPress={() => { setHome(false); setJobs(false); setSearch(true); setTransfer(false); setProfile(false); setValue('') }}>
                             <LinearGradient style={styles.iconTabRound} start={{ x: 0, y: 1 }} end={{ x: 0, y: 0 }} colors={['#523BE4', '#6978EA']}>
                                 <Icon name="search" size={search ? 28 : 26} color='#FFF' />
                             </LinearGradient>

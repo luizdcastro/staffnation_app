@@ -18,8 +18,10 @@ import AdressDataPage, { pageOptions as AddressOptions } from '../../pages/Adres
 import ProfessionalDataPage, { pageOptions as ProfessionalOptions } from '../../pages/ProfessionalDataPage'
 import BankDataPage, { pageOptions as BankOptions } from '../../pages/BankDataPage'
 import TransferPage from '../../pages/TransferPage'
-import HelpPage, { pageOptions as HelpOptions } from '../../pages/HelpPage'
+import SubscriptionPage, { pageOptions as SubscriptionOption } from '../../pages/SubscriptionPage'
 import NotificationPage, { pageOptions as NotificationOptions } from '../../pages/NotificationPage'
+import PaymentMethodPage, { pageOptions as PaymentOptions } from '../../pages/PaymentMethodPage'
+
 
 const MainStack = createStackNavigator();
 
@@ -40,7 +42,9 @@ const BottomStack = ({ navigation }) => (
         <MainStack.Screen name="ProfessionalDataPage" component={ProfessionalDataPage} options={ProfessionalOptions} />
         <MainStack.Screen name="BankDataPage" component={BankDataPage} options={BankOptions} />
         <MainStack.Screen name="AvatarPage" component={AvatarPage} options={AvatarOptions} />
+        <MainStack.Screen name="SubscriptionPage" component={SubscriptionPage} options={SubscriptionOption} />
         <MainStack.Screen name="NotificationPage" component={NotificationPage} options={NotificationOptions} />
+        <MainStack.Screen name="PaymentMethodPage" component={PaymentMethodPage} options={PaymentOptions} />
     </MainStack.Navigator>
 )
 

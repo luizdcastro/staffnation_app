@@ -38,20 +38,20 @@ const PendingJobDetailsPage = ({ getme, route, navigation, dispatchGetJobAction,
             {jobDetails._id ?
                 <JobDetails
                     navigation={navigation}
-                    title={jobDetails.title}
+                    title={jobDetails.store.name}
                     date={jobDetails.date}
                     category={jobDetails.category}
                     positions={jobDetails.positions}
                     timeStart={jobDetails.time.start}
                     timeEnd={jobDetails.time.end}
-                    payment={jobDetails.payment.toFixed(2)}
+                    payment={jobDetails.payment}
                     uniform={jobDetails.uniform}
-                    addressStreet={jobDetails.address.street}
-                    addressNumber={jobDetails.address.number}
-                    addressNeighborhood={jobDetails.address.neighborhood}
-                    addressCity={jobDetails.address.city}
-                    addressState={jobDetails.address.state}
-                    image={jobDetails.image}
+                    addressStreet={jobDetails.store.address.street}
+                    addressNumber={jobDetails.store.number}
+                    addressNeighborhood={jobDetails.store.address.neighborhood}
+                    addressCity={jobDetails.store.address.city}
+                    addressState={jobDetails.store.address.state}
+                    image={jobDetails.store.image}
 
 
                 /> : null}

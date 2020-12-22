@@ -1,21 +1,32 @@
 
 import React, { useState, useEffect } from 'react'
 import { connect } from "react-redux";
-import { View, Text, Platform, StyleSheet, ScrollView, KeyboardAvoidingView, TextInput, TouchableOpacity } from 'react-native'
+import { View, Text, Platform, StyleSheet, ScrollView, KeyboardAvoidingView, TextInput, TouchableOpacity, Dimensions } from 'react-native'
 import { useHeaderHeight } from '@react-navigation/stack';
+import { Picker } from '@react-native-picker/picker';
+
 
 import { AntDesign } from '@expo/vector-icons';
 import { updateUser } from "../../redux/actions/userActions"
 import { getMe } from "../../redux/actions/getMeActions"
 
+const { width, height } = Dimensions.get('window')
+
+
 const BankDataPage = ({ navigation, dispatchGetMe, dispatchUpdateUserAction, getme }) => {
-    const [account, setAccount] = useState(getme.data.bankData.account)
-    const [agency, setAgency] = useState(getme.data.bankData.agency)
-    const [bank, setBank] = useState(getme.data.bankData.name)
+    const [accountNumber, setAccountNumber] = useState(getme.data.bankData.accountNumber)
+    const [agencyNumber, setAgencyNumber] = useState(getme.data.bankData.agencyNumber)
+    const [bankNumber, setBankNumber] = useState(getme.data.bankData.bankNumber)
+    const [accountType, setAccountType] = useState(getme.data.bankData.accountType)
+    const [accountHolder, setAccountHolder] = useState(getme.data.bankData.accountHolder)
+    const [accountComplementNumber, setAccountComplementNumber] = useState(getme.data.bankData.accountComplementNumber)
     const data = {
-        name: bank,
-        agency: agency,
-        account: account
+        bankNumber: bankNumber,
+        agencyNumber: agencyNumber,
+        accountNumber: accountNumber,
+        accountComplementNumber: accountComplementNumber,
+        accountType: accountType,
+        accountHolder: accountHolder
     }
 
     const hanleUpdateUser = (event) => {
@@ -37,29 +48,42 @@ const BankDataPage = ({ navigation, dispatchGetMe, dispatchUpdateUserAction, get
                 </TouchableOpacity>
             )
         })
-    }, [account, agency, bank])
+    }, [accountNumber, agencyNumber, bankNumber])
 
     return (
         <KeyboardAvoidingView style={styles.container} keyboardVerticalOffset={useHeaderHeight()} behavior={Platform.OS === "ios" ? "padding" : "height"}>
-            <ScrollView>
-                <View style={styles.formContent}>
-                    <Text style={styles.label}>Banco</Text>
-                    <TextInput style={styles.input}
-                        keyboardType="default"
-                        placeholder="Selecione seu banco"
-                        value={bank}
-                        onChangeText={(value) => setBank(value)}
-                    />
+            <ScrollView style={{ marginBottom: 15 }}>
+                <View style={{ marginTop: 15 }}>
+                    <Text style={[styles.label, { marginLeft: 15, position: 'absolute', top: -5, left: 0 }]}>Banco</Text>
+                    <Picker
+                        selectedValue={bankNumber}
+                        onValueChange={(bankNumber) => setBankNumber(bankNumber)}
+                        mode="dropdown"
+                        style={{ height: Platform.OS === 'android' ? 45 : 100, width: width - 10, marginLeft: 7, marginTop: Platform.OS === 'android' ? 8 : 3 }}
+                        itemStyle={{
+                            fontSize: 18,
+                            fontFamily: 'NunitoSans_400Regular',
+                            marginTop: 5,
+                            marginBottom: 5,
+                            color: '#484848',
+                            height: Platform.OS === 'android' ? 45 : 100,
+                        }}>
+                        <Picker.Item label="Itau" value="01" />
+                        <Picker.Item label="Bradesco" value="02" />
+                        <Picker.Item label="Santander" value="03" />
+                        <Picker.Item label="Caixa" value="04" />
+                        <Picker.Item label="Nu Bank" value="05" />
+                    </Picker>
+                    <View style={{ borderBottomColor: 'grey', borderBottomWidth: 0.3, marginHorizontal: 15 }} />
                 </View>
-
                 <View style={styles.formContent}>
                     <Text style={styles.label}>Agência</Text>
                     <TextInput style={styles.input}
                         placeholder='Digite sua agência'
                         keyboardType='number-pad'
                         autoCapitalize="none"
-                        value={agency}
-                        onChangeText={(value) => setAgency(value)}
+                        value={agencyNumber}
+                        onChangeText={(value) => setAgencyNumber(value)}
                     />
                 </View>
                 <View style={styles.formContent}>
@@ -68,10 +92,52 @@ const BankDataPage = ({ navigation, dispatchGetMe, dispatchUpdateUserAction, get
                         placeholder='Digite sua conta'
                         keyboardType='number-pad'
                         autoCapitalize="none"
-                        value={account}
-                        onChangeText={(value) => setAccount(value)}
+                        value={accountNumber}
+                        onChangeText={(value) => setAccountNumber(value)}
                     />
                 </View>
+                {bankNumber === '1' ?
+                    <View style={styles.formContent}>
+                        <Text style={styles.label}>Complemento da conta</Text>
+                        <TextInput style={styles.input}
+                            placeholder='Ex: 003'
+                            keyboardType='twitter'
+                            autoCapitalize="none"
+                            value={accountComplementNumber}
+                            onChangeText={(value) => setAccountComplementNumber(value)}
+                        />
+                    </View> : null}
+                <View style={{ marginTop: 15 }}>
+                    <Text style={[styles.label, { marginLeft: 15, position: 'absolute', top: -5, left: 0 }]}>Tipo da conta</Text>
+                    <Picker
+                        selectedValue={accountType}
+                        onValueChange={(accountType) => setAccountType(accountType)}
+                        mode="dropdown"
+                        style={{ height: Platform.OS === 'android' ? 45 : 100, width: width - 10, marginLeft: 7, marginTop: Platform.OS === 'android' ? 8 : 3 }}
+                        itemStyle={{
+                            fontSize: 18,
+                            fontFamily: 'NunitoSans_400Regular',
+                            marginTop: 5,
+                            marginBottom: 5,
+                            color: '#484848',
+                            height: Platform.OS === 'android' ? 45 : 100,
+                        }}>
+                        <Picker.Item label="Corrente" value="01" />
+                        <Picker.Item label="Poupança" value="02" />
+                    </Picker>
+                    <View style={{ borderBottomColor: 'grey', borderBottomWidth: 0.3, marginHorizontal: 15 }} />
+                </View>
+                <View style={styles.formContent}>
+                    <Text style={styles.label}>Nome do titular</Text>
+                    <TextInput style={styles.input}
+                        placeholder='Titular da conta'
+                        keyboardType='twitter'
+                        autoCapitalize="none"
+                        value={accountHolder}
+                        onChangeText={(value) => setAccountHolder(value)}
+                    />
+                </View>
+
             </ScrollView>
         </KeyboardAvoidingView>
     )
@@ -79,7 +145,7 @@ const BankDataPage = ({ navigation, dispatchGetMe, dispatchUpdateUserAction, get
 
 export const pageOptions = ({ navigation }) => {
     return {
-        headerTitle: 'Dados Pessoais',
+        headerTitle: 'Dados Bancários',
         headerTitleAlign: 'center',
         headerTitleStyle: {
             color: 'grey',
@@ -112,9 +178,10 @@ const styles = StyleSheet.create({
     },
     formContent: {
         marginTop: 15,
-        marginHorizontal: 15,
         borderBottomColor: 'grey',
-        borderBottomWidth: 0.3
+        borderBottomWidth: 0.3,
+        marginHorizontal: 15
+
     },
     input: {
         fontSize: 18,

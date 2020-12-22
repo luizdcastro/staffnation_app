@@ -17,7 +17,7 @@ import CategoryCard from '../../components/CategoryCard'
 const { width, height } = Dimensions.get('window')
 
 
-const HomePage = ({ navigation, getme, jobs, dispatchGetMe, dispatchGetAllJobsAction, setHome, setJobs }) => {
+const HomePage = ({ navigation, getme, jobs, dispatchGetMe, dispatchGetAllJobsAction, setHome, setJobs, setSearch, setValue }) => {
 
 	useEffect(() => {
 		dispatchGetMe()
@@ -45,12 +45,37 @@ const HomePage = ({ navigation, getme, jobs, dispatchGetMe, dispatchGetAllJobsAc
 			<ScrollView  >
 				<Title>Categorias</Title>
 				<ScrollView horizontal={true} showsHorizontalScrollIndicator={false} style={{ marginHorizontal: 10, height: 95 }}>
-					<CategoryCard title="Bar" image={require("../../assets/images/categories/bar.jpg")} />
-					<CategoryCard title="Limpeza" image={require("../../assets/images/categories/clean.jpg")} />
-					<CategoryCard title="Cozinha" image={require("../../assets/images/categories/kitchen.jpg")} />
-					<CategoryCard title="Garçom" image={require("../../assets/images/categories/waiter.jpg")} />
-					<CategoryCard title="Segurança" image={require("../../assets/images/categories/guard.jpg")} />
-					<CategoryCard title="Hostess" image={require("../../assets/images/categories/hostess.jpg")} />
+					<CategoryCard
+						title="Bar"
+						image={require("../../assets/images/categories/bar.jpg")}
+						onPress={() => { navigation.navigate('BottomTabPage'); setHome(false); setSearch(true); setValue('Bar') }}
+					/>
+					<CategoryCard
+						title="Limpeza"
+						image={require("../../assets/images/categories/clean.jpg")}
+						onPress={() => { navigation.navigate('BottomTabPage'); setHome(false); setSearch(true); setValue('Limpeza') }}
+					/>
+					<CategoryCard
+						title="Cozinha"
+						image={require("../../assets/images/categories/kitchen.jpg")}
+						onPress={() => { navigation.navigate('BottomTabPage'); setHome(false); setSearch(true); setValue('Cozinha') }}
+					/>
+
+					<CategoryCard
+						title="Garçom"
+						image={require("../../assets/images/categories/waiter.jpg")}
+						onPress={() => { navigation.navigate('BottomTabPage'); setHome(false); setSearch(true); setValue('Garçom') }}
+					/>
+					<CategoryCard
+						title="Segurança"
+						image={require("../../assets/images/categories/guard.jpg")}
+						onPress={() => { navigation.navigate('BottomTabPage'); setHome(false); setSearch(true); setValue('Segurança') }}
+					/>
+					<CategoryCard
+						title="Hostess"
+						image={require("../../assets/images/categories/hostess.jpg")}
+						onPress={() => { navigation.navigate('BottomTabPage'); setHome(false); setSearch(true); setValue('Hostess') }}
+					/>
 				</ScrollView>
 				<Title>Pŕoximos Trabalhos</Title>
 				<View style={{ flex: 1 }}>
@@ -65,12 +90,11 @@ const HomePage = ({ navigation, getme, jobs, dispatchGetMe, dispatchGetAllJobsAc
 									<JobCard
 										width={width - 20}
 										buttonTitle="Detalhes"
-										title={item.title}
+										title={item.store.name}
 										category={item.category}
-										payment={item.payment.toFixed(2)}
-										day={item.date.split(' ')[0]}
-										month={item.date.split(' ')[1].substring(0, 3)}
-										image={item.image}
+										payment={item.payment}
+										image={item.store.image}
+										date={item.date.slice(0, 5)}
 										onPress={() => navigation.navigate('NextJobDetailsPage', {
 											jobId: item._id
 										})}
@@ -94,12 +118,11 @@ const HomePage = ({ navigation, getme, jobs, dispatchGetMe, dispatchGetAllJobsAc
 											<JobCard
 												width={width - 20}
 												buttonTitle="Detalhes"
-												title={item.title}
+												title={item.store.name}
 												category={item.category}
-												payment={item.payment.toFixed(2)}
-												day={item.date.split(' ')[0]}
-												month={item.date.split(' ')[1].substring(0, 3)}
-												image={item.image}
+												payment={item.payment}
+												image={item.store.image}
+												date={item.date.slice(0, 5)}
 												onPress={() => navigation.navigate('SearchJobDetailsPage', {
 													jobId: item._id
 												})}
@@ -113,12 +136,11 @@ const HomePage = ({ navigation, getme, jobs, dispatchGetMe, dispatchGetAllJobsAc
 											<JobCard
 												width={width - 20}
 												buttonTitle="Detalhes"
-												title={item.title}
+												title={item.store.name}
 												category={item.category}
-												payment={item.payment.toFixed(2)}
-												day={item.date.split(' ')[0]}
-												month={item.date.split(' ')[1].substring(0, 3)}
-												image={item.image}
+												payment={item.payment}
+												image={item.store.image}
+												date={item.date.slice(0, 5)}
 												onPress={() => navigation.navigate('SearchJobDetailsPage', {
 													jobId: item._id
 												})}
