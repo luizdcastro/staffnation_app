@@ -1,13 +1,17 @@
 import React from "react";
 import { connect } from "react-redux";
 import { View, FlatList, Text, Image, StyleSheet } from "react-native";
+import * as Animatable from "react-native-animatable";
 
 import { getMe } from "../../redux/actions/getMeActions"
 import JobCard from '../../components/JobCard'
 
-const NextJobsPage = ({ navigation, getme, dispatchGetMe }) => {
+const NextJobsPage = ({ navigation, getme }) => {
+
+    console.log(getme)
+
     return (
-        <View style={styles.container}>
+        <Animatable.View animation="bounceInLeft" duration={1100} style={styles.container}>
             <View style={styles.main}>
                 {getme.data.jobsAccepted.length >= 1 ?
                     <FlatList
@@ -35,7 +39,7 @@ const NextJobsPage = ({ navigation, getme, dispatchGetMe }) => {
                     </View>
                 }
             </View>
-        </View>
+        </Animatable.View >
     );
 };
 

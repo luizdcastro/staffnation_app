@@ -1,18 +1,20 @@
 import React, { useState, useEffect } from 'react'
+import { connect } from "react-redux";
 import { View, Text, TouchableOpacity, StyleSheet, Dimensions } from 'react-native'
 
 import Icon from 'react-native-vector-icons/Feather';
 import { LinearGradient } from 'expo-linear-gradient';
 
 import HomePage from '../HomePage';
-import JobsPage from '../../navigation/JobsTab';
 import SearchPage from '../SearchPage';
 import TransferPage from '../TransferPage'
 import ProfilePage from '../ProfilePage'
+import JobsTabPage from '../JobsTabPage'
+import { getMe } from "../../redux/actions/getMeActions"
 
 const { width, height } = Dimensions.get('window')
 
-const BottomTabPage = ({ navigation }) => {
+const BottomTabPage = ({ navigation, dispatchGetMe }) => {
     const [home, setHome] = useState(true)
     const [jobs, setJobs] = useState(false)
     const [search, setSearch] = useState(false)
@@ -20,12 +22,14 @@ const BottomTabPage = ({ navigation }) => {
     const [profile, setProfile] = useState(false)
     const [value, setValue] = useState('')
 
+    useEffect(() => dispatchGetMe, [dispatchGetMe])
+
     return (
         <View style={styles.container}>
             {home ? (
                 <HomePage navigation={navigation} setHome={setHome} setJobs={setJobs} setSearch={setSearch} setValue={setValue} />
             ) : jobs ? (
-                <JobsPage navigation={navigation} />
+                <JobsTabPage navigation={navigation} />
             ) : search ? (
                 <SearchPage navigation={navigation} setHome={setHome} setSearch={setSearch} value={value} setValue={setValue} />
             ) : transfer ? (
@@ -45,7 +49,7 @@ const BottomTabPage = ({ navigation }) => {
                         <TouchableOpacity activeOpacity={0.5} style={styles.buttonBar}
                             onPress={() => { setHome(false); setJobs(true); setSearch(false); setTransfer(false); setProfile(false) }}>
                             <Icon name="calendar" size={jobs ? 28 : 26} color={jobs ? '#523BE4' : '#777'} />
-                            <Text style={jobs ? styles.textActive : styles.textInactive}>Trabalhos</Text>
+                            <Text style={jobs ? styles.textActive : styles.textInactive}>Agenda</Text>
                         </TouchableOpacity>
                         <TouchableOpacity activeOpacity={0.5} style={styles.buttonBar}
                             onPress={() => { setHome(false); setJobs(false); setSearch(true); setTransfer(false); setProfile(false); setValue('') }}>
@@ -117,4 +121,8 @@ const styles = StyleSheet.create({
     }
 })
 
-export default BottomTabPage
+const mapDispatchToProps = (dispatch) => ({
+    dispatchGetMe: () => dispatch(getMe()),
+});
+
+export default connect(null, mapDispatchToProps)(BottomTabPage)

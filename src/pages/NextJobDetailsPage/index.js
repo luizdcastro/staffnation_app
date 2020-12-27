@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { connect } from "react-redux";
-import { View, Text, StyleSheet, Modal, TouchableOpacity } from 'react-native'
+import { View, StyleSheet, Modal } from 'react-native'
 
 import { getSingleJob, cancelAcceptedApplication } from '../../redux/actions/jobActions'
 import { getMe } from "../../redux/actions/getMeActions"

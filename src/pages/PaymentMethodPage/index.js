@@ -53,20 +53,20 @@ const PaymentMethodPage = ({ getme, navigation, dispatchGetMe, dispatchCreatePay
     return (
         <KeyboardAvoidingView style={styles.container} keyboardVerticalOffset={useHeaderHeight()} behavior={Platform.OS === "ios" ? "padding" : "height"}>
             <ScrollView>
-                {getme.data?.creditCard.cardBrand.length >= 2 ?
+                {getme.data?.creditCard?.cardBrand.length >= 2 ?
                     <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-around', backgroundColor: '#fff', marginHorizontal: 15, marginTop: 15, height: 50 }}>
-                        {getme.data?.creditCard.cardBrand === 'visa' ?
+                        {getme.data?.creditCard?.cardBrand === 'visa' ?
                             <IconVisa />
-                            : getme.data?.creditCard.cardBrand === 'mastercard' ?
+                            : getme.data?.creditCard?.cardBrand === 'mastercard' ?
                                 <IconMastercard /> : null
                         }
                         <View style={{ flexDirection: 'row', alignItems: 'center' }}>
                             <Feather name="more-horizontal" size={24} color="grey" />
                             <Feather name="more-horizontal" size={24} color="grey" />
                             <Feather name="more-horizontal" size={24} color="grey" style={{ marginRight: 5 }} />
-                            <Text style={{ marginRight: 20, fontSize: 15 }}>{getme.data?.creditCard.last4CardNumber}</Text>
+                            <Text style={{ marginRight: 20, fontSize: 15 }}>{getme.data?.creditCard?.last4CardNumber}</Text>
                         </View>
-                        <Text style={{ fontSize: 15 }}>{getme.data?.creditCard.expirationMonth}/{getme.data?.creditCard.expirationYear}</Text>
+                        <Text style={{ fontSize: 15 }}>{getme.data?.creditCard?.expirationMonth}/{getme.data?.creditCard?.expirationYear}</Text>
                     </View>
                     : null}
                 <View style={{ marginTop: 30, marginHorizontal: 15 }}>

@@ -1,14 +1,14 @@
 import React, { useEffect, useState } from "react";
 import { connect } from "react-redux";
 import { View, FlatList, Image, Text, StyleSheet } from "react-native";
+import * as Animatable from "react-native-animatable";
 
 import { getMe } from "../../redux/actions/getMeActions"
 import JobCard from '../../components/JobCard'
-import { color } from "react-native-reanimated";
+import { get } from "lodash";
 
 const FinishedJobsPage = ({ navigation, getme, dispatchGetMe }) => {
     const [pastJobs, setPastJobs] = useState([])
-    const [noContent, setNoContent] = useState(false)
 
     useEffect(() => {
         dispatchGetMe(
@@ -25,9 +25,9 @@ const FinishedJobsPage = ({ navigation, getme, dispatchGetMe }) => {
     }, [dispatchGetMe])
 
     return (
-        <View style={styles.container}>
+        <Animatable.View animation="bounceInLeft" duration={1100} style={styles.container}>
             <View style={styles.main}>
-                {!noContent ?
+                {getme.datajobsFinished >= 1 ?
                     <FlatList
                         style={{ marginHorizontal: 20 }}
                         showsVerticalScrollIndicator={false}
@@ -49,11 +49,11 @@ const FinishedJobsPage = ({ navigation, getme, dispatchGetMe }) => {
                     :
                     <View style={styles.noContentBox}>
                         <Image source={require('../../assets/images/no-result-search.png')} style={styles.noContentImage} />
-                        <Text style={styles.noContentText}>Você não possui trabalhos finalizados.</Text>
+                        <Text style={styles.noContentText}>Você não possui trabalhos finalizados!</Text>
                     </View>
                 }
             </View>
-        </View>
+        </Animatable.View>
     );
 };
 

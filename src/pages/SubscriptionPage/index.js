@@ -43,7 +43,7 @@ const SubscriptionPage = ({ getme, navigation, dispatchGetMe, dispatchUpdateUser
                 </View>
                 <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('PaymentMethodPage')}>
                     <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-                        {getme.data?.creditCard.cardBrand.length >= 2 ?
+                        {getme.data?.creditCard?.cardBrand.length >= 2 ?
                             <View style={{ flexDirection: 'row' }}>
                                 {getme.data?.creditCard.cardBrand === 'visa' ?
                                     <IconVisa />

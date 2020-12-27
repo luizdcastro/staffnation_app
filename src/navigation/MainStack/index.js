@@ -4,6 +4,7 @@ import { StyleSheet } from 'react-native'
 import { createStackNavigator } from "@react-navigation/stack";
 
 import BottomTabPage from '../../pages/BottomTabPage';
+import JobsTabPage from '../../pages/JobsTabPage'
 import HomePage from "../../pages/HomePage";
 import JobsTab, { pageOptions as JobsPageOptions } from '../JobsTab'
 import SearchJobDetailsPage from '../../pages/SearchJobDetalsPage'
@@ -28,6 +29,7 @@ const MainStack = createStackNavigator();
 const BottomStack = ({ navigation }) => (
     <MainStack.Navigator headerMode='screen'>
         <MainStack.Screen name="BottomTabPage" component={BottomTabPage} options={{ headerShown: false }} />
+        <MainStack.Screen name="JobsTabPage" component={JobsTabPage} options={{ headerShown: false }} />
         <MainStack.Screen name="HomePage" component={HomePage} />
         <MainStack.Screen name="Search" component={SearchPage} />
         <MainStack.Screen name="TransferPage" component={TransferPage} />
